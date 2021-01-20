@@ -11,6 +11,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
+    "mapbox-gl": "^2.0.1",
+    "mapbox-gl-vue": "^2.0.4",
     "nuxt": "^2.14.6"
   },
   "devDependencies": {}
