@@ -1,0 +1,75 @@
+@font-face {
+  font-family: ibm-plex-sans;
+  src: url(
+        https://use.typekit.net/af/89996a/000000000000000077359445/30/l?subset_id=2&fvd=n4&v=3
+      )format("woff2"),
+    url(
+          https://use.typekit.net/af/89996a/000000000000000077359445/30/d?subset_id=2&fvd=n4&v=3
+        )format("woff"),
+      url(
+          https://use.typekit.net/af/89996a/000000000000000077359445/30/a?subset_id=2&fvd=n4&v=3
+        )format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+}
+@font-face {
+  font-family: ibm-plex-sans;
+  src: url(
+        https://use.typekit.net/af/15c371/00000000000000007735944f/30/l?subset_id=2&fvd=i5&v=3
+      )format("woff2"),
+    url(
+          https://use.typekit.net/af/15c371/00000000000000007735944f/30/d?subset_id=2&fvd=i5&v=3
+        )format("woff"),
+      url(
+          https://use.typekit.net/af/15c371/00000000000000007735944f/30/a?subset_id=2&fvd=i5&v=3
+        )format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: auto;
+}
+@font-face {
+  font-family: ibm-plex-sans;
+  src: url(
+        https://use.typekit.net/af/fb80cb/000000000000000077359455/30/l?subset_id=2&fvd=i6&v=3
+      )format("woff2"),
+    url(
+          https://use.typekit.net/af/fb80cb/000000000000000077359455/30/d?subset_id=2&fvd=i6&v=3
+        )format("woff"),
+      url(
+          https://use.typekit.net/af/fb80cb/000000000000000077359455/30/a?subset_id=2&fvd=i6&v=3
+        )format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: auto;
+}
+@font-face {
+  font-family: ibm-plex-sans;
+  src: url(
+        https://use.typekit.net/af/e8cd6e/00000000000000007735945f/30/l?subset_id=2&fvd=i7&v=3
+      )format("woff2"),
+    url(
+          https://use.typekit.net/af/e8cd6e/00000000000000007735945f/30/d?subset_id=2&fvd=i7&v=3
+        )format("woff"),
+      url(
+          https://use.typekit.net/af/e8cd6e/00000000000000007735945f/30/a?subset_id=2&fvd=i7&v=3
+        )format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: auto;
+}
+@font-face {
+  font-family: ibm-plex-sans;
+  src: url(
+        https://use.typekit.net/af/53fac9/00000000000000007735946b/30/l?subset_id=2&fvd=n8&v=3
+      )format("woff2"),
+    url(
+          https://use.typekit.net/af/53fac9/00000000000000007735946b/30/d?subset_id=2&fvd=n8&v=3
+        )format("woff"),
+      url(
+          https://use.typekit.net/af/53fac9/00000000000000007735946b/30/a?subset_id=2&fvd=n8&v=3
+        )format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: auto;
+}

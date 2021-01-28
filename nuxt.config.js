@@ -1,22 +1,36 @@
-
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
 
   head: {
-    title: 'equity-ar-nuxt',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
-    ],
-    script: [
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'
-      }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    title: 'USL Equity AR Nuxt App',
+    meta: [{
+      charset: 'utf-8'
+    }, {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1'
+    }, {
+      hid: 'description',
+      name: 'USL Equity AR Nuxt App',
+      content: 'USL Equity AR Nuxt App'
+    }],
+    script: [{
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+    }, {
+      src: 'https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js'
+    }, {
+      src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'
+    }],
+    link: [{
+      rel: 'stylesheet',
+      href: 'https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css'
+    }, {
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }, {
+      rel: 'stylesheet',
+      href: '/assets/fonts/roboto.css'
+    }]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -34,14 +48,14 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
+    '@nuxtjs/dotenv'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [
-  ],
+  modules: [],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: [/^element-ui/],
   }
-}
+};
