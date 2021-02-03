@@ -1,3 +1,5 @@
+// const dotenv = require('dotenv').config()
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
 
@@ -25,7 +27,7 @@ export default {
       href: 'https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css'
     }, {
       rel: 'icon',
-      type: 'image/x-icon',
+      type: 'image/ico',
       href: '/favicon.ico'
     }, {
       rel: 'stylesheet',
@@ -50,6 +52,12 @@ export default {
   buildModules: [
     '@nuxtjs/dotenv'
   ],
+
+  env: {
+    privateRuntimeConfig: {
+      MapboxAPIKey: process.env.MB_ACCESS_TOKEN
+    }
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [],
