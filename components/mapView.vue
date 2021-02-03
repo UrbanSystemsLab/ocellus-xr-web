@@ -16,6 +16,19 @@ export default {
     },
 
     mounted(){
+      async function showLoc(location, mbkey) {
+        let lat = location.lat;
+        let lng = location.lng;
+        const mbapiurl = `https://api.mapbox.com/v4/equity.0anappre/tilequery/${lng},${lat}.json?radius=400&limit=50&dedupe&access_token=${mbkey}`;
+        //console.log(mbapiurl);
+        const fetch_response = await fetch(mbapiurl);
+        const features = await fetch_response.json();
+        //console.log(features);
+        $('#feature-json code').html("<pre>"+JSON.stringify(features, null, 2)+"</pre>");
+        // console.log(apiJSON.features);
+        let nearbyFeatures = JSON.stringify(apiJSON.features, null, 2);
+      };
+
       const mapboxgl = require('mapbox-gl')
       const map = new mapboxgl.Map({
       accessToken: this.access_token,
@@ -25,14 +38,15 @@ export default {
           zoom: 12
       })
       let marker;
+      let mb_api_key = this.access_token;
       map.on('style.load', async function() {
         map.on('click', function(e) {
             if (marker != undefined){
             marker.remove();
             }
             var coordinates = e.lngLat;
-            console.log(coordinates);
-            // showLoc(coordinates);
+            //console.log(coordinates);
+            showLoc(coordinates, mb_api_key);
             marker = new mapboxgl.Marker({
               options: 'bottom',
               color: '#DC352C',
@@ -40,7 +54,7 @@ export default {
             })
             .setLngLat(coordinates)
             .addTo(map);
-            console.log(marker);
+            //console.log(marker);
           })
         });
     },
