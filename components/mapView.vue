@@ -9,7 +9,7 @@ export default {
     name: 'mapView',
     data(){
       return {
-        access_token: '',
+        access_token: process.env.MB_ACCESS_TOKEN,
       }
     },
     methods: {
