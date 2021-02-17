@@ -9,7 +9,7 @@ export default {
     name: 'mapView',
     data(){
       return {
-        access_token: process.env.MB_ACCESS_TOKEN,
+        access_token: '',
       }
     },
     methods: {
@@ -63,8 +63,8 @@ export default {
 
 <style scoped>
 #map {
-  height: 100vh;
+  height: 50vh;
   opacity: 1;
-  z-indez: -100;
+  /* z-index: -100; */
 }
 </style>
