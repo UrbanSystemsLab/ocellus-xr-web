@@ -19,6 +19,3 @@ $ npm run dev
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
-
-## Environment Variables
-A file named `.env.example` contains the names of the values that you will need in order to get this app to run properly. When running the app locally, you'll need to add a `.env` file into root folder of the local repository. In it, copy the text from `.env.example` and add the necessary values.
