@@ -35,9 +35,17 @@ main {
   grid-gap: 1em;
 }
 
-.flex-container {
-  display: flex;
-  flex-direction: column;
+@media (max-width: 800px){
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 801px) {
+  .flex-container {
+    flex-direction: row;
+  }
 }
 
 </style>

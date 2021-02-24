@@ -1,7 +1,22 @@
 <template>
     <div>
       <nav id="menu"></nav>
-      <div id="map"></div>
+      <div id="map">
+        <div id="dropdown">
+              <el-dropdown>
+                  <span class="el-dropdown-link">
+                      Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu id="menu1" slot="dropdown">
+                      <el-dropdown-item>Action 1</el-dropdown-item>
+                      <el-dropdown-item>Action 2</el-dropdown-item>
+                      <el-dropdown-item>Action 3</el-dropdown-item>
+                      <el-dropdown-item disabled>Action 4</el-dropdown-item>
+                      <el-dropdown-item divided>Action 5</el-dropdown-item>
+                  </el-dropdown-menu>
+              </el-dropdown>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -89,79 +104,149 @@ export default {
           });
         });
 
-        // enumerate ids of the layers
-        var toggleableLayerIds = ['100 Year Flood', '500 Year Flood'];
+        window.onload = () => {
+          // enumerate ids of the layers
+          var toggleableLayerIds = ['100 Year Flood', '500 Year Flood'];
 
-        // set up the corresponding toggle button for each layer
-        for (var i = 0; i < toggleableLayerIds.length; i++) {
-        var id = toggleableLayerIds[i];
+          // set up the corresponding toggle button for each layer
+          for (var i = 0; i < toggleableLayerIds.length; i++) {
+          var id = toggleableLayerIds[i];
 
-        var link = document.createElement('a');
-        link.href = '#';
-        link.className = 'active';
-        link.textContent = id;
+          var link = document.createElement('a');
+          link.href = '#';
+          link.className = 'active';
+          link.textContent = id;
 
-        link.onclick = function (e) {
-        var clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
+          link.onclick = function (e) {
+          var clickedLayer = this.textContent;
+          e.preventDefault();
+          e.stopPropagation();
 
-        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+          var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
-        // toggle layer visibility by changing the layout object's visibility property
-        if (visibility === 'visible') {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-        this.className = '';
-        } else {
-        this.className = 'active';
-        map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        }
-        };
+          // toggle layer visibility by changing the layout object's visibility property
+          if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+          } else {
+          this.className = 'active';
+          map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+          }
+          };
 
-        var layers = document.getElementById('menu');
-        layers.appendChild(link);
+          var layers = document.getElementById('menu');
+          layers.appendChild(link);
+          }
         }
       }
     }
 </script>
 
 <style scoped>
-#map {
-  height: 50vh;
-  opacity: 1;
-  /* z-index: -100; */
+
+@media (max-width: 800px){
+
+  #map {
+    height: 50vh;
+    opacity: 1;
+    /* z-index: -100; */
+  }
+
+  #menu {
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    top: 450px;
+    right: 10px;
+    border-radius: 3px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  #menu a {
+    font-size: 13px !important;
+    color: #404040 !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding: 10px !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
+  }
+
+  #menu a:last-child {
+  border: none !important;
+  }
+
+  #menu a.active {
+  background-color: #3887be !important;
+  color: #ffffff !important;
+  }
 }
 
-#menu {
-  background: #fff;
-  position: absolute;
-  z-index: 1;
-  top: 450px;
-  right: 10px;
-  border-radius: 3px;
-  width: 120px;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  font-family: 'Open Sans', sans-serif;
+@media (min-width: 801px){
+
+  #map {
+    height: 100vh;
+    width: 50vw;
+    opacity: 1;
+    /* z-index: -100; */
+  }
+
+  #menu {
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    right: 10px;
+    border-radius: 3px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  #menu a {
+    font-size: 13px !important;
+    color: #404040 !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding: 10px !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25) !important;
+    text-align: center !important;
+  }
+
+  #menu a:last-child {
+  border: none !important;
+  }
+
+  #menu a.active {
+  background-color: #3887be !important;
+  color: #ffffff !important;
+  }
 }
 
-#menu a {
-  font-size: 13px !important;
-  color: #404040 !important;
-  display: block !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  padding: 10px !important;
-  text-decoration: none !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25) !important;
-  text-align: center !important;
+#dropdown{
+    position: relative;
+    height: 10vh;
+    width: 20vw;
+    padding: 2rem;
+    z-index: 200;
 }
 
-#menu a:last-child {
-border: none !important;
+.el-dropdown-link {
+padding: 2px;
+cursor: pointer;
+color: red;
+background-color: white;
+font-size: 20px;
+font-weight: bold;
 }
 
-#menu a.active {
-background-color: #3887be !important;
-color: #ffffff !important;
+.el-icon-arrow-down {
+font-size: 12px;
 }
 </style>

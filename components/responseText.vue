@@ -30,31 +30,68 @@ export default {
 
 <style scoped>
 
-#response {
-/*   width: 20%;  */
-  height: 50vh;
-  background-color: #f4f7fb;
-  z-index: 100;
-  opacity: 1;
-}
+@media (max-width: 800px){
 
-#response * {
+  #response {
+  /*   width: 20%;  */
+    height: 50vh;
+    background-color: #f4f7fb;
+    z-index: 100;
+    opacity: 1;
+  }
+
+  #response * {
   margin: 10px 32px;
 
+  }
+
+  #feature-json {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: 25vh;
+    padding: 1em;
+    overflow: auto;
+  }
+
+  #feature-json code {
+    overflow: scroll;
+    padding: 0px;
+    margin: 0px;
+  }
 }
 
-#feature-json {
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  height: 25vh;
-  padding: 1em;
-  overflow: auto;
+@media (min-width: 801px){
+
+  #response {
+  /*   width: 20%;  */
+    height: 100vh;
+    /* width: 50vw; */
+    background-color: #f4f7fb;
+    z-index: 100;
+    opacity: 1;
+  }
+
+  #response * {
+  margin: 1rem 1rem 1rem;
+
+  }
+
+  #feature-json {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: 75vh;
+    width: 40vw;
+    padding: 1em;
+    overflow: auto;
+  }
+
+  #feature-json code {
+    overflow: scroll;
+    padding: 0px;
+    margin: 0px;
+  }
+
 }
 
-#feature-json code {
-  overflow: scroll;
-  padding: 0px;
-  margin: 0px;
-}
 
 </style>
