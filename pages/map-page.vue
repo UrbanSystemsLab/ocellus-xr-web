@@ -1,11 +1,23 @@
 <template>
   <div>
-    Hello
+    <main class="flex-container">
+      <responseText />
+      <mapView />
+    </main>
   </div>
 </template>
 
 <script>
+import mapView from '~/components/mapView.vue'
+import responseText from '~/components/responseText.vue'
+  export default {
 
+    components: {
+      mapView,
+      responseText
+    }
+
+  }
 </script>
 
 <style scoped>
