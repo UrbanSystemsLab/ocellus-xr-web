@@ -1,6 +1,5 @@
 <template>
   <div>
-    Hello 
     <button @click="readFromRealtimeDb()">Read from Realtime DB</button>
   </div>
 </template>
