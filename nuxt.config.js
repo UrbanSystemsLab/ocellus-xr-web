@@ -1,8 +1,24 @@
-// const dotenv = require('dotenv').config()
+/*
+** Environment Variables 
+*/ 
+const dotenv = require('dotenv').config()
 
 export default {
-  // Global page headers (https://go.nuxtjs.dev/config-head)
+  // Runtime config variables go here (https://nuxtjs.org/blog/moving-from-nuxtjs-dotenv-to-runtime-config/#what-are-environment-variables)
+  publicRuntimeConfig: {
+  },
+  privateRuntimeConfig: {
+    MapboxAPIKey: process.env.MB_ACCESS_TOKEN,
+    apiKey: process.env.FIREBASE_DEV_KEY,
+    authDomain: process.env.FIREBASE_DEV_DOMAIN,
+    databaseURL: process.env.FIREBASE_DEV_URL,
+    projectId: process.env.FIREBASE_DEV_ID,
+    storageBucket: process.env.FIREBASE_DEV_BUCKET,
+    messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
+    appId: process.env.FIREBASE_DEV_APP_ID
+  },
 
+  // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'USL Equity AR Nuxt App',
     meta: [{
@@ -35,7 +51,7 @@ export default {
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    '~/assets/fonts/ibm-plex-sans.css'
+    '~/assets/fonts/ibm-plex-sans.css',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -51,14 +67,26 @@ export default {
     '@nuxtjs/dotenv'
   ],
 
-  env: {
-    privateRuntimeConfig: {
-      MapboxAPIKey: process.env.MB_ACCESS_TOKEN
-    }
-  },
-
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: process.env.FIREBASE_DEV_KEY,
+          authDomain: process.env.FIREBASE_DEV_DOMAIN,
+          // databaseURL: process.env.FIREBASE_DEV_URL,
+          projectId: process.env.FIREBASE_DEV_ID,
+          storageBucket: process.env.FIREBASE_DEV_BUCKET,
+          messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
+          appId: process.env.FIREBASE_DEV_APP_ID
+        },
+        services: {
+          database: true 
+        }
+      }
+    ]
+  ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
