@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-
 export const state = () => ({
     count: 1,
     allMaps : {},
@@ -27,7 +26,7 @@ export const mutations = {
 export const actions = {
     getAllMaps: function(state) {
         return new Promise((resolve, reject) => {
-            var mapsRefPublic = this.$fire.database.ref('maps/public')
+            var mapsRefPublic = this.$fireModule.database.ref('maps/public')
             // var mapsRefPrivate = db.ref('maps/private')
             // var activeUser = store.getters.getActiveUser
             // var sources = Object.values(store.getters.getSources)
@@ -82,4 +81,5 @@ export const actions = {
 
 export const getters = {
     getAllMaps: (state) => { return state.allMaps },
+    getCount: (state) => { return state.count }
 }
