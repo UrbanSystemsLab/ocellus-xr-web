@@ -1,18 +1,36 @@
 <template>
   <div>
     Hello 
+    <button @click="readFromRealtimeDb()">Read from Realtime DB</button>
   </div>
 </template>
 
 <script>
   export default {
     /* Get data on Server Side: */
-    asyncData: function (context) {
-
-    },
+    // async fetch({app, store}) {
+    //   if (process.browser) return
+    //   try {
+    //     const ref = app.$fire.database()
+    //     } catch (e) {
+    //       console.error(e)
+    //     }
+    // },
     /**  Bind Vuexfire on client-side: */
     mounted() {
-      
+      // console.log(ref)
+    },
+    methods: {
+      async readFromRealtimeDb() {
+        const mapsRef = this.$fire.database.ref('maps').orderByKey()
+        try {
+          console.log(mapsRef)
+          // const snapshot = await mapsRef.once('value')
+          // alert(snapshot.val().message)
+        } catch (e) {
+          alert(e)
+        }
+      },
     }
   }
 </script>

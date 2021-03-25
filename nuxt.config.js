@@ -11,10 +11,8 @@ export default {
     MapboxAPIKey: process.env.MB_ACCESS_TOKEN,
     apiKey: process.env.FIREBASE_DEV_KEY,
     authDomain: process.env.FIREBASE_DEV_DOMAIN,
-    databaseURL: process.env.FIREBASE_DEV_URL,
     projectId: process.env.FIREBASE_DEV_ID,
     storageBucket: process.env.FIREBASE_DEV_BUCKET,
-    messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
     appId: process.env.FIREBASE_DEV_APP_ID
   },
 
@@ -75,14 +73,12 @@ export default {
         config: {
           apiKey: process.env.FIREBASE_DEV_KEY,
           authDomain: process.env.FIREBASE_DEV_DOMAIN,
-          // databaseURL: process.env.FIREBASE_DEV_URL,
           projectId: process.env.FIREBASE_DEV_ID,
           storageBucket: process.env.FIREBASE_DEV_BUCKET,
-          messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
           appId: process.env.FIREBASE_DEV_APP_ID
         },
         services: {
-          database: true 
+          database: true
         }
       }
     ]
