@@ -78,8 +78,15 @@ export default {
           appId: process.env.FIREBASE_DEV_APP_ID
         },
         services: {
+          auth: {
+            initialize: {
+              onAuthStateChangedAction: 'auth/onAuthStateChanged'
+            },
+            ssr: true
+          },
           database: true
-        }
+        },
+        lazy: true,
       }
     ]
   ],
@@ -87,5 +94,5 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: [/^element-ui/],
-  }
+  },
 };
