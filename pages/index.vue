@@ -22,17 +22,15 @@
     },
     methods: {
       async readFromRealtimeDb() {
-        const mapsRef = this.$fire.database.ref('maps').orderByKey()
-        try {
-          console.log(mapsRef)
-          // const snapshot = await mapsRef.once('value')
-          // alert(snapshot.val().message)
-        } catch (e) {
-          alert(e)
-        }
-      },
+        console.log("Button pressed")
+        var allMaps = this.$fire.database.ref('maps');
+        allMaps.on('value', (snapshot) => {
+          const data = snapshot.val()
+          console.log(data)
+        }) 
+      }
+    },
     }
-  }
 </script>
 
 <style scoped>
