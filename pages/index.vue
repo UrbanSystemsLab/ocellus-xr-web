@@ -1,11 +1,20 @@
 <template>
   <div>
+    The count is currently {{count}}
     <button @click="readFromRealtimeDb()">Read from Realtime DB</button>
   </div>
 </template>
 
 <script>
   export default {
+    data() {
+      return{
+        count: ''
+      }
+    },
+    computed: {
+      getCount() {return this.$store.getters.getCount}
+    },
     /* Get data on Server Side: */
     // async fetch({app, store}) {
     //   if (process.browser) return
@@ -21,12 +30,21 @@
     },
     methods: {
       async readFromRealtimeDb() {
+        this.$fire.databaseReady()
         console.log("Button pressed")
-        var allMaps = this.$fire.database.ref('maps');
-        allMaps.on('value', (snapshot) => {
-          const data = snapshot.val()
-          console.log(data)
-        }) 
+        var allMaps = this.$fire.database.ref('maps').get();
+        try {
+          // const snapshot = await allMaps.once('value')
+          // alert(snapshot.val().message)
+          console.log(allMaps)
+        } catch (e) {
+          alert(e)
+          return
+        }
+        // allMaps.on('value', (snapshot) => {
+        //   const data = snapshot.val()
+        //   console.log(data)
+        // })
       }
     },
     }
