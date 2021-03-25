@@ -1,11 +1,20 @@
 <template>
   <div>
-    Hello
+    Hello 
   </div>
 </template>
 
 <script>
+  export default {
+    /* Get data on Server Side: */
+    asyncData: function (context) {
 
+    },
+    /**  Bind Vuexfire on client-side: */
+    mounted() {
+      
+    }
+  }
 </script>
 
 <style scoped>
