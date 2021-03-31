@@ -3,19 +3,33 @@
 */ 
 const dotenv = require('dotenv').config()
 
+let env = process.env.NODE_ENV || 'dev'
+let firebaseConfig
+let mapboxAccessToken
+
+firebaseConfig = {
+  apiKey: process.env.FIREBASE_DEV_KEY,
+  authDomain: process.env.FIREBASE_DEV_AUTHDOMAIN,
+  databaseURL: process.env.FIREBASE_DEV_URL,
+  projectId: process.env.FIREBASE_DEV_ID,
+  storageBucket: process.env.FIREBASE_DEV_BUCKET,
+  messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
+  appId: process.env.FIREBASE_DEV_APP_ID
+}
+
 export default {
+  env: {
+    firebaseConfig: firebaseConfig
+  },
   // Runtime config variables go here (https://nuxtjs.org/blog/moving-from-nuxtjs-dotenv-to-runtime-config/#what-are-environment-variables)
-  publicRuntimeConfig: {
-  },
-  privateRuntimeConfig: {
-    MapboxAPIKey: process.env.MB_ACCESS_TOKEN,
-    apiKey: process.env.FIREBASE_DEV_KEY,
-    authDomain: process.env.FIREBASE_DEV_DOMAIN,
-    projectId: process.env.FIREBASE_DEV_ID,
-    storageBucket: process.env.FIREBASE_DEV_BUCKET,
-    messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
-    appId: process.env.FIREBASE_DEV_APP_ID
-  },
+  // publicRuntimeConfig: {
+    
+  // },
+  // privateRuntimeConfig: {
+  //   NODE_ENV: env,
+  //   MapboxAPIKey: process.env.MB_ACCESS_TOKEN,
+  //   firebaseConfig: firebaseConfig
+  // },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -68,29 +82,29 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    [
-      '@nuxtjs/firebase',
-      {
-        config: {
-          apiKey: process.env.FIREBASE_DEV_KEY,
-          authDomain: process.env.FIREBASE_DEV_DOMAIN,
-          projectId: process.env.FIREBASE_DEV_ID,
-          storageBucket: process.env.FIREBASE_DEV_BUCKET,
-          messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
-          appId: process.env.FIREBASE_DEV_APP_ID
-        },
-        services: {
-          auth: {
-            initialize: {
-              onAuthStateChangedAction: 'auth/onAuthStateChanged'
-            },
-            ssr: true
-          },
-          database: true
-        },
-        lazy: true,
-      }
-    ]
+    // [
+    //   '@nuxtjs/firebase',
+    //   {
+    //     config: {
+    //       apiKey: process.env.FIREBASE_DEV_KEY,
+    //       authDomain: process.env.FIREBASE_DEV_DOMAIN,
+    //       projectId: process.env.FIREBASE_DEV_ID,
+    //       storageBucket: process.env.FIREBASE_DEV_BUCKET,
+    //       messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
+    //       appId: process.env.FIREBASE_DEV_APP_ID
+    //     },
+    //     services: {
+    //       auth: {
+    //         initialize: {
+    //           onAuthStateChangedAction: 'auth/onAuthStateChanged'
+    //         },
+    //         ssr: true
+    //       },
+    //       database: true
+    //     },
+    //     lazy: true,
+    //   }
+    // ]
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

@@ -1,7 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import firebase from 'firebase'
+import 'firebase/storage'
+
 Vue.use(Vuex)
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(process.env.firebaseConfig)
+}
+  
+  var db = firebase.database()
+  var storage = firebase.storage()
+  var storageRef = storage.ref()
+
+  let mapsTest = db.ref('maps/public');
+  mapsTest.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data)
+  })
 
 export const state = () => ({
     count: 1,
@@ -26,7 +43,8 @@ export const mutations = {
 export const actions = {
     getAllMaps: function(state) {
         return new Promise((resolve, reject) => {
-            var mapsRefPublic = this.$fireModule.database.ref('maps/public')
+            // var mapsRefPublic = this.$fireModule.database.ref('maps/public')
+            var mapsRefPublic = db.ref('maps/public')
             // var mapsRefPrivate = db.ref('maps/private')
             // var activeUser = store.getters.getActiveUser
             // var sources = Object.values(store.getters.getSources)
@@ -37,6 +55,7 @@ export const actions = {
             .then(function(snapshot) {
                 publicMaps = Object.assign({}, snapshot.val())
                 for (let map in publicMaps) {
+                    console.log(map)
                 // if (publicMaps.hasOwnProperty(map)) {
                 //     publicMaps[map]['visibility'] = 'public'
                 // }
@@ -73,7 +92,7 @@ export const actions = {
                 // }
                 state.commit('storeAllMaps', maps)
                 resolve(maps)
-                console.log(maps)
+                // console.log(maps)
             })
             .catch((error) => { reject(error) })
         },
