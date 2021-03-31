@@ -13,6 +13,7 @@ export default {
     authDomain: process.env.FIREBASE_DEV_DOMAIN,
     projectId: process.env.FIREBASE_DEV_ID,
     storageBucket: process.env.FIREBASE_DEV_BUCKET,
+    messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
     appId: process.env.FIREBASE_DEV_APP_ID
   },
 
@@ -75,6 +76,7 @@ export default {
           authDomain: process.env.FIREBASE_DEV_DOMAIN,
           projectId: process.env.FIREBASE_DEV_ID,
           storageBucket: process.env.FIREBASE_DEV_BUCKET,
+          messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
           appId: process.env.FIREBASE_DEV_APP_ID
         },
         services: {
