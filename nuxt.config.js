@@ -12,7 +12,7 @@ firebaseConfig = {
   authDomain: process.env.FIREBASE_DEV_AUTHDOMAIN,
   databaseURL: process.env.FIREBASE_DEV_URL,
   projectId: process.env.FIREBASE_DEV_ID,
-  storageBucket: process.env.FIREBASE_DEV_BUCKET,
+  storageBucket: process.env.FIREBASE_DEV_STORAGE,
   messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
   appId: process.env.FIREBASE_DEV_APP_ID
 }
