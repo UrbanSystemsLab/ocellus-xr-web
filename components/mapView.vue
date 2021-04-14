@@ -32,14 +32,13 @@ export default {
       async function showLoc(location, mbkey) {
         let lat = location.lat;
         let lng = location.lng;
-        const mbapiurl = `https://api.mapbox.com/v4/equity.0anappre/tilequery/${lng},${lat}.json?radius=400&limit=50&dedupe&access_token=${mbkey}`;
-        //console.log(mbapiurl);
+        let chosen_layer = "equity.0anappre"
+        const mbapiurl = `https://api.mapbox.com/v4/${chosen_layer}/tilequery/${lng},${lat}.json?radius=400&limit=50&dedupe&access_token=${mbkey}`;
         const fetch_response = await fetch(mbapiurl);
         const features = await fetch_response.json();
-        //console.log(features);
+        console.log(features.features.length)
+        $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
         $('#feature-json code').html("<pre>"+JSON.stringify(features, null, 2)+"</pre>");
-        // console.log(apiJSON.features);
-        // let nearbyFeatures = JSON.stringify(apiJSON.features, null, 2);
       };
 
       const mapboxgl = require('mapbox-gl')
