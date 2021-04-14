@@ -1,20 +1,26 @@
 <template>
     <div>
-        <div id="response">
-            <h3>
-            Click inside the map to return features within a 400 m radius.
-            </h3>
-            <div>
-            <!-- Chosen location:<span id="clicklocation"></span> -->
-            </div>
-            <strong>Response<br/></strong>
-                <div id="short-response">
-                </div>
-                <div id="feature-json">
-                    <code>
-                    </code>
-                </div>
+      <div id="header">
+        <div ref="bmBurgerButton" class="bm-burger-button">
+              <span class="bm-burger-bars line-style" :style="{top:20 * (index * 2) + '%'}" v-for="(x, index) in 3" :key="index"></span>
         </div>
+      </div>
+      <div id="response">
+          <h1>Exploring Locally</h1>
+          <h4>
+          Click a point on the map to view features within a 5 minute walk.
+          </h4>
+          
+          <div>
+          <!-- Chosen location:<span id="clicklocation"></span> -->
+          </div>
+          <!-- <strong>Response<br/></strong> -->
+          <div id="short-response"></div>
+          <div id="feature-json">
+              <code>
+              </code>
+          </div>
+      </div>
     </div>
 </template>
 
@@ -31,12 +37,34 @@ export default {
 
 <style scoped>
 
+.bm-burger-button {
+      position: absolute;
+      width: 24px;
+      height: 20px;
+      left: 24px;
+      top: 24px;
+      cursor: pointer;
+    }
+
+.bm-burger-bars {
+      background-color: #373a47;
+    }
+    .line-style {
+      position: absolute;
+      height: 20%;
+      left: 0;
+      right: 0;
+    }
+
 @media (max-width: 800px){
+  #header {
+    height: 8vh;
+  }
 
   #response {
   /*   width: 20%;  */
-    height: 50vh;
-    background-color: #f4f7fb;
+    height: 42vh;
+    /* background-color: #f4f7fb; */
     z-index: 100;
     opacity: 1;
   }
@@ -62,12 +90,15 @@ export default {
 }
 
 @media (min-width: 801px){
+  #header {
+    height: 8vh;
+  }
 
   #response {
   /*   width: 20%;  */
-    height: 100vh;
+    height: 92vh;
     /* width: 50vw; */
-    background-color: #f4f7fb;
+    /* background-color: #f4f7fb; */
     z-index: 100;
     opacity: 1;
   }
@@ -91,8 +122,6 @@ export default {
     padding: 0px;
     margin: 0px;
   }
-
 }
-
 
 </style>
