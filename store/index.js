@@ -10,17 +10,17 @@ if (!firebase.apps.length) {
     firebase.initializeApp(process.env.firebaseConfig)
 }
   
-  var db = firebase.database()
-  var storage = firebase.storage()
-  var storageRef = storage.ref()
+var db = firebase.database()
+var storage = firebase.storage()
+var storageRef = storage.ref()
 
-  var mapsRefPublic = db.ref('maps/public')
+var mapsRefPublic = db.ref('maps/public')
 
-            var publicMaps
-            mapsRefPublic.on('value', (snapshot) => {
-                publicMaps = Object.assign({}, snapshot.val())
-                console.log(publicMaps)
-            })
+var publicMaps
+mapsRefPublic.on('value', (snapshot) => {
+    publicMaps = Object.assign({}, snapshot.val())
+    console.log(publicMaps)
+})
 
 export const state = () => ({
     allMaps : {},
