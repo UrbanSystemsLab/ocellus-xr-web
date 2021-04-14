@@ -5,12 +5,13 @@
             Click inside the map to return features within a 400 m radius.
             </h3>
             <div>
-            Chosen location:<span id="clicklocation"></span>
+            <!-- Chosen location:<span id="clicklocation"></span> -->
             </div>
             <strong>Response<br/></strong>
+                <div id="short-response">
+                </div>
                 <div id="feature-json">
                     <code>
-
                     </code>
                 </div>
         </div>
