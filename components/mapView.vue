@@ -3,19 +3,16 @@
       <nav id="menu"></nav>
       <div id="map">
         <div id="dropdown">
-              <el-dropdown>
-                  <span class="el-dropdown-link">
-                      Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                  <el-dropdown-menu id="menu1" slot="dropdown">
-                      <el-dropdown-item>Action 1</el-dropdown-item>
-                      <el-dropdown-item>Action 2</el-dropdown-item>
-                      <el-dropdown-item>Action 3</el-dropdown-item>
-                      <el-dropdown-item disabled>Action 4</el-dropdown-item>
-                      <el-dropdown-item divided>Action 5</el-dropdown-item>
+                <el-dropdown>
+                    <span class="el-dropdown-link">
+                        Map Layers<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                    <!-- <div v-for="(map, mapKey) in allMaps"><a v-on:click="setLocation($event, {location, locationKey})">
+                        <el-dropdown-item>{{location.name}}</el-dropdown-item></a></div> -->
                   </el-dropdown-menu>
-              </el-dropdown>
-          </div>
+                </el-dropdown>
+        </div>
         </div>
     </div>
 </template>
@@ -42,7 +39,7 @@ export default {
         //console.log(features);
         $('#feature-json code').html("<pre>"+JSON.stringify(features, null, 2)+"</pre>");
         // console.log(apiJSON.features);
-        let nearbyFeatures = JSON.stringify(apiJSON.features, null, 2);
+        // let nearbyFeatures = JSON.stringify(apiJSON.features, null, 2);
       };
 
       const mapboxgl = require('mapbox-gl')
