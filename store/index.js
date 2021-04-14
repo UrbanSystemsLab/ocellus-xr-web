@@ -32,20 +32,31 @@ export const state = () => ({
         content: {},
         currentMap: {},
         satelliteMap: false,
-    }
+    },
+    // Mobile device flag
+    isMobileDevice: false,
 })
 
 export const getters = {
+    getMobileDevice: (state) => { return state.isMobileDevice },
     getAllMaps: (state) => { return state.allMaps },
 }
 
 export const mutations = {
+    storeMobileDevice: (state, payload) => {
+        state.isMobileDevice = payload
+    },
     storeAllMaps: (state, payload) => {
         state.allMaps = Object.assign({}, payload)
     },
 }
 
 export const actions = {
+    setMobileDevice: function(store, payload) {
+        if (typeof(payload) === 'boolean') {
+            store.commit('storeMobileDevice', payload)
+        }
+    },
     getAllMaps: function(state) {
         return new Promise((resolve, reject) => {
             var mapsRefPublic = db.ref('maps/public')
