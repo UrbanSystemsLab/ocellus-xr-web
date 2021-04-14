@@ -36,7 +36,6 @@ export default {
         const mbapiurl = `https://api.mapbox.com/v4/${chosen_layer}/tilequery/${lng},${lat}.json?radius=400&limit=50&dedupe&access_token=${mbkey}`;
         const fetch_response = await fetch(mbapiurl);
         const features = await fetch_response.json();
-        console.log(features.features.length)
         $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
         $('#feature-json code').html("<pre>"+JSON.stringify(features, null, 2)+"</pre>");
       };
@@ -52,12 +51,12 @@ export default {
       let marker;
       let mb_api_key = this.access_token;
       map.on('style.load', async function() {
+        // Sets the point that is clicked and used as the query
         map.on('click', function(e) {
             if (marker != undefined){
-            marker.remove();
+              marker.remove();
             }
             var coordinates = e.lngLat;
-            //console.log(coordinates);
             showLoc(coordinates, mb_api_key);
             marker = new mapboxgl.Marker({
               options: 'bottom',
@@ -66,38 +65,70 @@ export default {
             })
             .setLngLat(coordinates)
             .addTo(map);
-            //console.log(marker);
           })
         });
         map.on('load', function () {
-          map.addSource('tileset-new-york-floodplains--0tb4my', {
-            type: 'vector',
-            url: 'mapbox://equity.dmmqh0kw'
+          this.map.addSource('query-point', {
+            type: 'geojson',
+            data: this.geoJsonify({
+              lat: this.props.latitude,
+              lon: this.props.longitude
+            })
           });
-          map.addLayer({
-            'id': '500 Year Flood',
-            'type': 'fill',
-            'source': 'tileset-new-york-floodplains--0tb4my',
-            'source-layer': '2020s-500y',
-            'layout': {
-            },
-            'paint': {
-              'fill-color': 'rgb(102, 143, 163)',
-              'fill-opacity': 0.8
+          this.map.addSource('result-points', {
+            type: 'geojson',
+            data: { type: 'FeatureCollection', features: [] }
+          });
+          this.map.addLayer({
+            id: 'query-point',
+            type: 'circle',
+            source: 'query-point',
+            paint: {
+              'circle-radius': 8,
+              'circle-color': '#ee4e8b',
+              'circle-stroke-width': 2,
+              'circle-stroke-color': '#ffffff'
             }
           });
-          map.addLayer({
-            'id': '100 Year Flood',
-            'type': 'fill',
-            'source': 'tileset-new-york-floodplains--0tb4my',
-            'source-layer': '2020s-100y',
-            'layout': {
-            },
-            'paint': {
-              'fill-color': 'rgb(153, 180, 194)',
-              'fill-opacity': 0.45
+          this.map.addLayer({
+            id: 'result-points',
+            type: 'circle',
+            source: 'result-points',
+            paint: {
+              'circle-radius': 5,
+              'circle-color': '#4264fb',
+              'circle-stroke-width': 2,
+              'circle-stroke-color': '#ffffff'
             }
           });
+          // map.addSource('tileset-new-york-floodplains--0tb4my', {
+          //   type: 'vector',
+          //   url: 'mapbox://equity.dmmqh0kw'
+          // });
+          // map.addLayer({
+          //   'id': '500 Year Flood',
+          //   'type': 'fill',
+          //   'source': 'tileset-new-york-floodplains--0tb4my',
+          //   'source-layer': '2020s-500y',
+          //   'layout': {
+          //   },
+          //   'paint': {
+          //     'fill-color': 'rgb(102, 143, 163)',
+          //     'fill-opacity': 0.8
+          //   }
+          // });
+          // map.addLayer({
+          //   'id': '100 Year Flood',
+          //   'type': 'fill',
+          //   'source': 'tileset-new-york-floodplains--0tb4my',
+          //   'source-layer': '2020s-100y',
+          //   'layout': {
+          //   },
+          //   'paint': {
+          //     'fill-color': 'rgb(153, 180, 194)',
+          //     'fill-opacity': 0.45
+          //   }
+          // });
         });
 
         window.onload = () => {
