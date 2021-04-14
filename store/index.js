@@ -14,8 +14,15 @@ if (!firebase.apps.length) {
   var storage = firebase.storage()
   var storageRef = storage.ref()
 
+  var mapsRefPublic = db.ref('maps/public')
+
+            var publicMaps
+            mapsRefPublic.on('value', (snapshot) => {
+                publicMaps = Object.assign({}, snapshot.val())
+                console.log(publicMaps)
+            })
+
 export const state = () => ({
-    count: 1,
     allMaps : {},
     active: {
         location: null,
@@ -30,7 +37,6 @@ export const state = () => ({
 
 export const getters = {
     getAllMaps: (state) => { return state.allMaps },
-    getCount: (state) => { return state.count }
 }
 
 export const mutations = {

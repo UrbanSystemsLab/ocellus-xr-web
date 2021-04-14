@@ -1,53 +1,47 @@
 <template>
   <div>
-    The count is currently {{count}}
-    <button @click="readFromRealtimeDb()">Read from Realtime DB</button>
+    <main class="flex-container">
+      <responseText />
+      <mapView />
+    </main>
+
   </div>
 </template>
 
 <script>
+import firebase from 'firebase/app'
   export default {
     data() {
       return{
-        count: ''
       }
     },
     computed: {
-      getCount() {return this.$store.getters.getCount}
-    },
-    /* Get data on Server Side: */
-    // async fetch({app, store}) {
-    //   if (process.browser) return
-    //   try {
-    //     const ref = app.$fire.database()
-    //     } catch (e) {
-    //       console.error(e)
-    //     }
-    // },
-    /**  Bind Vuexfire on client-side: */
-    mounted() {
-      // console.log(ref)
+      // add line for if allMaps is nullnpm 
+      allMaps() {return this.$store.getters.getAllMaps}
     },
     methods: {
-      async readFromRealtimeDb() {
-        this.$fire.databaseReady()
-        console.log("Button pressed")
-        var allMaps = this.$fire.database.ref('maps').get();
-        try {
-          // const snapshot = await allMaps.once('value')
-          // alert(snapshot.val().message)
-          console.log(allMaps)
-        } catch (e) {
-          alert(e)
-          return
+      setupFirebaseAuth() {
+        return new Promise((resolve, reject) => {
+          var store = this.$store
+        var db = firebase.database()
+        if (!firebase.apps.length) {
+          firebase.initializeApp(process.env.firebaseConfig)
         }
-        // allMaps.on('value', (snapshot) => {
-        //   const data = snapshot.val()
-        //   console.log(data)
-        // })
+        })
+      },
+      loadProject() {
+        //Initialize active map with default data
+        return this.$store.dispatch('getAllMaps')
       }
     },
-    }
+    mounted() {
+      this.setupFirebaseAuth()
+      .then(() => {
+        console.log("Firebase set up");
+        this.loadProject()
+      })
+    },
+  }
 </script>
 
 <style scoped>
