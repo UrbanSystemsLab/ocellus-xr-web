@@ -1,6 +1,6 @@
 <template>
     <div>
-      <nav id="menu"></nav>
+      <!-- <nav id="menu"></nav> -->
       <div id="map">
         <div id="dropdown">
                 <el-dropdown>
