@@ -49,7 +49,7 @@ export default {
 
         this.map.on('load', this.onMapLoad);
         this.map.on('click', this.onMapClick);
-      },
+    },
 
     },
     computed: {
@@ -71,6 +71,7 @@ export default {
         const mbapiurl = `https://api.mapbox.com/v4/${chosen_layer}/tilequery/${lng},${lat}.json?radius=${radius}&limit=50&dedupe&access_token=${mbkey}`;
         const fetch_response = await fetch(mbapiurl);
         const features = await fetch_response.json();
+        map.getSource('tilequery').setData(features)
         $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
         // $('#feature-json code').html("<pre>"+JSON.stringify(features, null, 2)+"</pre>");
       };
@@ -92,7 +93,7 @@ export default {
           return this.$store.dispatch('getSources')
         })
         .then((sources) => {
-          return this.$store.dispatch('getActiveLocation')
+          // return this.$store.dispatch('getActiveLocation')
         })
         .then((sources) => {
           return this.$store.dispatch('getAllMaps')
@@ -123,22 +124,24 @@ export default {
           })
         });
         map.on('load', function () {
-          // map.addSource('tileset-new-york-floodplains--0tb4my', {
-          //   type: 'vector',
-          //   url: 'mapbox://equity.dmmqh0kw'
-          // });
-          // map.addLayer({
-          //   'id': '500 Year Flood',
-          //   'type': 'fill',
-          //   'source': 'tileset-new-york-floodplains--0tb4my',
-          //   'source-layer': '2020s-500y',
-          //   'layout': {
-          //   },
-          //   'paint': {
-          //     'fill-color': 'rgb(102, 143, 163)',
-          //     'fill-opacity': 0.8
-          //   }
-          // });
+          map.addSource('tilequery', {
+            type: 'geojson',
+            data: {
+              "type": "FeatureCollection",
+              "features": []
+            }
+          });
+          map.addLayer({
+            'id': 'tilequery',
+            type: 'circle',
+              source: 'tilequery',
+              paint: {
+                'circle-radius': 5,
+                'circle-color': '#4264fb',
+                'circle-stroke-width': 2,
+                'circle-stroke-color': '#ffffff'
+            }
+          });
           // map.addLayer({
           //   'id': '100 Year Flood',
           //   'type': 'fill',
@@ -276,6 +279,11 @@ export default {
   background-color: #3887be !important;
   color: #ffffff !important;
   }
+}
+
+.el-dropdown-menu {
+  height: 30vh;
+  overflow: scroll;
 }
 
 #dropdown{
