@@ -77,8 +77,8 @@ export default {
   #feature-json {
     background-color: #FFFFFF;
     border-radius: 10px;
-    /* height: 25vh; */
-    /* padding: 1em; */
+    height: 25vh;
+    padding: 1em;
     overflow: auto;
   }
 
