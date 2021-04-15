@@ -70,15 +70,15 @@ export default {
   }
 
   #response * {
-  margin: 10px 32px;
+  margin: 10px 32px 0px 32px;
 
   }
 
   #feature-json {
     background-color: #FFFFFF;
     border-radius: 10px;
-    height: 25vh;
-    padding: 1em;
+    /* height: 25vh; */
+    /* padding: 1em; */
     overflow: auto;
   }
 
@@ -104,7 +104,7 @@ export default {
   }
 
   #response * {
-  margin: 1rem 1rem 1rem;
+  margin: 1em 1em 0em 1em;
 
   }
 
@@ -113,7 +113,7 @@ export default {
     border-radius: 10px;
     height: 75vh;
     width: 40vw;
-    padding: 1em;
+    /* padding: 1em; */
     overflow: auto;
   }
 
