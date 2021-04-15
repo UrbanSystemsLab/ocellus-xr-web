@@ -3,17 +3,17 @@
       <!-- <nav id="menu"></nav> -->
       <div id="map">
         <div id="dropdown">
-                <el-dropdown>
-                    <span class="el-dropdown-link">
-                        Map Layers<i class="el-icon-arrow-down el-icon--right"></i>
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                    <!-- <div v-for="(map, mapKey) in allMaps"><a v-on:click="setLocation($event, {location, locationKey})">
-                        <el-dropdown-item>{{location.name}}</el-dropdown-item></a></div> -->
-                  </el-dropdown-menu>
-                </el-dropdown>
-        </div>
-        </div>
+              <el-dropdown>
+                  <span class="el-dropdown-link">
+                      Map Layers<i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                  <!-- <div v-for="(map, mapKey) in allMaps"><a v-on:click="setLocation($event, {location, locationKey})">
+                      <el-dropdown-item>{{location.name}}</el-dropdown-item></a></div> -->
+                </el-dropdown-menu>
+              </el-dropdown>
+          </div>
+      </div>
     </div>
 </template>
 
@@ -41,6 +41,10 @@ export default {
           zoom: 12
         });
 
+        // Map is loaded
+        this.$store.dispatch('setMapLoadedState', true)
+        this.$bus.$emit('mapLoaded', true)
+
         this.map.on('load', this.onMapLoad);
         this.map.on('click', this.onMapClick);
       },
@@ -57,8 +61,8 @@ export default {
 
       onMapClick(e) {
         console.log(e.lngLat)
-        this.prevLat = this.latitude;
-        this.prevLng = this.longitude;
+        // this.prevLat = this.latitude;
+        // this.prevLng = this.longitude;
         this.latitude= e.lngLat.lat;
         this.longitude= e.lngLat.lng;
 
@@ -150,6 +154,9 @@ export default {
         });
       }
 
+    },
+    computed: {
+      mapLoaded() { return this.$store.getters.getMapLoadedState },
     },
     mounted(){
       const mapboxgl = require('mapbox-gl')
@@ -389,7 +396,7 @@ export default {
 #dropdown{
     position: relative;
     height: 10vh;
-    width: 20vw;
+    width: 55vw;
     padding: 2rem;
     z-index: 200;
 }
