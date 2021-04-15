@@ -83,29 +83,6 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // [
-    //   '@nuxtjs/firebase',
-    //   {
-    //     config: {
-    //       apiKey: process.env.FIREBASE_DEV_KEY,
-    //       authDomain: process.env.FIREBASE_DEV_DOMAIN,
-    //       projectId: process.env.FIREBASE_DEV_ID,
-    //       storageBucket: process.env.FIREBASE_DEV_BUCKET,
-    //       messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
-    //       appId: process.env.FIREBASE_DEV_APP_ID
-    //     },
-    //     services: {
-    //       auth: {
-    //         initialize: {
-    //           onAuthStateChangedAction: 'auth/onAuthStateChanged'
-    //         },
-    //         ssr: true
-    //       },
-    //       database: true
-    //     },
-    //     lazy: true,
-    //   }
-    // ]
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
