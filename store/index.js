@@ -14,16 +14,14 @@ var db = firebase.database()
 var storage = firebase.storage()
 var storageRef = storage.ref()
 
-var mapsRefPublic = db.ref('maps/public')
-
-var publicMaps
-mapsRefPublic.on('value', (snapshot) => {
-    publicMaps = Object.assign({}, snapshot.val())
-    console.log(publicMaps)
-})
-
 export const state = () => ({
+    // All project locations
+    locations: {},
+    // All Map data sources
+    sources: {},
+    // All project maps
     allMaps : {},
+    // Active state proerties
     active: {
         location: null,
         locationKey: null,
@@ -48,25 +46,12 @@ export const state = () => ({
 export const getters = {
     getMobileDevice: (state) => { return state.isMobileDevice },
     getMapLoadedState: (state) => { return state.mapbox.style.loaded },
+    getActiveLocation: (state) => { return { location: state.active.location, locationKey: state.active.locationKey } },
     getActiveMapPosition: (state) => { if (state.active.location) { return state.active.location.mapPosition } },
+    getActiveMaps: (state) => { return state.active.maps },
     getAllMaps: (state) => { return state.allMaps },
+    getLocations: (state) => { return state.locations },
     getSources: (state) => { return state.sources },
-}
-
-export const mutations = {
-    storeMobileDevice: (state, payload) => {
-        state.isMobileDevice = payload
-    },
-    // Indicates if map is loaded
-    storeMapLoadedState: (state, payload) => {
-        state.mapbox.style.loaded = payload
-    },
-    storeMapPosition: (state, payload) => {
-        state.active.mapPosition = Object.assign({}, payload)
-    },
-    storeAllMaps: (state, payload) => {
-        state.allMaps = Object.assign({}, payload)
-    },
 }
 
 export const actions = {
@@ -78,22 +63,95 @@ export const actions = {
     setMapLoadedState: function(store, flag) {
         store.commit('storeMapLoadedState', flag)
     },
-    getAllMaps: function(state) {
+    getAllMaps: function(store) {
         return new Promise((resolve, reject) => {
             var mapsRefPublic = db.ref('maps/public')
             var sources = Object.values(store.getters.getSources)
 
             var publicMaps
             mapsRefPublic.on('value', (snapshot) => {
-                publicMaps = Object.assign({}, snapshot.val())
+                    publicMaps = Object.assign({}, snapshot.val())
+                    var maps = Object.assign({}, publicMaps)
+                    console.log(maps);
+                    store.commit('storeAllMaps', maps)
+                    resolve(maps)
+                })
             })
-            var maps = Object.assign({}, publicMaps)
-            console.log(maps);
-            state.commit('storeAllMaps', maps)
-            resolve(maps)
-            })
-            .catch((error) => { reject(error) })
     },
+    loadActiveMaps: function(store) {
+        return new Promise((resolve, reject) => {
+          var activeLocation = store.getters.getActiveLocation
+          var activeLocationKey = activeLocation.locationKey
+          var activeMaps = store.getters.getActiveMaps
+          var allMaps = store.getters.getAllMaps
+          for (var map in allMaps) {
+            if (allMaps[map].location === activeLocationKey) {
+              activeMaps[map] = Object.assign({}, allMaps[map])
+            }
+          }
+          store.commit('storeActiveMaps', activeMaps)
+          resolve(activeMaps)
+        })
+      },
+      updateActiveMaps: function(store, { activeMaps }) {
+        var activeLocation = store.getters.getActiveLocation
+        var activeLocationKey = activeLocation.locationKey
+        var old_activeMaps = store.getters.getActiveMaps
+        var new_activeMaps = activeMaps
+        // Save New Maps
+        for (var new_map in new_activeMaps) {
+    
+          var visibility = new_activeMaps[new_map].visibility
+          delete new_activeMaps[new_map].visibility
+    
+          db.ref('maps/' + visibility + '/' + new_map).set(new_activeMaps[new_map])
+        }
+        // Remove deleted maps
+        for (var old_map in old_activeMaps) {
+          var visibility = old_activeMaps[old_map].visibility
+          var deleted = true
+          for (var new_map in new_activeMaps) {
+            if (old_map === new_map) {
+              deleted = false
+            }
+          }
+          if (deleted) {
+            db.ref('maps/' + visibility + '/' + old_map).remove()
+          }
+        }
+      },
+    getLocations: function(store) {
+        return new Promise((resolve, reject) => {
+            var locationsRefPublic = db.ref('locations/public')
+            var publicLocations
+            locationsRefPublic.on('value', (snapshot) => {
+              publicLocations = Object.assign({}, snapshot.val())
+              for (let loc in publicLocations) {
+                if (publicLocations.hasOwnProperty(loc)) {
+                  publicLocations[loc]['visibility'] = 'public'
+                }
+              }
+              var locations = Object.assign({}, publicLocations)
+              store.commit('storeLocations', locations)
+              if (!store.state.active.location) {
+                db.ref('defaultLocation').once('value').then((defaultLocationKey) => {
+                  for (var locationKey in locations) {
+                    if (locations.hasOwnProperty(locationKey) && locationKey === defaultLocationKey.val()) {
+                    //   store.commit('storeActiveLocation', { location: locations[locationKey], locationKey: locationKey })
+                      resolve()
+                    }
+                  }
+                })
+              }
+              resolve(locations)
+            })
+        })
+    },
+
+    setActiveLocation: function(store, { location, locationKey }) {
+        store.commit('storeActiveLocation', { location: location, locationKey: locationKey })
+    },
+    
     getSources: function(store) {
         return new Promise((resolve, reject) => {
           var sourcesRefPublic = db.ref('sources/public')
@@ -148,4 +206,33 @@ export const actions = {
           resolve()
         })
       },
+}
+
+export const mutations = {
+    storeMobileDevice: (state, payload) => {
+        state.isMobileDevice = payload
+    },
+    // Indicates if map is loaded
+    storeMapLoadedState: (state, payload) => {
+        state.mapbox.style.loaded = payload
+    },
+    storeSources: (state, payload) => {
+        state.sources = Object.assign({}, payload)
+    },
+    storeLocations: (state, payload) => {
+        state.locations = Object.assign({}, payload)
+    },
+    storeMapPosition: (state, payload) => {
+        state.active.mapPosition = Object.assign({}, payload)
+    },
+    storeActiveLocation: (state, { location, locationKey }) => {
+        state.active.location = Object.assign({}, location)
+        state.active.locationKey = locationKey
+    },
+    storeActiveMaps: (state, payload) => {
+        state.active.maps = Object.assign({}, payload)
+    },
+    storeAllMaps: (state, payload) => {
+        state.allMaps = Object.assign({}, payload)
+    },
 }
