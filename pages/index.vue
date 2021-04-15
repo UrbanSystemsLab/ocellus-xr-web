@@ -11,28 +11,89 @@
 <script>
 import firebase from 'firebase/app'
   export default {
+    asyncData: function (context) {
+      var query = null
+      // Get query parameters
+      if (context.query){ query = context.query }
+      return { query: query }
+    },
     data() {
       return{
       }
     },
     computed: {
-      // add line for if allMaps is nullnpm 
+      // add line for if allMaps is null
       allMaps() {return this.$store.getters.getAllMaps},
-      isMobileDevice() { return this.$store.getters.getMobileDevice },
+      isMobileDevice() {return this.$store.getters.getMobileDevice},
+      locations() {return this.$store.getters.getLocations},
+      mapLoaded() {return this.$store.getters.getMapLoadedState},
     },
     methods: {
       setupFirebaseAuth() {
         return new Promise((resolve, reject) => {
           var store = this.$store
-        var db = firebase.database()
-        if (!firebase.apps.length) {
-          firebase.initializeApp(process.env.firebaseConfig)
-        }
+          var db = firebase.database()
+          if (!firebase.apps.length) {
+            firebase.initializeApp(process.env.firebaseConfig)
+          }
         })
       },
       loadProject() {
         //Initialize active map with default data
-        return this.$store.dispatch('getAllMaps')
+        // this.$store.dispatch('getProjectInfo')
+        console.log("I am loading the project")
+        this.$store.dispatch('getLocations')
+        .then(() => {
+          return this.$store.dispatch('getSources')
+        })
+        .then((sources) => {
+          return this.$store.dispatch('getAllMaps')
+        })
+
+      //   this.$bus.$on('mapLoaded', (payload) => {
+      //     // If location is mentioned. Flyto location
+      //     var query = this.query
+      //     if (query && query.locationKey) {
+      //       // Location is required. Map and Map Position can be specified
+      //       var locationKey = JSON.parse(query.locationKey)
+      //       // Change active location
+      //       this.$store.dispatch('setActiveLocationFromUrl', {locationKey: locationKey})
+      //       .then(() => {
+      //         // Fly to location
+      //         var flyToPosition = null
+      //         if(query.mapPosition) {
+      //           var mapPosition =JSON.parse(query.mapPosition)
+      //           flyToPosition = {
+      //             longitude: mapPosition.longitude,
+      //             latitude: mapPosition.latitude,
+      //             zoom: mapPosition.zoom,
+      //             bearing: mapPosition.bearing,
+      //             pitch: mapPosition.pitch,
+      //           }
+      //         }
+      //         else
+      //           flyToPosition = this.$store.getters.getActiveMapPosition
+
+      //         this.$bus.$emit('flyTo', flyToPosition)
+
+      //         // Show map
+      //         if (query.mapKey) {
+      //           var mapKey = JSON.parse(query.mapKey)
+      //           var allMaps = this.allMaps
+      //           // Get map for corresponding mapKey
+      //           for (var key in allMaps) {
+      //             if (allMaps.hasOwnProperty(key) && key === mapKey ) {
+      //               var map = allMaps[key]
+      //               this.$bus.$emit('updateLegend', map)
+      //               this.$bus.$emit('updateMap', {loadMap: map})
+      //             }
+      //           }
+      //         }
+      //       })
+      //     }
+      //     // Else add current location to URL params
+      //     else { this.appendQueryParam('locationKey', this.activeLocation.locationKey) }
+      //   })
       },
       setMobileDevice() {
         /*
@@ -54,9 +115,6 @@ import firebase from 'firebase/app'
     mounted() {
       this.setupFirebaseAuth()
       .then(() => {
-        loadProject()
-        console.log("we have maps!")
-        console.log("Firebase set up");
         this.loadProject()
       })
     },
@@ -75,7 +133,7 @@ body {
 main {
   display: grid;
   grid-template-columns: 6fr 4fr;
-  grid-gap: 1em;
+  /* grid-gap: 1em; */
 }
 
 @media (max-width: 800px){
