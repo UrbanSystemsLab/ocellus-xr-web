@@ -137,7 +137,7 @@ export const actions = {
                 db.ref('defaultLocation').once('value').then((defaultLocationKey) => {
                   for (var locationKey in locations) {
                     if (locations.hasOwnProperty(locationKey) && locationKey === defaultLocationKey.val()) {
-                    //   store.commit('storeActiveLocation', { location: locations[locationKey], locationKey: locationKey })
+                      store.commit('storeActiveLocation', { location: locations[locationKey], locationKey: locationKey })
                       resolve()
                     }
                   }
