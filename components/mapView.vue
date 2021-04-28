@@ -8,8 +8,8 @@
                       Map Layers<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
-                  <div v-for="map in allMaps" v-bind:key="map">
-                    <a v-on:click="setLocation($event, {map, mapKey})">
+                  <div v-for="map in allMaps">
+                    <a v-on:click="logMap($event, map.sources[0].url, map.sources[0].id )">  
                       <el-dropdown-item >{{map.name}}</el-dropdown-item>
                     </a>
                   </div>
@@ -49,7 +49,24 @@ export default {
 
         this.map.on('load', this.onMapLoad);
         this.map.on('click', this.onMapClick);
-    },
+      },
+
+      sendMessageToCSharp(mapURL, mapID) {
+
+        window.vuplex.postMessage({ type: 'mapURL', message: mapURL});
+        window.vuplex.postMessage({ type: 'mapID', message: mapID});
+
+        console.log("The map URL " + `${ mapURL }` + " and map ID " + `${ mapID }` + " were passed to C#")
+        
+      },
+
+      logMap(e, mapURL, mapID) {
+        if (window.vuplex) {
+          this.sendMessageToCSharp(mapURL, mapID)
+        } else{
+          console.log("C# message of" + `${ mapURL }` + " and map ID " + `${ mapID }`+ " would be sent here")
+        }
+      }
 
     },
     computed: {
@@ -60,6 +77,7 @@ export default {
       activeLocation() { return this.$store.getters.getActiveLocation },
     },
     mounted(){
+
       const mapboxgl = require('mapbox-gl')
       // this.initMap()
 
@@ -142,54 +160,8 @@ export default {
                 'circle-stroke-color': '#ffffff'
             }
           });
-          // map.addLayer({
-          //   'id': '100 Year Flood',
-          //   'type': 'fill',
-          //   'source': 'tileset-new-york-floodplains--0tb4my',
-          //   'source-layer': '2020s-100y',
-          //   'layout': {
-          //   },
-          //   'paint': {
-          //     'fill-color': 'rgb(153, 180, 194)',
-          //     'fill-opacity': 0.45
-          //   }
-          // });
+          
         });
-
-        // window.onload = () => {
-        //   // enumerate ids of the layers
-        //   var toggleableLayerIds = ['100 Year Flood', '500 Year Flood'];
-
-        //   // set up the corresponding toggle button for each layer
-        //   for (var i = 0; i < toggleableLayerIds.length; i++) {
-        //   var id = toggleableLayerIds[i];
-
-        //   var link = document.createElement('a');
-        //   link.href = '#';
-        //   link.className = 'active';
-        //   link.textContent = id;
-
-        //   link.onclick = function (e) {
-        //   var clickedLayer = this.textContent;
-        //   e.preventDefault();
-        //   e.stopPropagation();
-
-        //   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-        //   // toggle layer visibility by changing the layout object's visibility property
-        //   if (visibility === 'visible') {
-        //   map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-        //   this.className = '';
-        //   } else {
-        //   this.className = 'active';
-        //   map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        //   }
-        //   };
-
-        //   var layers = document.getElementById('menu');
-        //   layers.appendChild(link);
-        //   }
-        // }
       }
     }
 </script>
