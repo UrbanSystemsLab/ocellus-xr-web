@@ -11,15 +11,8 @@
           Click a point on the map to view features within a 5 minute walk.
           </h4>
           
-          <div>
-          <!-- Chosen location:<span id="clicklocation"></span> -->
-          </div>
-          <!-- <strong>Response<br/></strong> -->
+          <div id="unity-test">Unity Test</div>
           <div id="short-response"></div>
-          <div id="feature-json">
-              <code>
-              </code>
-          </div>
       </div>
     </div>
 </template>
