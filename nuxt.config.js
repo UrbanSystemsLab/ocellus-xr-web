@@ -1,8 +1,37 @@
-// const dotenv = require('dotenv').config()
+/*
+** Environment Variables 
+*/ 
+const dotenv = require('dotenv').config()
+
+let env = process.env.NODE_ENV || 'dev'
+let firebaseConfig
+let mapboxAccessToken
+
+firebaseConfig = {
+  apiKey: process.env.FIREBASE_DEV_KEY,
+  authDomain: process.env.FIREBASE_DEV_AUTHDOMAIN,
+  databaseURL: process.env.FIREBASE_DEV_URL,
+  projectId: process.env.FIREBASE_DEV_ID,
+  storageBucket: process.env.FIREBASE_DEV_STORAGE,
+  messagingSenderId: process.env.FIREBASE_DEV_SENDER_ID,
+  appId: process.env.FIREBASE_DEV_APP_ID
+}
 
 export default {
-  // Global page headers (https://go.nuxtjs.dev/config-head)
+  env: {
+    firebaseConfig: firebaseConfig
+  },
+  // Runtime config variables go here (https://nuxtjs.org/blog/moving-from-nuxtjs-dotenv-to-runtime-config/#what-are-environment-variables)
+  // publicRuntimeConfig: {
+    
+  // },
+  // privateRuntimeConfig: {
+  //   NODE_ENV: env,
+  //   MapboxAPIKey: process.env.MB_ACCESS_TOKEN,
+  //   firebaseConfig: firebaseConfig
+  // },
 
+  // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'USL Equity AR Nuxt App',
     meta: [{
@@ -29,20 +58,19 @@ export default {
       rel: 'icon',
       type: 'image/ico',
       href: '/favicon.ico'
-    }, {
-      rel: 'stylesheet',
-      href: '/assets/fonts/roboto.css'
     }]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    '~/assets/fonts/ibm-plex-sans.css',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/event-bus',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -53,17 +81,12 @@ export default {
     '@nuxtjs/dotenv'
   ],
 
-  env: {
-    privateRuntimeConfig: {
-      MapboxAPIKey: process.env.MB_ACCESS_TOKEN
-    }
-  },
-
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: [
+  ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: [/^element-ui/],
-  }
+  },
 };
