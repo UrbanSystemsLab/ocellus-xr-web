@@ -8,7 +8,7 @@
                       Map Layers<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
-                  <div v-for="map in allMaps">
+                  <div v-for="(map, mapKey) in allMaps" :key="mapKey">
                     <a v-on:click="logMap($event, map.sources[0].url, map.sources[0].id )">  
                       <el-dropdown-item >{{map.name}}</el-dropdown-item>
                     </a>
@@ -64,7 +64,7 @@ export default {
         if (window.vuplex) {
           this.sendMessageToCSharp(mapURL, mapID)
         } else{
-          console.log("C# message of" + `${ mapURL }` + " and map ID " + `${ mapID }`+ " would be sent here")
+          console.log("C# message of map URL " + `${ mapURL }` + " and map ID " + `${ mapID }`+ " would be sent here")
         }
       }
 
@@ -117,7 +117,7 @@ export default {
           return this.$store.dispatch('getAllMaps')
         })
         .then((sources) => {
-          return this.$store.dispatch('getActiveMaps')
+          // return this.$store.dispatch('getActiveMaps')
         })
 
       let marker;

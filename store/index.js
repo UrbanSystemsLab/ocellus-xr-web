@@ -72,7 +72,7 @@ export const actions = {
             mapsRefPublic.on('value', (snapshot) => {
                     publicMaps = Object.assign({}, snapshot.val())
                     var maps = Object.assign({}, publicMaps)
-                    console.log(maps);
+                    // console.log(maps);
                     store.commit('storeAllMaps', maps)
                     resolve(maps)
                 })
