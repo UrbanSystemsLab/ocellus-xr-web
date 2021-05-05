@@ -10,7 +10,7 @@
           <h4>
           Click a point on the map to view features within a 5 minute walk.
           </h4>
-          
+          <el-button v-on:click=sendMsg()>Send Unity Message</el-button>
           <div id="unity-test">Unity Test</div>
           <div id="short-response"></div>
       </div>
@@ -23,6 +23,23 @@ export default {
     data(){
       return {
 
+      }
+    },
+    methods: {
+
+      sendMessageToCSharp() {
+
+        window.vuplex.postMessage({ type: 'test', message: 'Hello, Peilu!'});
+
+        console.log("A message were passed to C#")
+        
+      },
+      sendMsg() {
+        if (window.vuplex) {
+          this.sendMessageToCSharp()
+        } else{
+          console.log("Hello, Peilu!")
+        }
       }
     }
 }
