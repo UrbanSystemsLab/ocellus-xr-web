@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main class="flex-container text">
+        <main class="flex-container">
             <appMenu />
             <el-row>
                 <h1>Am I affected by climate change?</h1>
@@ -10,12 +10,14 @@
             </el-row>
             <el-row>
                 <el-col :span="12">
-                    <NuxtLink to="/heat">
+                    <NuxtLink to="/heat-definitions">
                     <el-button type="secondary"><h2>Heat</h2></el-button>
                     </NuxtLink>
                 </el-col>
                 <el-col :span="12">
+                    <NuxtLink to="/flood-definitions">
                     <el-button type="secondary"><h2>Flood</h2></el-button>
+                    </NuxtLink>
                 </el-col>
             </el-row>
         </main>
