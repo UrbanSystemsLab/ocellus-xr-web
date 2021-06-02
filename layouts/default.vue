@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-alert title="You are offline." type="warning" show-icon center v-if="$nuxt.isOffline"></el-alert>
     <Nuxt />
   </div>
 </template>
@@ -15,6 +16,62 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  line-height: 1.5em;
+/*   opacity: 0; */
+  background-color: rgba(0, 0);
+}
+
+main {
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  /* grid-gap: 1em; */
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+@media (max-width: 800px){
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 801px) {
+  .flex-container {
+    flex-direction: row;
+  }
+}
+
+h1 {
+  font-weight: "Bold";
+  font-size: 30pt;
+  line-height: 34pt;
+
+}
+
+h2 {
+  font-weight: "Medium";
+  font-size: 24pt;
+  line-height: 28pt;
+}
+
+p {
+  font-weight: "Light";
+  font-size: 14pt;
+  line-height: 18pt;
+}
+
+.el-row {
+  margin-bottom: 20px
+}
+
+.el-row:last-child {
+  margin-bottom: 0px;
+}
+
 *, *:before, *:after {
   box-sizing: border-box;
   margin: 0;
@@ -43,5 +100,9 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.el-icon-arrow-right:before {
+    content: "\e6d9";
 }
 </style>
