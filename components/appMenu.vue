@@ -35,7 +35,7 @@ export default {
 
 #menu-div {
     height: 4vh;
-    /* position: absolute; */
+    /* position: fixed; */
     width: 100vw;
     padding: 2rem;
     z-index: 200;
