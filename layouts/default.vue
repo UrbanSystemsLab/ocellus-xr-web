@@ -52,15 +52,15 @@ main {
 
 h1 {
   font-weight: "Bold";
-  font-size: 30pt;
-  line-height: 34pt;
+  font-size: 28pt;
+  line-height: 30pt;
 
 }
 
 h2 {
   font-weight: "Medium";
-  font-size: 24pt;
-  line-height: 28pt;
+  font-size: 20pt;
+  line-height: 24pt;
 }
 
 p {
