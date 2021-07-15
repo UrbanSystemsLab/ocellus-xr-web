@@ -1,17 +1,8 @@
 <template>
   <div>
     <main class="flex-container">
-      <!-- <mapFullView />s -->
+      <mapFullView />
       <onboardingFlow />
-      <!-- <el-row>
-        <h2>Clmate Equity XR</h2>
-      </el-row>
-      <el-row>
-          <p>Climate change affects communities in different ways. But how and why? The Climate Equity XR app provides interactive geospatial maps and 3D visualizations of heat, flood risk and other climate risk indicators in New York City. It experiments with augmented reality layers that allow you to project interactive maps onto a physical surface.</p>
-      </el-row>
-      <el-row>
-        <h3>Swipe to see how your community is impacted…</h3>
-      </el-row> -->
     </main>
   </div>
 </template>
