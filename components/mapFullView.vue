@@ -35,10 +35,15 @@ export default {
         this.map = new mapboxgl.Map({
           accessToken: this.access_token,
           container: 'map', // <div id="map"></div>
-          style: 'mapbox://styles/equity/ck74xz9rn1k1a1ikpr1u42fpe', // default style
+          style: 'mapbox://styles/equity/ck5mq466f0ni51il91p7i8few', // default style
           center: [-73.99, 40.7], // starting position as [lng, lat]
+          attributionControl: true,
           zoom: 12
-        });
+        })
+        .addControl(new mapboxgl.AttributionControl({
+          compact: true,
+          customAttribution: "Data courtesy Urban Systems Lab"
+        }));
         map.dragPan.disable();
         // Map is loaded
         this.$store.dispatch('setMapLoadedState', true)
@@ -95,7 +100,7 @@ export default {
       const map = new mapboxgl.Map({
       accessToken: this.access_token,
       container: 'map', // <div id="map"></div>
-          style: 'mapbox://styles/equity/ck74xz9rn1k1a1ikpr1u42fpe', // default style
+          style: 'mapbox://styles/equity/ck5mqn9p005bx1ip6t0vbvjjx', // default style
           center: [-73.99, 40.7], // starting position as [lng, lat]
           zoom: 12
       })
@@ -261,7 +266,7 @@ export default {
     height: 10vh;
     width: 55vw;
     padding: 2rem;
-    z-index: 50;
+    z-index: 2;
 }
 
 .el-dropdown-link {
