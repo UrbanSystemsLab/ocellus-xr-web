@@ -1,8 +1,9 @@
 <template>
   <div>
     <main class="flex-container">
-      <appMenu />
-      <el-row>
+      <!-- <mapFullView />s -->
+      <onboardingFlow />
+      <!-- <el-row>
         <h2>Clmate Equity XR</h2>
       </el-row>
       <el-row>
@@ -10,12 +11,8 @@
       </el-row>
       <el-row>
         <h3>Swipe to see how your community is impacted…</h3>
-      </el-row>
-      <!-- <responseText /> -->
-      <!-- <mapCarousel /> -->
-      <!-- <mapView /> -->
+      </el-row> -->
     </main>
-
   </div>
 </template>
 
@@ -37,6 +34,7 @@ import firebase from 'firebase/app'
       isMobileDevice() {return this.$store.getters.getMobileDevice},
       locations() {return this.$store.getters.getLocations},
       mapLoaded() {return this.$store.getters.getMapLoadedState},
+      onboarding() {return this.$store.getters.getOnboardingContent}
     },
     methods: {
       setupFirebaseAuth() {
@@ -58,6 +56,9 @@ import firebase from 'firebase/app'
         })
         .then((sources) => {
           return this.$store.dispatch('getAllMaps')
+        })
+        .then((sources) => {
+          return this.$store.dispatch('getOnboarding')
         })
       },
       setMobileDevice() {
