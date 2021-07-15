@@ -17,19 +17,24 @@ html {
   box-sizing: border-box;
 }
 
+html {
+  overflow-y: hidden;
+}
+
 body {
   margin: 0;
   line-height: 1.5em;
 /*   opacity: 0; */
   background-color: rgba(0, 0);
+  max-height: 100%;
 }
 
 main {
   display: grid;
   grid-template-columns: 6fr 4fr;
   /* grid-gap: 1em; */
-  padding-left: 32px;
-  padding-right: 32px;
+  /* padding-left: 32px; */
+  /* padding-right: 32px; */
 }
 
 @media (max-width: 800px){
@@ -102,7 +107,7 @@ p {
   background-color: #35495e;
 }
 
-.el-icon-arrow-right:before {
+/* .el-icon-arrow-right:before {
     content: "\e6d9";
-}
+} */
 </style>
