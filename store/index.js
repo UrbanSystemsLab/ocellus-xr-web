@@ -40,7 +40,9 @@ export const state = () => ({
         },
         'visibleLayers': [],
         'visibleSources': []
-    }
+    },
+    // All onboarding content
+    onboarding: {}
 })
 
 export const getters = {
@@ -52,6 +54,7 @@ export const getters = {
     getAllMaps: (state) => { return state.allMaps },
     getLocations: (state) => { return state.locations },
     getSources: (state) => { return state.sources },
+    getOnboarding: (state) => {return state.onboarding},
 }
 
 export const actions = {
@@ -206,6 +209,20 @@ export const actions = {
           resolve()
         })
       },
+      getOnboardingContent: function(store) {
+        return new Promise((resolve, reject) => {
+            var onboardingContent = db.ref('contents/equityAR-onboarding')
+            
+            var carousels
+            onboardingContent.on('value', (snapshot) => {
+                    carousels = Object.assign({}, snapshot.val())
+                    var slides = Object.assign({}, carousels)
+                    console.log(slides);
+                    store.commit('storeOnboarding', slides)
+                    resolve(slides)
+                })
+            })
+    },
 }
 
 export const mutations = {
@@ -235,4 +252,7 @@ export const mutations = {
     storeAllMaps: (state, payload) => {
         state.allMaps = Object.assign({}, payload)
     },
+    storeOnboarding: (state, payload) => {
+      state.onboarding = Object.assign({}, payload)
+    }
 }
