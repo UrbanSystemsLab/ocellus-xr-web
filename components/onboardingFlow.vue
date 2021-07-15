@@ -1,11 +1,8 @@
 <template>
     <div>
         <el-carousel indicator-position="outside" :autoplay="false">
-            <!-- <el-carousel-item v-for="(slide, slideKey) in onboarding" :key="slideKey">
-            <h3>{{ slide }}</h3>
-            </el-carousel-item> -->
             <el-carousel-item v-for="(item, itemKey) in onboarding" :key="itemKey">
-            <div v-html= "item.content"></div>
+            <div v-html= "item"></div>
             </el-carousel-item>
         </el-carousel>  
     </div>
