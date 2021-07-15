@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div id="onboarding-button" :span="12">
+        <span id="onboarding-button">
             <el-button @click="dialogVisible=true" type="primary" size="medium" id="onboarding" icon="el-icon-question" circle>
             </el-button>
-        </div>
+        </span>
         <el-dialog
         :visible.sync="dialogVisible"
         :fullscreen=true
@@ -73,7 +73,10 @@ div {
 }
 
 #onboarding-button {
-    margin: 15px;
+    /* margin: 15px; */
+    right: 25px;
+    top: 25px;
+    position: absolute;
 }
 
 #onboarding {
