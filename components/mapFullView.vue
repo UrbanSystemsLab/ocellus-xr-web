@@ -169,7 +169,11 @@ export default {
 
   div #map {
     height: 100vh;
-    opacity: 0.1;
+    opacity: 1;
+    position: absolute;
+    top: 0; 
+    bottom: 0;
+    width: 100vw;
   }
 
   #menu {
@@ -210,7 +214,7 @@ export default {
 
   div #map {
     height: 100vh;
-    opacity: 0.1;
+    opacity: 1;
   }
 
   #menu {
@@ -257,7 +261,7 @@ export default {
     height: 10vh;
     width: 55vw;
     padding: 2rem;
-    z-index: 200;
+    z-index: 50;
 }
 
 .el-dropdown-link {
