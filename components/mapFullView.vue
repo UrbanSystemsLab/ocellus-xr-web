@@ -31,27 +31,27 @@ export default {
       }
     },
     methods: {
-      initMap(){
-        this.map = new mapboxgl.Map({
-          accessToken: this.access_token,
-          container: 'map', // <div id="map"></div>
-          style: 'mapbox://styles/equity/ck5mq466f0ni51il91p7i8few', // default style
-          center: [-73.99, 40.7], // starting position as [lng, lat]
-          attributionControl: true,
-          zoom: 12
-        })
-        .addControl(new mapboxgl.AttributionControl({
-          compact: true,
-          customAttribution: "Data courtesy Urban Systems Lab"
-        }));
-        map.dragPan.disable();
-        // Map is loaded
-        this.$store.dispatch('setMapLoadedState', true)
-        this.$bus.$emit('mapLoaded', true)
+      // initMap(){
+      //   this.map = new mapboxgl.Map({
+      //     accessToken: this.access_token,
+      //     container: 'map', // <div id="map"></div>
+      //     style: 'mapbox://styles/equity/ck5mq466f0ni51il91p7i8few', // default style
+      //     center: [-73.99, 40.7], // starting position as [lng, lat]
+      //     attributionControl: true,
+      //     zoom: 12
+      //   })
+      //   .addControl(new mapboxgl.AttributionControl({
+      //     compact: true,
+      //     customAttribution: "Data courtesy Urban Systems Lab"
+      //   }));
+      //   map.dragPan.disable();
+      //   // Map is loaded
+      //   this.$store.dispatch('setMapLoadedState', true)
+      //   this.$bus.$emit('mapLoaded', true)
 
-        this.map.on('load', this.onMapLoad);
-        this.map.on('click', this.onMapClick);
-      },
+      //   this.map.on('load', this.onMapLoad);
+      //   this.map.on('click', this.onMapClick);
+      // },
 
       sendMessageToCSharp(mapURL, mapID) {
 
