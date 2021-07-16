@@ -217,7 +217,6 @@ export const actions = {
             onboardingContent.on('value', (snapshot) => {
                     carousels = Object.assign({}, snapshot.val())
                     var slides = Object.assign({}, carousels)
-                    console.log(slides);
                     store.commit('storeOnboarding', slides)
                     resolve(slides)
                 })
