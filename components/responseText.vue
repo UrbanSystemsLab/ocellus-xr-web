@@ -5,7 +5,7 @@
           <h4>
           Click a point on the map to view features within a 5 minute walk.
           </h4>
-          <el-button v-on:click=sendMsg()>Send Unity Message</el-button>
+          <el-button @click=sendMsg()>Send Unity Message</el-button>
           <div id="unity-test">Unity Test</div>
           <div id="short-response"></div>
       </div>

@@ -7,7 +7,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                 <div v-for="(map, mapKey) in allMaps" :key="mapKey">
-                  <a v-on:click="logMap($event, map.sources[0].url, map.sources[0].id )">  
+                  <a @click="logMap($event, map.sources[0].url, map.sources[0].id )">  
                     <el-dropdown-item >{{map.name}}</el-dropdown-item>
                   </a>
                 </div>
