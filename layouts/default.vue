@@ -35,6 +35,14 @@ main {
   /* grid-gap: 1em; */
   /* padding-left: 32px; */
   /* padding-right: 32px; */
+    overflow-wrap: break-word;
+  word-break: normal;
+  word-wrap: normal;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  
 }
 
 @media (max-width: 800px){
