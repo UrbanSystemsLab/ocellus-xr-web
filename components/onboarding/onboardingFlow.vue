@@ -22,8 +22,7 @@
             <el-row>
                 <p>Yes! In New York City, we are exposed to multiple climate and weather-related hazards, from heat waves to hurricanes and floods. But some communities are more affected than others. Select below to learn more about how these climate risks affect you.</p>
             </el-row>
-            <el-row v-for="(item, itemKey) in onboarding.modules" :key="itemKey" style="display: flex;
-    justify-content: center;">
+            <el-row v-for="(item, itemKey) in onboarding" v-if="item.class === 'module'" style="display: flex; justify-content: center;">
                 <el-button type="primary" @click="innerVisible=true">
                     <h3>{{item.name}}</h3>
                 </el-button>
