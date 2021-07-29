@@ -42,7 +42,11 @@ export const state = () => ({
         'visibleSources': []
     },
     // All onboarding content
-    onboarding: {}
+    onboarding: {
+      activeModule: "",
+      modules: {},
+      contents: {}
+    }
 })
 
 export const getters = {
@@ -209,19 +213,40 @@ export const actions = {
           resolve()
         })
       },
+      getOnboardingModules: function(store) {
+        return new Promise((resolve, reject) => {
+            var onboardingContent = db.ref('contents/equityAR-onboarding')
+            var allNodes
+            onboardingContent.on('value', (snapshot) => {
+                    allNodes = Object.assign({}, snapshot.val())
+                    let modList = []
+                    for (let node in allNodes) {
+                      if (allNodes[node].class==='module') {
+                        modList.push(allNodes[node].name)
+                      }
+                    }
+                    store.commit('storeOnboardingModules', modList)
+                    resolve(modList)
+                })
+            })
+      },
       getOnboardingContent: function(store) {
         return new Promise((resolve, reject) => {
             var onboardingContent = db.ref('contents/equityAR-onboarding')
             
-            var carousels
+            
+            var allNodes
             onboardingContent.on('value', (snapshot) => {
-                    carousels = Object.assign({}, snapshot.val())
-                    var slides = Object.assign({}, carousels)
-                    store.commit('storeOnboarding', slides)
-                    resolve(slides)
+                allNodes = Object.assign({}, snapshot.val())
+                // const filteredNodes= allNodes.where('class', '==', 'sliders')
+                store.commit('storeOnboardingContent', allNodes)
+                resolve(allNodes)
                 })
             })
-    },
+      },
+      updateOnboardingActiveModule: function(store,payload) {
+        store.commit('storeOnboardingModule', payload)
+      }
 }
 
 export const mutations = {
@@ -251,7 +276,13 @@ export const mutations = {
     storeAllMaps: (state, payload) => {
         state.allMaps = Object.assign({}, payload)
     },
-    storeOnboarding: (state, payload) => {
-      state.onboarding = Object.assign({}, payload)
+    storeOnboardingModules: (state, payload) => {
+      state.onboarding.modules = Object.assign({}, payload)
+    },
+    storeOnboardingContent: (state, payload) => {
+      state.onboarding.contents = Object.assign({}, payload)
+    },
+    storeOnboardingModule: (state, payload) => {
+      state.onboarding.activeModule = payload
     }
 }

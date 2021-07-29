@@ -22,9 +22,9 @@
             <el-row>
                 <p>Yes! In New York City, we are exposed to multiple climate and weather-related hazards, from heat waves to hurricanes and floods. But some communities are more affected than others. Select below to learn more about how these climate risks affect you.</p>
             </el-row>
-            <el-row v-for="(item, itemKey) in onboarding" v-if="item.class === 'module'" style="display: flex; justify-content: center;">
-                <el-button type="primary" @click="innerVisible=true">
-                    <h3>{{item.name}}</h3>
+            <el-row v-for="item in onboarding.modules" style="display: flex; justify-content: center;" v-bind:key="item.name">
+                <el-button type="primary" @click="moduleButtonClick(item)">
+                    <h3>{{item}}</h3>
                 </el-button>
             </el-row>
             <el-dialog
@@ -32,9 +32,8 @@
             :fullscreen=true
             append-to-body>
                 <el-carousel indicator-position="outside" :autoplay="false">
-                    <el-carousel-item v-for="(item, itemKey) in onboarding.modules" :key="itemKey">
+                    <el-carousel-item v-for="(item, itemKey) in onboarding.contents" :key="itemKey">
                     <div v-html= "item.name"></div>
-                    
                     </el-carousel-item>
                 </el-carousel>  
             </el-dialog>
@@ -54,13 +53,24 @@ export default {
             innerVisible: false
         }
     },
+    props: {
+
+    },
     methods: {
-    
+        moduleButtonClick: function(e){
+            console.log(e)
+            this.innerVisible=true
+            this.$store.dispatch('updateOnboardingActiveModule', e)
+        }
     },
     computed: {
+        moduleSlides: function() {
+            this.$store.state.onboarding.contents
+        },
         onboarding() {return this.$store.getters.getOnboarding},
     },
     mounted() {
+        this.$store.dispatch('getOnboardingModules', true)
         this.$store.dispatch('getOnboardingContent', true)
     }
 }
