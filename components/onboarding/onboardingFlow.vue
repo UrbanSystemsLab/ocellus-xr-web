@@ -33,7 +33,8 @@
             append-to-body>
                 <el-carousel indicator-position="outside" :autoplay="false">
                     <el-carousel-item v-for="(item, itemKey) in onboarding.contents" :key="itemKey">
-                    <div v-html= "item.name"></div>
+                    <div v-html= "item.title"></div>
+                    <div v-html= "item.body"></div>
                     </el-carousel-item>
                 </el-carousel>  
             </el-dialog>
