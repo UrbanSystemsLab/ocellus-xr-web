@@ -215,32 +215,23 @@ export const actions = {
       },
       getOnboardingModules: function(store) {
         return new Promise((resolve, reject) => {
-            var onboardingContent = db.ref('contents/equityAR-onboarding')
-            var allNodes
+            var onboardingContent = db.ref('contents/equityAR-onboarding/modules')
+            var allModules
             onboardingContent.on('value', (snapshot) => {
-                    allNodes = Object.assign({}, snapshot.val())
-                    let modList = []
-                    for (let node in allNodes) {
-                      if (allNodes[node].class==='module') {
-                        modList.push(allNodes[node].name)
-                      }
-                    }
-                    store.commit('storeOnboardingModules', modList)
-                    resolve(modList)
+                    allModules = Object.assign({}, snapshot.val())
+                    store.commit('storeOnboardingModules', allModules)
+                    resolve(allModules)
                 })
             })
       },
       getOnboardingContent: function(store) {
         return new Promise((resolve, reject) => {
-            var onboardingContent = db.ref('contents/equityAR-onboarding')
-            
-            
-            var allNodes
+            var onboardingContent = db.ref('contents/equityAR-onboarding/sliders')
+            var allSlides
             onboardingContent.on('value', (snapshot) => {
-                allNodes = Object.assign({}, snapshot.val())
-                // const filteredNodes= allNodes.where('class', '==', 'sliders')
-                store.commit('storeOnboardingContent', allNodes)
-                resolve(allNodes)
+                allSlides = Object.assign({}, snapshot.val())
+                store.commit('storeOnboardingContent', allSlides)
+                resolve(allSlides)
                 })
             })
       },
