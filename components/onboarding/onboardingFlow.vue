@@ -22,9 +22,9 @@
             <el-row>
                 <p>Yes! In New York City, we are exposed to multiple climate and weather-related hazards, from heat waves to hurricanes and floods. But some communities are more affected than others. Select below to learn more about how these climate risks affect you.</p>
             </el-row>
-            <el-row v-for="item in onboarding.modules" style="display: flex; justify-content: center;" v-bind:key="item.name">
-                <el-button type="primary" @click="moduleButtonClick(item)">
-                    <h3>{{item}}</h3>
+            <el-row v-for="module in onboarding.modules" style="display: flex; justify-content: center;" v-bind:key="module.name">
+                <el-button type="primary" @click="moduleButtonClick(module)">
+                    <h3>{{module}}</h3>
                 </el-button>
             </el-row>
             <el-dialog
@@ -33,8 +33,12 @@
             append-to-body>
                 <el-carousel indicator-position="outside" :autoplay="false">
                     <el-carousel-item v-for="(item, itemKey) in onboarding.contents" :key="itemKey">
+                    {{itemKey}}
+                    
                     <!-- <div v-html= "item.title"></div> -->
-                    <div v-html= "item.body"></div>
+                    <split-layout v-bind:title="itemKey" />
+                    <!-- {{domDecoder(item.body.content)}} -->
+                    <!-- <div v-html= "item.body"></div> -->
                     </el-carousel-item>
                 </el-carousel>  
             </el-dialog>
@@ -43,8 +47,10 @@
     </div>
 </template>
 
-<script>
+<script scoped>
+import splitLayout from './splitLayout.vue'
 export default {
+  components: { splitLayout },
     setup() {
         
     },
@@ -54,20 +60,20 @@ export default {
             innerVisible: false
         }
     },
-    props: {
-
-    },
     methods: {
         moduleButtonClick: function(e){
             console.log(e)
             this.innerVisible=true
             this.$store.dispatch('updateOnboardingActiveModule', e)
-        }
+        },
+        domDecoder (str) {
+            let parser = new DOMParser();
+            let htmlFrame = '<!doctype html><head><link rel=' + `"` + 'stylesheet' + `"` + 'href=' + `"` + 'https://unpkg.com/element-ui/lib/theme-chalk/index.css' + `"`+ '><script src=' + `"` + 'https://unpkg.com/element-ui/lib/index.js' + `"` + '><\/script></head><body>';
+            let dom = parser.parseFromString(htmlFrame + str, 'text/html');
+            return dom.body.textContent;
+        },
     },
     computed: {
-        moduleSlides: function() {
-            this.$store.state.onboarding.contents
-        },
         onboarding() {return this.$store.getters.getOnboarding},
     },
     mounted() {
@@ -104,7 +110,7 @@ div {
 .el-carousel__item {
     padding: 25px;
     border-radius: 10px;
-    background-color: #99a9bf;
+    /* background-color: #99a9bf; */
 }
 
 </style>
