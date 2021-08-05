@@ -9,7 +9,9 @@
 
 <script>
 import firebase from 'firebase/app'
+import splitLayout from '~/components/onboarding/splitLayout.vue'
   export default {
+  components: { splitLayout },
     asyncData: function (context) {
       var query = null
       // Get query parameters
