@@ -5,7 +5,7 @@
             <span v-html="content"></span>
         </div>
         <div id="wrapper">
-            <map-carousel v-if="layout === 'map-carousel'" v-bind:text-content="body.accordion-list"/>
+            <map-carousel v-if="layout === 'map-carousel'"/>
             <img-carousel v-if="layout === 'image-carousel'" />
             <accordion-list v-if="layout === 'accordion-list'" />
         </div>
