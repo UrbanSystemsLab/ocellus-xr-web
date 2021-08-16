@@ -1,13 +1,13 @@
 <template>
     <div>
         <div>
-            <h2>What is Heat Risk?</h2>
-            <p>Heat risk is a measure of how likely your health will be impacted by high temperatures or prolonged heat exposure. There are many factors associated with heat risk, including urban and green infrastructure, social vulnerability, and building density. To learn more, explore the concepts below.</p>
+            <h2>{{title}}</h2>
+            <span v-html="content"></span>
         </div>
         <div id="wrapper">
-            <map-carousel v-if="1===0" />
-            <img-carousel v-if="1===1" />
-            <accordion-list v-if="1===0"/>
+            <map-carousel v-if="layout === 'map-carousel'" v-bind:text-content="body.accordion-list"/>
+            <img-carousel v-if="layout === 'image-carousel'" />
+            <accordion-list v-if="layout === 'accordion-list'" />
         </div>
     </div>
 </template>
@@ -17,6 +17,8 @@ import accordionList from './accordionList.vue'
 import ImgCarousel from './imgCarousel.vue'
 import MapCarousel from './mapCarousel.vue'
 export default {
+    name: 'splitLayout',
+    props: ['title', 'layout', 'content'],
   components: { accordionList, ImgCarousel, MapCarousel },
     computed: {
         onboarding() {return this.$store.getters.getOnboarding},
