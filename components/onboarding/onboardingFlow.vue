@@ -33,10 +33,7 @@
             append-to-body>
                 <el-carousel indicator-position="outside" :autoplay="false">
                     <el-carousel-item v-for="(item, itemKey) in onboarding.contents" :key="itemKey">
-                    <!-- <div v-html= "item.title"></div> -->
-                    <split-layout v-bind:title="item.title" v-bind:layout="item.body.template" v-bind:content="item.body.content"/>
-                    <!-- {{domDecoder(item.body.content)}} -->
-                    <!-- <div v-html= "item.body"></div> -->
+                        <split-layout v-bind:title="item.title" v-bind:layout="item.body.template" v-bind:content="item.body.content"/>
                     </el-carousel-item>
                 </el-carousel>  
             </el-dialog>
@@ -62,12 +59,6 @@ export default {
             console.log(e)
             this.innerVisible=true
             this.$store.dispatch('updateOnboardingActiveModule', e)
-        },
-        domDecoder (str) {
-            let parser = new DOMParser();
-            let htmlFrame = '<!doctype html><head><link rel=' + `"` + 'stylesheet' + `"` + 'href=' + `"` + 'https://unpkg.com/element-ui/lib/theme-chalk/index.css' + `"`+ '><script src=' + `"` + 'https://unpkg.com/element-ui/lib/index.js' + `"` + '><\/script></head><body>';
-            let dom = parser.parseFromString(htmlFrame + str, 'text/html');
-            return dom.body.textContent;
         },
     },
     computed: {
