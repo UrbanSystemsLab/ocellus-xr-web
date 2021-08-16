@@ -33,10 +33,8 @@
             append-to-body>
                 <el-carousel indicator-position="outside" :autoplay="false">
                     <el-carousel-item v-for="(item, itemKey) in onboarding.contents" :key="itemKey">
-                    {{itemKey}}
-                    
                     <!-- <div v-html= "item.title"></div> -->
-                    <split-layout v-bind:title="itemKey" />
+                    <split-layout v-bind:title="item.title" v-bind:layout="item.body.template" v-bind:content="item.body.content"/>
                     <!-- {{domDecoder(item.body.content)}} -->
                     <!-- <div v-html= "item.body"></div> -->
                     </el-carousel-item>
@@ -51,8 +49,7 @@
 import splitLayout from './splitLayout.vue'
 export default {
   components: { splitLayout },
-    setup() {
-        
+    props: {
     },
     data() {
         return {
