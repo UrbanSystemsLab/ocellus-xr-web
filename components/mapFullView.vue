@@ -1,19 +1,5 @@
 <template>
     <div id="map">
-      <div id="dropdown">
-            <el-dropdown>
-                <span class="el-dropdown-link">
-                    Map Layers<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                <div v-for="(map, mapKey) in allMaps" :key="mapKey">
-                  <a @click="logMap($event, map.sources[0].url, map.sources[0].id )">  
-                    <el-dropdown-item >{{map.name}}</el-dropdown-item>
-                  </a>
-                </div>
-              </el-dropdown-menu>
-            </el-dropdown>
-        </div>
     </div>
 </template>
 
@@ -23,11 +9,11 @@ export default {
     data(){
       return {
         access_token: process.env.MB_ACCESS_TOKEN,
-        latitude: "40.7",
-        longitude: "-73.99",
-        queryLngLat: {lng: null, lat: null},
-        prevLat: null,
-        prevLng: null
+        // latitude: "40.7",
+        // longitude: "-73.99",
+        // queryLngLat: {lng: null, lat: null},
+        // prevLat: null,
+        // prevLng: null
       }
     },
     methods: {
@@ -60,18 +46,18 @@ export default {
 
       const mapboxgl = require('mapbox-gl')
 
-      async function showLoc(location, selectedLayers, mbkey) {
-        let lat = location.lat;
-        let lng = location.lng;
-        let chosen_layer = selectedLayers || "equity.0anappre"
-        let radius = "400"
-        const mbapiurl = `https://api.mapbox.com/v4/${chosen_layer}/tilequery/${lng},${lat}.json?radius=${radius}&limit=50&dedupe&access_token=${mbkey}`;
-        const fetch_response = await fetch(mbapiurl);
-        const features = await fetch_response.json();
-        map.getSource('tilequery').setData(features)
-        $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
-      };
-      
+      // async function showLoc(location, selectedLayers, mbkey) {
+      //   let lat = location.lat;
+      //   let lng = location.lng;
+      //   let chosen_layer = selectedLayers || "equity.0anappre"
+      //   let radius = "400"
+      //   const mbapiurl = `https://api.mapbox.com/v4/${chosen_layer}/tilequery/${lng},${lat}.json?radius=${radius}&limit=50&dedupe&access_token=${mbkey}`;
+      //   const fetch_response = await fetch(mbapiurl);
+      //   const features = await fetch_response.json();
+      //   map.getSource('tilequery').setData(features)
+      //   $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
+      // };
+
       const map = new mapboxgl.Map({
       accessToken: this.access_token,
       container: 'map', // <div id="map"></div>
@@ -88,7 +74,7 @@ export default {
           return this.$store.dispatch('getSources')
         })
         .then((sources) => {
-          // return this.$store.dispatch('getActiveLocation')
+          return this.$store.dispatch('getActiveLocation')
         })
         .then((sources) => {
           return this.$store.dispatch('getAllMaps')
@@ -98,55 +84,64 @@ export default {
         })
 
       let marker;
+
+      marker = new mapboxgl.Marker();
+      map.on('click', add_marker.bind(this));
+
+      function add_marker(event) {
+        var coordinates = event.lngLat;
+        console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+        marker.setLngLat(coordinates).addTo(map);
+      }
       
-      let mb_api_key = this.access_token;
-      map.on('style.load', async function() {
-        // Sets the point that is clicked and used as the query
-        map.on('click', function(e) {
-            if (marker != undefined){
-              marker.remove();
-            }
-            var coordinates = e.lngLat;
-            var lat = coordinates.lat;
-            var lng = coordinates.lng;
+      // let mb_api_key = this.access_token;
+      // map.on('style.load', async function() {
+      //   // Sets the point that is clicked and used as the query
+      //   map.on('click', function(e) {
+      //       if (marker != undefined){
+      //         marker.remove();
+      //       }
+      //       var coordinates = e.lngLat;
+      //       var lat = coordinates.lat;
+      //       var lng = coordinates.lng;
 
-            if (window.vuplex) {
-              this.sendMessageToCSharp(lat, lng)
-            } else{
-              console.log("C# message would be sent here\n" + "lat: " + lat + "\nlng: " + lng + "\nlayer_id:" + "");
-            }
-            showLoc(coordinates, null, mb_api_key);
-            marker = new mapboxgl.Marker({
-              // options: 'middle',
-              color: '#DC352C',
-              width: '18px',
-            })
-            .setLngLat(coordinates)
-            .addTo(map);
-          })
-        });
-        map.on('load', function () {
+      //       if (window.vuplex) {
+      //         this.sendMessageToCSharp(lat, lng)
+      //       } else{
+      //         console.log("C# message would be sent here\n" + "lat: " + lat + "\nlng: " + lng + "\nlayer_id:" + "");
+      //       }
+      //       // showLoc(coordinates, null, mb_api_key);
+      //       marker = new mapboxgl.Marker({
+      //         // options: 'middle',
+      //         color: '#DC352C',
+      //         width: '8px',
+      //       })
+      //       .setLngLat(coordinates)
+      //       .addTo(map);
+      //     })
+      //   });
+      //   map.on('load', function () {
 
-          map.addSource('tilequery', {
-            type: 'geojson',
-            data: {
-              "type": "FeatureCollection",
-              "features": []
-            }
-          });
-          map.addLayer({
-            'id': 'tilequery',
-            type: 'circle',
-              source: 'tilequery',
-              paint: {
-                'circle-radius': 5,
-                'circle-color': '#4264fb',
-                'circle-stroke-width': 2,
-                'circle-stroke-color': '#ffffff'
-            }
-          });
+      //     map.addSource('tilequery', {
+      //       type: 'geojson',
+      //       data: {
+      //         "type": "FeatureCollection",
+      //         "features": []
+      //       }
+      //     });
+      //     map.addLayer({
+      //       'id': 'tilequery',
+      //       type: 'circle',
+      //         source: 'tilequery',
+      //         paint: {
+      //           'circle-radius': 5,
+      //           'circle-color': '#4264fb',
+      //           'circle-stroke-width': 2,
+      //           'circle-stroke-color': '#ffffff'
+      //       }
+      //     });
           
-        });
+      //   });
       }
     }
 </script>
