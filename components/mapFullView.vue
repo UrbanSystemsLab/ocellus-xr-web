@@ -31,28 +31,6 @@ export default {
       }
     },
     methods: {
-      // initMap(){
-      //   this.map = new mapboxgl.Map({
-      //     accessToken: this.access_token,
-      //     container: 'map', // <div id="map"></div>
-      //     style: 'mapbox://styles/equity/ck5mq466f0ni51il91p7i8few', // default style
-      //     center: [-73.99, 40.7], // starting position as [lng, lat]
-      //     attributionControl: true,
-      //     zoom: 12
-      //   })
-      //   .addControl(new mapboxgl.AttributionControl({
-      //     compact: true,
-      //     customAttribution: "Data courtesy Urban Systems Lab"
-      //   }));
-      //   map.dragPan.disable();
-      //   // Map is loaded
-      //   this.$store.dispatch('setMapLoadedState', true)
-      //   this.$bus.$emit('mapLoaded', true)
-
-      //   this.map.on('load', this.onMapLoad);
-      //   this.map.on('click', this.onMapClick);
-      // },
-
       sendMessageToCSharp(mapURL, mapID) {
 
         window.vuplex.postMessage({ type: 'mapURL', message: mapURL});
@@ -93,7 +71,6 @@ export default {
         const features = await fetch_response.json();
         map.getSource('tilequery').setData(features)
         $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
-        // $('#feature-json code').html("<pre>"+JSON.stringify(features, null, 2)+"</pre>");
       };
 
       // const mapboxgl = require('mapbox-gl')
@@ -123,7 +100,6 @@ export default {
         })
 
       let marker;
-      // let map = this.map
       
       let mb_api_key = this.access_token;
       map.on('style.load', async function() {
@@ -133,6 +109,14 @@ export default {
               marker.remove();
             }
             var coordinates = e.lngLat;
+            var lat = coordinates.lat;
+            var lng = coordinates.lng;
+
+            if (window.vuplex) {
+              this.sendMessageToCSharp(lat, lng)
+            } else{
+              console.log("C# message would be sent here\n" + "lat: " + lat + "\nlng: " + lng + "\nlayer_id:" + "");
+            }
             showLoc(coordinates, null, mb_api_key);
             marker = new mapboxgl.Marker({
               // options: 'middle',
@@ -144,6 +128,7 @@ export default {
           })
         });
         map.on('load', function () {
+
           map.addSource('tilequery', {
             type: 'geojson',
             data: {
