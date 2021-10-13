@@ -35,14 +35,6 @@ main {
   /* grid-gap: 1em; */
   /* padding-left: 32px; */
   /* padding-right: 32px; */
-    overflow-wrap: break-word;
-  word-break: normal;
-  word-wrap: normal;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  
 }
 
 @media (max-width: 800px){
@@ -56,6 +48,18 @@ main {
   .flex-container {
     flex-direction: row;
   }
+}
+
+h1,h2,h3,h4,h5,h6,p,a {
+  -ms-word-break: break-all;
+  -ms-word-wrap: break-all;
+  -webkit-word-break: break-word;
+  -webkit-word-wrap: break-word;
+  word-break: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 
 h1 {
