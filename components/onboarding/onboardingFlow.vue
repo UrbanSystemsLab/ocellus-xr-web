@@ -95,7 +95,7 @@ div #onboarding-flow {
 }
 
 div .el-dialog {
-    background-color: #5b8145;
+    background-color: rgb(40, 85, 113);
     opacity: 0.8;
     width: 90vw;
     margin: 5vw !important;
@@ -129,7 +129,7 @@ div .el-dialog {
 }
 
 #onboarding-flow .el-dialog .el-button:hover {
-    background-color: grey;
+    background-color: rgba(255, 255, 255, 0.3);
     margin: 0.3em;
     border-color: white;
 }
