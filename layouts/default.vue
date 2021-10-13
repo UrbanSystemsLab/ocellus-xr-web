@@ -24,17 +24,23 @@ html {
 body {
   margin: 0;
   line-height: 1.5em;
-/*   opacity: 0; */
   background-color: rgba(0, 0);
   max-height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.el-row {
+  white-space: nowrap;
+  text-align: left;
 }
 
 main {
   display: grid;
   grid-template-columns: 6fr 4fr;
-  /* grid-gap: 1em; */
-  /* padding-left: 32px; */
-  /* padding-right: 32px; */
 }
 
 @media (max-width: 800px){
@@ -118,8 +124,4 @@ p {
   color: #fff;
   background-color: #35495e;
 }
-
-/* .el-icon-arrow-right:before {
-    content: "\e6d9";
-} */
 </style>
