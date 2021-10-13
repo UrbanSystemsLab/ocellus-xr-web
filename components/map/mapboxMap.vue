@@ -4,8 +4,12 @@
 </template>
 
 <script>
+import queryParamsMixin from '~/components/utils/mixins/queryParamsMixin'
+
 export default {
     name: 'mapboxMap',
+    props: ['activeLocation'],
+    mixins: [queryParamsMixin],
     data(){
       return {
         areTilesLoaded: false,
@@ -13,17 +17,48 @@ export default {
       }
     },
     methods: {
-
+      removeLayerById(id){
+      let visibleLayers = this.visibleLayers;
+      let map = this.map;
+      if(visibleLayers.length > 0) {
+        try {
+          map.removeLayer(id)
+        } catch (err) {
+        }
+      }
+    },
+    removeActiveLayers() {
+      var map = this.map
+      var visibleLayers = this.visibleLayers
+      // Remove all visible layers
+      if (visibleLayers) {
+        visibleLayers.forEach(function(layer) {
+          try { map.removeLayer(layer) } catch (err) {}
+        })
+      }
+      // TODO: Use dispatch instead of commit
+      // Empty Visible Layer Array
+      this.$store.commit('emptyVisibleLayers')
+    },
+    removeActiveSources() {
+      var map = this.map
+      var visibleSources = this.visibleSources
+      // Remove all visible layers
+      if (visibleSources) {
+        visibleSources.forEach(function(source) {
+          try { map.removeSource(source.id) } catch (err) {}
+        })
+      }
+      this.$store.commit('emptyVisibleSources')
+      }
     },
     computed: {
       visibleLayers() { return this.$store.state.mapbox['visibleLayers'] },
       visibleSources() { return this.$store.state.mapbox['visibleSources'] },
-      allMaps() {return this.$store.getters.getAllMaps},
-      mapLoaded() { return this.$store.getters.getMapLoadedState },
-      locations() {return this.$store.getters.getLocations},
       activeMaps(){ return this.$store.getters.getActiveMaps },
-      activeLocation() { return this.$store.getters.getActiveLocation },
+      mapLoaded() { return this.$store.getters.getMapLoadedState },
       style() { return this.$store.getters.getStyle },
+      queryParameters() { return this.$store.getters.context.query },
     },
     mounted(){
       const mapboxgl = require('mapbox-gl')
@@ -47,84 +82,104 @@ export default {
             bearing: mapPosition.bearing
           })
 
-          this.map.on('load', (e) => {
-          this.$store.commit('emptyVisibleLayers')
-          // Add all layers
-          var map = this.map
-          var layers = map.getStyle().layers
-          // Insert new layers after symbols
-          for (var i = 0; i < layers.length; i++) {
-            if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-              labelLayerId = layers[i].id
-              console.log(labelLayerId)
-              break
+      this.map.on('load', (e) => {
+        this.$store.commit('emptyVisibleLayers')
+        // Add all layers
+        var map = this.map
+        // var layers = map.getStyle().layers
+        // Insert new layers after symbols
+        // for (var i = 0; i < layers.length; i++) {
+        //   if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+        //     labelLayerId = layers[i].id
+        //     console.log(labelLayerId)
+        //     break
+        //   }
+        // }
+
+        var mapboxCanvas = map.getCanvas()
+        mapboxCanvas.setAttribute("id", "mapbox-canvas")
+
+        // Add satellite layer
+        map.addLayer({
+          "id": "mapbox-satellite",
+          "type": "raster",
+          "source": "mapbox://mapbox.satellite",
+          "layout": {
+            "visibility": "none"
+          },
+          "paint": {
+            "raster-opacity": 1
+          }
+        }, labelLayerId)
+
+        map.addSource('mapbox-dem', {
+          'type': 'raster-dem',
+          'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+          'tileSize': 512,
+          'maxzoom': 14
+        });
+        // add the DEM source as a terrain layer with exaggerated height
+        map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+
+        // Add Controls
+        map.addControl(nav, 'bottom-right')
+        map.addControl(scale)
+
+        // Map is loaded
+        this.$store.dispatch('setMapLoadedState', true)
+        this.$bus.$emit('mapLoaded', true)
+      })
+    })
+    this.$store.dispatch('loadActiveCategories')
+    this.$store.dispatch('loadActiveMaps')
+    this.$bus.$on('setMapVisibility', ({visibility, loadMap}) => {
+      for(let layer in loadMap.layers){
+        let mapVisibility = (visibility ? 'visible' : 'none')
+        if(visibility){
+          this.map.moveLayer(loadMap.layers[layer]['id'])
+        }
+        this.map.setLayoutProperty(loadMap.layers[layer]['id'], 'visibility', mapVisibility)
+      }
+    })
+    this.$bus.$on('updateMap', ({ loadMap, loadContent }) => {
+      var map = this.map
+      this.areTilesLoaded = false
+      if(!this.multiselectState) {
+        this.removeActiveLayers()
+        this.removeActiveSources()
+      }
+
+      // Add New Layers
+      if (loadMap && loadMap.layers && !loadMap.composites) {
+        if(loadMap.sources) {
+          console.log('Add sources', loadMap.sources)
+          for (let sourceKey in loadMap.sources) {
+            if (loadMap.sources.hasOwnProperty(sourceKey)) {
+              let source = loadMap.sources[sourceKey]
+              if(!map.getSource(source.id)){
+                map.addSource(source.id, {type: source.type, url: source.url})
+                this.$store.commit('addVisibleSource', source)
+              };
             }
           }
-
-          var mapboxCanvas = map.getCanvas()
-          mapboxCanvas.setAttribute("id", "mapbox-canvas")
-
-          // Add satellite layer
-          map.addLayer({
-            "id": "mapbox-satellite",
-            "type": "raster",
-            "source": "mapbox://mapbox.satellite",
-            "layout": {
-              "visibility": "none"
-            },
-            "paint": {
-              "raster-opacity": 1
+        }
+        let newLayers = loadMap.layers
+        for (let layer in newLayers) {
+          if (newLayers.hasOwnProperty(layer)) {
+            let id = newLayers[layer].id
+            console.log("layer", layer, newLayers[layer]);
+            if(!map.getLayer(newLayers[layer])){
+              map.addLayer(newLayers[layer], labelLayerId)
+              map.setLayoutProperty(id, 'visibility', 'visible')
+              // Add to Visible Layer Array
+              this.$store.commit('addVisibleLayer', id)
             }
-          }, labelLayerId)
-
-          map.addSource('mapbox-dem', {
-            'type': 'raster-dem',
-            'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-            'tileSize': 512,
-            'maxzoom': 14
-          });
-          // add the DEM source as a terrain layer with exaggerated height
-          map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-
-          // Add Controls
-          map.addControl(nav, 'bottom-right')
-          map.addControl(scale)
-
-          // Map is loaded
-          this.$store.dispatch('setMapLoadedState', true)
-          this.$bus.$emit('mapLoaded', true)
-        })
-          
-        })
-
-
-      
-      // const map = new mapboxgl.Map({
-      // accessToken: this.access_token,
-      // container: 'map', // <div id="map"></div>
-      //     style: 'mapbox://styles/equity/ck5mqn9p005bx1ip6t0vbvjjx', // default style
-      //     center: [-73.99, 40.7], // starting position as [lng, lat]
-      //     zoom: 12
-      // })
-
-      this.$store.dispatch('setMapLoadedState', true)
-      // this.$bus.$emit('mapLoaded', true)
-
-      this.$store.dispatch('getLocations')
-        .then(() => {
-          return this.$store.dispatch('getSources')
-        })
-        .then((sources) => {
-          // return this.$store.dispatch('getActiveLocation')
-        })
-        .then((sources) => {
-          return this.$store.dispatch('getAllMaps')
-        })
-        .then((sources) => {
-          // return this.$store.dispatch('getActiveMaps')
-        })
+          }
+        }
       }
-    }
+    })
+  } 
+}
 </script>
 
 <style scoped>
