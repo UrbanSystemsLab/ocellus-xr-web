@@ -33,11 +33,6 @@ body {
   margin: 0;
 }
 
-.el-row {
-  white-space: nowrap;
-  text-align: left;
-}
-
 main {
   display: grid;
   grid-template-columns: 6fr 4fr;
@@ -88,7 +83,8 @@ p {
 }
 
 .el-row {
-  margin-bottom: 20px
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 .el-row:last-child {
