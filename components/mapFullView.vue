@@ -59,7 +59,6 @@ export default {
     mounted(){
 
       const mapboxgl = require('mapbox-gl')
-      // this.initMap()
 
       async function showLoc(location, selectedLayers, mbkey) {
         let lat = location.lat;
@@ -72,8 +71,7 @@ export default {
         map.getSource('tilequery').setData(features)
         $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
       };
-
-      // const mapboxgl = require('mapbox-gl')
+      
       const map = new mapboxgl.Map({
       accessToken: this.access_token,
       container: 'map', // <div id="map"></div>
