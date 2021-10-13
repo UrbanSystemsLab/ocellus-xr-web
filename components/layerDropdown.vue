@@ -1,27 +1,41 @@
 <template>
     <div id="dropdown">
-        <el-dropdown>
-            <span class="el-dropdown-link">
-                Map Layers<i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-            <div v-for="(map, mapKey) in allMaps" :key="mapKey">
-                <a @click="logMap($event, map.sources[0].url, map.sources[0].id )">  
-                <el-dropdown-item >{{map.name}}</el-dropdown-item>
-                </a>
-            </div>
-            </el-dropdown-menu>
-        </el-dropdown>
+        <el-select v-model="activeLayer" value-key="activeLayer" placeholder="Map Layers" ref="elSelect" @change="testMap(activeLayer)" >
+            <!-- @change="logMap($event, map.sources[0].url, map.sources[0].id )" -->
+            <el-option v-for="(map, mapKey) in allMaps" :key="mapKey" :value="map.name" :label="map.name">
+            </el-option>
+        </el-select>
     </div>
 </template>
 
 <script>
 export default {
     name: 'layerDropdown',
+    data() {
+        return {
+            activelayer: [],
+        }
+    },
     computed: {
         allMaps() {return this.$store.getters.getAllMaps},
     },
     methods: {
+        testMap: function (e) {
+            console.log(e)
+        },
+        showMap: function(e, {map, mapKey}) {
+        // e.preventDefault()
+        let updateMap = map;
+       
+        // Autoload contents
+        this.$store.dispatch('emptyActiveContent')
+            .then(() => {
+                
+            this.$bus.$emit('setMapVisibility', {loadMap: updateMap})
+            this.$bus.$emit('updateMap', {loadMap: updateMap, loadContent: true})
+            })
+
+        },
         logMap(e, mapURL, mapID) {
         if (window.vuplex) {
           this.sendMessageToCSharp(mapURL, mapID)
@@ -130,10 +144,6 @@ color: black;
 background-color: white;
 font-size: 20px;
 font-weight: bold;
-}
-
-.el-icon-arrow-down {
-font-size: 12px;
 }
 
 </style>
