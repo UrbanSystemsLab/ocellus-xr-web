@@ -1,17 +1,17 @@
 <template>
-    <div>
+    <div id="onboarding-flow">
         <span id="onboarding-button">
             <el-button @click="dialogVisible=true" type="primary" size="medium" id="onboarding" icon="el-icon-question" circle>
             </el-button>
         </span>
         <el-dialog
         :visible.sync="dialogVisible"
-        :fullscreen=true
+        :fullscreen=false
         :modal=true
         :modalAppendToBody="false">
             <el-row>
                 <h1>Climate Equity XR</h1>
-                By: <a href="https://urbansystemslab.com/" onclick="window.open('https://urbansystemslab.com', '_system'); return false;">Urban Systems Lab</a>
+                <p>By: <a href="https://urbansystemslab.com/" onclick="window.open('https://urbansystemslab.com', '_system'); return false;">Urban Systems Lab</a></p>
             </el-row>
             <el-row>
                 <p>Climate change affects communities in different ways. But how and why? The Climate Equity XR app provides interactive geospatial maps and 3D visualizations of heat, flood risk and other climate risk indicators in New York City. It experiments with augmented reality layers that allow you to project interactive maps onto a physical surface.</p>
@@ -27,7 +27,7 @@
                     <h3>{{module}}</h3>
                 </el-button>
             </el-row>
-            <el-dialog
+            <!-- <el-dialog
             :visible.sync="innerVisible"
             :fullscreen=true
             append-to-body>
@@ -36,7 +36,7 @@
                         <split-layout v-bind:title="item.title" v-bind:layout="item.body.template" v-bind:content="item.body.content"/>
                     </el-carousel-item>
                 </el-carousel>  
-            </el-dialog>
+            </el-dialog> -->
         
         </el-dialog>
     </div>
@@ -50,9 +50,12 @@ export default {
     },
     data() {
         return {
-            dialogVisible: false,
+            dialogVisible: true,
             innerVisible: false
         }
+    },
+    computed: {
+        onboarding() {return this.$store.getters.getOnboarding},
     },
     methods: {
         moduleButtonClick: function(e){
@@ -60,9 +63,6 @@ export default {
             this.innerVisible=true
             this.$store.dispatch('updateOnboardingActiveModule', e)
         },
-    },
-    computed: {
-        onboarding() {return this.$store.getters.getOnboarding},
     },
     mounted() {
         this.$store.dispatch('getOnboardingModules', true)
@@ -72,8 +72,10 @@ export default {
 </script>
 
 <style>
-div {
-    z-index: 2
+div #onboarding-flow {
+    display: flex;
+    flex-flow: column;
+    z-index: 3000;
 }
 
 #onboarding-button {
@@ -83,8 +85,14 @@ div {
     position: absolute;
 }
 
-#onboarding {
-    top: 90vh;
+div .el-dialog {
+    background-color: #285571;
+    opacity: 0.8;
+    width: 90vw;
+}
+
+.el-row h1,h2,h3,h4,h5,p {
+    color: white;
 }
 
 .el-carousel__container {
