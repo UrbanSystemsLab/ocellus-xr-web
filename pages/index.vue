@@ -1,16 +1,26 @@
 <template>
   <div>
     <main class="flex-container">
-      <responseText />
-      <mapView />
+      <!-- <mapboxMap v-if='projectLoadedState' :activeLocation='activeLocation'/> -->
+      <mapFullView />
+      <layerDropdown />
+      <receiveTest />
+      <onboardingFlow />
     </main>
-
   </div>
 </template>
 
 <script>
 import firebase from 'firebase/app'
+import splitLayout from '~/components/onboarding/splitLayout.vue'
+import mapboxMap from '~/components/map/mapboxMap.vue'
+import layerDropdown from '~/components/layerDropdown.vue'
+import queryParamsMixin from '~/components/utils/mixins/queryParamsMixin'
   export default {
+    name: 'IndexPage',
+    components: { splitLayout, mapboxMap, layerDropdown },
+    mixins: [queryParamsMixin],
+    watchQuery: ['query'],
     asyncData: function (context) {
       var query = null
       // Get query parameters
@@ -19,13 +29,20 @@ import firebase from 'firebase/app'
     },
     data() {
       return{
+        projectLoaded: false,
       }
     },
     computed: {
-      allMaps() {return this.$store.getters.getAllMaps},
+      activeContent() { return this.$store.getters.getActiveContent},
+      activeLocation() { return this.$store.getters.getActiveLocation },
       isMobileDevice() {return this.$store.getters.getMobileDevice},
-      locations() {return this.$store.getters.getLocations},
+      allMaps() {return this.$store.getters.getAllMaps},
+      locationLoadedState() { return this.activeLocation && this.activeLocation.location ? true : false },
       mapLoaded() {return this.$store.getters.getMapLoadedState},
+      projectLoadedState() { return this.projectLoaded ? true : false },
+      onboarding() {return this.$store.getters.getOnboardingContent},
+      locations() {return this.$store.getters.getLocations},
+      activeLocation(){ return this.$store.getters.getActiveLocation },
     },
     methods: {
       setupFirebaseAuth() {
@@ -39,8 +56,7 @@ import firebase from 'firebase/app'
       },
       loadProject() {
         //Initialize active map with default data
-        // this.$store.dispatch('getProjectInfo')
-        console.log("I am loading the project")
+        this.$store.dispatch('setMapLoadedState', true)
         this.$store.dispatch('getLocations')
         .then(() => {
           return this.$store.dispatch('getSources')
@@ -48,6 +64,61 @@ import firebase from 'firebase/app'
         .then((sources) => {
           return this.$store.dispatch('getAllMaps')
         })
+        .then((sources) => {
+          return this.$store.dispatch('getOnboarding')
+        })
+        .then(() => {
+          return this.$store.dispatch('loadActiveMaps')
+        })
+        .then(() => {
+        // Load Map
+        this.projectLoaded = true
+        })
+
+        this.$bus.$on('mapLoaded', (payload) => {
+        // If location is mentioned. Flyto location
+        var query = this.query
+        if (query && query.locationKey) {
+          // Location is required. Map and Map Position can be specified
+          var locationKey = JSON.parse(query.locationKey)
+          // Change active location
+          this.$store.dispatch('setActiveLocationFromUrl', {locationKey: locationKey})
+          .then(() => {
+            // Fly to location
+            var flyToPosition = null
+            if(query.mapPosition) {
+              var mapPosition =JSON.parse(query.mapPosition)
+              flyToPosition = {
+                longitude: mapPosition.longitude,
+                latitude: mapPosition.latitude,
+                zoom: mapPosition.zoom,
+                bearing: mapPosition.bearing,
+                pitch: mapPosition.pitch,
+              }
+            }
+            else
+              flyToPosition = this.$store.getters.getActiveMapPosition
+
+            this.$bus.$emit('flyTo', flyToPosition)
+
+            // Show map
+            if (query.mapKey) {
+              var mapKey = JSON.parse(query.mapKey)
+              var allMaps = this.allMaps
+              // Get map for corresponding mapKey
+              for (var key in allMaps) {
+                if (allMaps.hasOwnProperty(key) && key === mapKey ) {
+                  var map = allMaps[key]
+                  this.$bus.$emit('updateLegend', map)
+                  this.$bus.$emit('updateMap', {loadMap: map})
+                }
+              }
+            }
+          })
+        }
+        // Else add current location to URL params
+        else { this.appendQueryParam('locationKey', this.activeLocation.locationKey) }
+      })
       },
       setMobileDevice() {
         /*
@@ -88,6 +159,11 @@ main {
   display: grid;
   grid-template-columns: 6fr 4fr;
   /* grid-gap: 1em; */
+}
+
+div #recieve-test {
+  margin: 100px;
+  height: 45px;
 }
 
 @media (max-width: 800px){

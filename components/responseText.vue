@@ -1,16 +1,11 @@
 <template>
     <div>
-      <div id="header">
-        <div ref="bmBurgerButton" class="bm-burger-button">
-              <span class="bm-burger-bars line-style" :style="{top:20 * (index * 2) + '%'}" v-for="(x, index) in 3" :key="index"></span>
-        </div>
-      </div>
       <div id="response">
           <h1>Exploring Locally</h1>
           <h4>
           Click a point on the map to view features within a 5 minute walk.
           </h4>
-          <el-button v-on:click=sendMsg()>Send Unity Message</el-button>
+          <el-button @click=sendMsg()>Send Unity Message</el-button>
           <div id="unity-test">Unity Test</div>
           <div id="short-response"></div>
       </div>
@@ -47,29 +42,7 @@ export default {
 
 <style scoped>
 
-.bm-burger-button {
-      position: absolute;
-      width: 24px;
-      height: 20px;
-      left: 24px;
-      top: 24px;
-      cursor: pointer;
-    }
-
-.bm-burger-bars {
-      background-color: #373a47;
-    }
-    .line-style {
-      position: absolute;
-      height: 20%;
-      left: 0;
-      right: 0;
-    }
-
 @media (max-width: 800px){
-  #header {
-    height: 8vh;
-  }
 
   #response {
   /*   width: 20%;  */
@@ -100,9 +73,9 @@ export default {
 }
 
 @media (min-width: 801px){
-  #header {
+  /* #header {
     height: 8vh;
-  }
+  } */
 
   #response {
   /*   width: 20%;  */

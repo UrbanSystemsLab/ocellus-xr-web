@@ -13,15 +13,18 @@ if (!firebase.apps.length) {
 var db = firebase.database()
 var storage = firebase.storage()
 var storageRef = storage.ref()
+var styleStoreRef = storageRef.child('style/style.json')
 
 export const state = () => ({
+    // Map style
+    style: {},
     // All project locations
     locations: {},
     // All Map data sources
     sources: {},
     // All project maps
     allMaps : {},
-    // Active state proerties
+    // Active state properties
     active: {
         location: null,
         locationKey: null,
@@ -36,22 +39,31 @@ export const state = () => ({
     // Map state
     mapbox: {
         style: {
-        loaded: false
+          loaded: false
         },
         'visibleLayers': [],
         'visibleSources': []
+    },
+    // All onboarding content
+    onboarding: {
+      activeModule: "",
+      modules: {},
+      contents: {}
     }
 })
 
 export const getters = {
     getMobileDevice: (state) => { return state.isMobileDevice },
     getMapLoadedState: (state) => { return state.mapbox.style.loaded },
+    getStyle: (state) => { return state.style },
     getActiveLocation: (state) => { return { location: state.active.location, locationKey: state.active.locationKey } },
+    getActiveContent: (state) => { return state.active.content },
     getActiveMapPosition: (state) => { if (state.active.location) { return state.active.location.mapPosition } },
     getActiveMaps: (state) => { return state.active.maps },
     getAllMaps: (state) => { return state.allMaps },
     getLocations: (state) => { return state.locations },
     getSources: (state) => { return state.sources },
+    getOnboarding: (state) => {return state.onboarding},
 }
 
 export const actions = {
@@ -63,6 +75,33 @@ export const actions = {
     setMapLoadedState: function(store, flag) {
         store.commit('storeMapLoadedState', flag)
     },
+    getStyle: function(store) {
+      return new Promise((resolve, reject) => {
+        styleStoreRef.getDownloadURL()
+          .then((style) => {
+            console.log(style)
+            resolve(style)
+          })
+          .catch(function(error) {
+            switch (error.code) {
+              case 'storage/object-not-found':
+                // File doesn't exist
+                // Set Default Style
+                store.dispatch('setDefaultStyle')
+                break
+            }
+          })
+        })
+      },
+      setDefaultStyle: function(store) {
+        return new Promise((resolve, reject) => {
+          styleStoreRef.putString(JSON.stringify(styleTemplate))
+            .then(function(snapshot) {
+              alert('Default style set!')
+              location.reload()
+            })
+        })
+      },
     getAllMaps: function(store) {
         return new Promise((resolve, reject) => {
             var mapsRefPublic = db.ref('maps/public')
@@ -151,6 +190,43 @@ export const actions = {
     setActiveLocation: function(store, { location, locationKey }) {
         store.commit('storeActiveLocation', { location: location, locationKey: locationKey })
     },
+
+    setLocationVisibility: function(store, { locationKey, location, visibility }) {
+      return new Promise((resolve, reject) => {
+        db.ref('locations').child(location.visibility).child(locationKey).once('value')
+          .then((snap) => {
+            // Copy location to the other visibility group
+            // Warning: No unique key validation
+            return db.ref('locations').child(visibility).child(locationKey).set(snap.val())
+          })
+          .then(() => {
+            // Remove the original location
+            return db.ref('locations').child(location.visibility).child(locationKey).remove()
+          })
+          .then(() => {
+            resolve()
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
+    setMapVisibility: function(store, { mapKey, map, visibility }) {
+      return new Promise((resolve, reject) => {
+        db.ref('maps').child(map.visibility).child(mapKey).once('value')
+          .then((snap) => {
+            // Copy map to the other visibility group
+            // Warning: No unique key validation
+            return db.ref('maps').child(visibility).child(mapKey).set(snap.val())
+          })
+          .then(() => {
+            // Remove the original map
+            return db.ref('maps').child(map.visibility).child(mapKey).remove()
+          })
+          .then(() => {
+            resolve()
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
     
     getSources: function(store) {
         return new Promise((resolve, reject) => {
@@ -206,11 +282,90 @@ export const actions = {
           resolve()
         })
       },
+      getOnboardingModules: function(store) {
+        return new Promise((resolve, reject) => {
+            var onboardingContent = db.ref('contents/equityAR-onboarding/modules')
+            var allModules
+            onboardingContent.on('value', (snapshot) => {
+                    allModules = Object.assign({}, snapshot.val())
+                    store.commit('storeOnboardingModules', allModules)
+                    resolve(allModules)
+                })
+            })
+      },
+      getOnboardingContent: function(store) {
+        return new Promise((resolve, reject) => {
+            var onboardingContent = db.ref('contents/equityAR-onboarding/sliders')
+            var allSlides
+            onboardingContent.on('value', (snapshot) => {
+                allSlides = Object.assign({}, snapshot.val())
+                store.commit('storeOnboardingContent', allSlides)
+                resolve(allSlides)
+                })
+            })
+      },
+      updateOnboardingActiveModule: function(store,payload) {
+        store.commit('storeOnboardingModule', payload)
+      },
+      addVisibleLayer: (state, layerName) => {
+        state.mapbox['visibleLayers'].push(layerName)
+      },
+      removeVisibleLayer: (state, layerName) => {
+        let index = state.mapbox['visibleLayers'].indexOf(layerName)
+        if(index !== -1){
+          state.mapbox['visibleLayers'].splice(index, 1);
+        }
+      },
+      addVisibleSource: (state, source) => {
+        state.mapbox['visibleSources'].push(source)
+      },
+      removeVisibleSource: (state, sourceName) => {
+        let index = state.mapbox['visibleSources'].indexOf(sourceName)
+        if(index !== -1){
+          state.mapbox['visibleSources'].splice(index, 1);
+        }
+      },
+      emptyActiveContent: function(store) {
+        return new Promise((resolve, reject) => {
+          store.commit('emptyActiveContent')
+          resolve()
+        })
+      },
+      setActiveContent: function(store, { contentKey }) {
+        return new Promise((resolve, reject) => {
+          // Get content
+          var content = null
+          var contents = store.getters.getAllContents
+          for (const key in contents) {
+            if (key === contentKey) {
+              content = contents[contentKey]
+              store.commit('storeActiveContent', content)
+              resolve(content)
+            }
+          }
+          if (!content)
+            reject('Content not found. Check permissions.')
+        })
+      },
+      updateMap: function(store, { mapKey, map }) {
+        return new Promise((resolve, reject) => {
+          var visibility = map.visibility
+          var payload = Object.assign({}, map)
+          delete payload.visibility
+          db.ref('maps/' + visibility + '/' + mapKey).set(payload)
+            .then((value) => {
+              resolve(value)
+            })
+        })
+      },
 }
 
 export const mutations = {
     storeMobileDevice: (state, payload) => {
         state.isMobileDevice = payload
+    },
+    storeStyle: (state, payload) => {
+      state.style = Object.assign({}, payload)
     },
     // Indicates if map is loaded
     storeMapLoadedState: (state, payload) => {
@@ -230,9 +385,27 @@ export const mutations = {
         state.active.locationKey = locationKey
     },
     storeActiveMaps: (state, payload) => {
-        state.active.maps = Object.assign({}, payload)
+        state.active.currentMap = payload
     },
     storeAllMaps: (state, payload) => {
         state.allMaps = Object.assign({}, payload)
+    },
+    storeOnboardingModules: (state, payload) => {
+      state.onboarding.modules = Object.assign({}, payload)
+    },
+    storeOnboardingContent: (state, payload) => {
+      state.onboarding.contents = Object.assign({}, payload)
+    },
+    storeOnboardingModule: (state, payload) => {
+      state.onboarding.activeModule = payload
+    },
+    emptyActiveContent: state => {
+      state.active.content = {}
+    },
+    emptyVisibleLayers: state => {
+      state.mapbox.visibleLayers = []
+    },
+    emptyVisibleSources: state => {
+      state.mapbox.visibleSources = []
     },
 }
