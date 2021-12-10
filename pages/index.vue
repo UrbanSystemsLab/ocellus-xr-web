@@ -1,10 +1,11 @@
 <template>
   <div>
     <main class="flex-container">
-      <mapboxMap v-if='projectLoadedState' :activeLocation='activeLocation'/>
-      <!-- <mapFullView /> -->
+      <!-- <mapboxMap v-if='projectLoadedState' :activeLocation='activeLocation'/> -->
+      <mapFullView />
       <layerDropdown />
-      <!-- <onboardingFlow /> -->
+      <receiveTest />
+      <onboardingFlow />
     </main>
   </div>
 </template>
@@ -158,6 +159,11 @@ main {
   display: grid;
   grid-template-columns: 6fr 4fr;
   /* grid-gap: 1em; */
+}
+
+div #recieve-test {
+  margin: 100px;
+  height: 45px;
 }
 
 @media (max-width: 800px){

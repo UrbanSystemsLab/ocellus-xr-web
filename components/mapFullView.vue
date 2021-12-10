@@ -17,20 +17,21 @@ export default {
       }
     },
     methods: {
-      sendMessageToCSharp(mapURL, mapID) {
 
-        window.vuplex.postMessage({ type: 'mapURL', message: mapURL});
-        window.vuplex.postMessage({ type: 'mapID', message: mapID});
+      sendMessageToCSharp(clickLng, clickLat) {
 
-        console.log("The map URL " + `${ mapURL }` + " and map ID " + `${ mapID }` + " were passed to C#")
+        window.vuplex.postMessage({ type: "lng", message: clickLng});
+        window.vuplex.postMessage({ type: 'lat', message: clickLat});
+
+        console.log("The map URL " + `${ clickLng }` + " and map ID " + `${ clickLat }` + " were passed to C#")
         
       },
 
-      logMap(e, mapURL, mapID) {
+      logMap(clickLng, clickLat) {
         if (window.vuplex) {
-          this.sendMessageToCSharp(mapURL, mapID)
+          this.sendMessageToCSharp(clickLng, clickLat)
         } else{
-          console.log("C# message of map URL " + `${ mapURL }` + " and map ID " + `${ mapID }`+ " would be sent here")
+          console.log("C# message of lng: " + `${ clickLng }` + " and lat: " + `${ clickLat }`+ " would be sent here")
         }
       }
 
@@ -45,18 +46,6 @@ export default {
     mounted(){
 
       const mapboxgl = require('mapbox-gl')
-
-      // async function showLoc(location, selectedLayers, mbkey) {
-      //   let lat = location.lat;
-      //   let lng = location.lng;
-      //   let chosen_layer = selectedLayers || "equity.0anappre"
-      //   let radius = "400"
-      //   const mbapiurl = `https://api.mapbox.com/v4/${chosen_layer}/tilequery/${lng},${lat}.json?radius=${radius}&limit=50&dedupe&access_token=${mbkey}`;
-      //   const fetch_response = await fetch(mbapiurl);
-      //   const features = await fetch_response.json();
-      //   map.getSource('tilequery').setData(features)
-      //   $('#short-response').html("<p>There are " + "<strong>"+ features.features.length +"</strong>" + " features within a 400 ft radius of the point you clicked."+ "</p><br>")
-      // };
 
       const map = new mapboxgl.Map({
       accessToken: this.access_token,
@@ -74,7 +63,7 @@ export default {
           return this.$store.dispatch('getSources')
         })
         .then((sources) => {
-          return this.$store.dispatch('getActiveLocation')
+          // return this.$store.dispatch('getActiveLocation')
         })
         .then((sources) => {
           return this.$store.dispatch('getAllMaps')
@@ -82,7 +71,58 @@ export default {
         .then((sources) => {
           // return this.$store.dispatch('getActiveMaps')
         })
+        
+      // load ALL active maps into mapbox and set as invisible
+      for(let mapKey in this.activeMaps){
+          let activeMap = this.activeMaps[mapKey]
+          if(activeMap.layers){
+            for (let sourceKey in activeMap.sources) {
+              if (activeMap.sources.hasOwnProperty(sourceKey)) {
+                let source = activeMap.sources[sourceKey]
+                if(!map.getSource(source.id)){
+                  map.addSource(source.id, {type: source.type, url: source.url})
+                  this.$store.commit('addVisibleSource', source)
+                };
+              }
+            }
+          let newLayers = activeMap.layers
+            for (let layer in newLayers) {
+              if (newLayers.hasOwnProperty(layer)) {
+                let id = newLayers[layer].id
+                console.log("layer", layer, newLayers[layer]);
+                if(!map.getLayer(newLayers[layer].id)){
+                  map.addLayer(newLayers[layer], labelLayerId)
+                  map.setLayoutProperty(id, 'visibility', 'none')
+                  // Add to Visible Layer Array
+                  this.$store.commit('addVisibleLayer', id)
+                }
+              }
+            }
 
+          }
+      };
+
+
+      map.on('load', () => {
+        map.addSource('urban-areas', {
+        'type': 'geojson',
+        'data': 'https://docs.mapbox.com/mapbox-gl-js/assets/ne_50m_urban_areas.geojson'
+        });
+        map.addLayer(
+          {
+          'id': 'urban-areas-fill',
+          'type': 'fill',
+          'source': 'urban-areas',
+          'layout': {},
+          'paint': {
+          'fill-color': '#f08103',
+          'fill-opacity': 0.4
+          }
+        },
+        );
+      })
+
+      // CODE ADDS MARKER ON CLICK
       let marker;
 
       marker = new mapboxgl.Marker();
@@ -90,58 +130,10 @@ export default {
 
       function add_marker(event) {
         var coordinates = event.lngLat;
-        console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+        this.logMap(coordinates.lng, coordinates.lat);
         marker.setLngLat(coordinates).addTo(map);
       }
-      
-      // let mb_api_key = this.access_token;
-      // map.on('style.load', async function() {
-      //   // Sets the point that is clicked and used as the query
-      //   map.on('click', function(e) {
-      //       if (marker != undefined){
-      //         marker.remove();
-      //       }
-      //       var coordinates = e.lngLat;
-      //       var lat = coordinates.lat;
-      //       var lng = coordinates.lng;
-
-      //       if (window.vuplex) {
-      //         this.sendMessageToCSharp(lat, lng)
-      //       } else{
-      //         console.log("C# message would be sent here\n" + "lat: " + lat + "\nlng: " + lng + "\nlayer_id:" + "");
-      //       }
-      //       // showLoc(coordinates, null, mb_api_key);
-      //       marker = new mapboxgl.Marker({
-      //         // options: 'middle',
-      //         color: '#DC352C',
-      //         width: '8px',
-      //       })
-      //       .setLngLat(coordinates)
-      //       .addTo(map);
-      //     })
-      //   });
-      //   map.on('load', function () {
-
-      //     map.addSource('tilequery', {
-      //       type: 'geojson',
-      //       data: {
-      //         "type": "FeatureCollection",
-      //         "features": []
-      //       }
-      //     });
-      //     map.addLayer({
-      //       'id': 'tilequery',
-      //       type: 'circle',
-      //         source: 'tilequery',
-      //         paint: {
-      //           'circle-radius': 5,
-      //           'circle-color': '#4264fb',
-      //           'circle-stroke-width': 2,
-      //           'circle-stroke-color': '#ffffff'
-      //       }
-      //     });
-          
-      //   });
+    
       }
     }
 </script>

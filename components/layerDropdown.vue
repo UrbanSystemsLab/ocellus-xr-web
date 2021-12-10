@@ -1,8 +1,11 @@
 <template>
     <div id="dropdown">
-        <el-select v-model="activeLayer" value-key="activeLayer" placeholder="Map Layers" ref="elSelect" @change="testMap(activeLayer)" >
+        <el-select v-model="activeLayer" placeholder="Map Layers" ref="elSelect" @change="testMap($event)">
+            <!-- v-model="activeLayer" value-key="activeLayer" -->
+            <!-- @change="testMap(elSelect)" -->
             <!-- @change="logMap($event, map.sources[0].url, map.sources[0].id )" -->
-            <el-option v-for="(map, mapKey) in allMaps" :key="mapKey" :value="map.name" :label="map.name">
+            <!-- need to add in el-option-group to be able to incorporate the SETS framework -->
+            <el-option v-for="(map, mapKey) in allMaps" :key="mapKey" :value="map.name" :label="map.name" @click="logMap($event, map.sources[0].url, map.sources[0].id )">
             </el-option>
         </el-select>
     </div>
@@ -13,7 +16,7 @@ export default {
     name: 'layerDropdown',
     data() {
         return {
-            activelayer: [],
+            activeLayer: '',
         }
     },
     computed: {
@@ -21,7 +24,9 @@ export default {
     },
     methods: {
         testMap: function (e) {
-            console.log(e)
+            // console.log(e)
+            this.logMap(e);
+            this.$store.commit('storeActiveMaps', e)
         },
         showMap: function(e, {map, mapKey}) {
         // e.preventDefault()
@@ -36,13 +41,21 @@ export default {
             })
 
         },
-        logMap(e, mapURL, mapID) {
+        sendMessageToCSharp(layerName) {
+
+        window.vuplex.postMessage({ type: "mapLayer", message: layerName});
+
+        console.log("The map URL " + `${ clickLng }` + " and map ID " + `${ clickLat }` + " were passed to C#")
+        
+      },
+
+      logMap(layerName) {
         if (window.vuplex) {
-          this.sendMessageToCSharp(mapURL, mapID)
+          this.sendMessageToCSharp(layerName)
         } else{
-          console.log("C# message of map URL " + `${ mapURL }` + " and map ID " + `${ mapID }`+ " would be sent here")
+          console.log("C# message of map layer: " + `${layerName}` + " would be sent here")
         }
-      }
+      },
     },
     mounted(){
         this.$store.dispatch('getAllMaps');

@@ -24,7 +24,7 @@ export const state = () => ({
     sources: {},
     // All project maps
     allMaps : {},
-    // Active state proerties
+    // Active state properties
     active: {
         location: null,
         locationKey: null,
@@ -385,7 +385,7 @@ export const mutations = {
         state.active.locationKey = locationKey
     },
     storeActiveMaps: (state, payload) => {
-        state.active.maps = Object.assign({}, payload)
+        state.active.currentMap = payload
     },
     storeAllMaps: (state, payload) => {
         state.allMaps = Object.assign({}, payload)
