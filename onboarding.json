@@ -1,0 +1,125 @@
+{
+  "activeModule": "",
+  "modules": {
+    "0": {
+      "name": "Heat",
+      "slides": [
+        {
+          "content": [
+            {
+              "text": "Heat risk is a measure of low likely your health will be impacted by high temperatures or prolonged heat exposure. There are many factors associated with heat risk, including urban and green infrastructure, social vulnerability, and building density. To learn more, explore the concepts below.",
+              "type": "p"
+            },
+            {
+              "text": "This is a test <p> tag.",
+              "type": "p"
+            },
+            {
+              "content": [
+                {
+                  "title": "Urban Heat Island Effect",
+                  "text": "Buildings and paved surfaces trap and store heat, making cities hotter than the surrounding countryside, and interact with global and regional climate change to create even hotter neighborhoods",
+                  "type": "collapse"
+                },
+                {
+                  "title": "Heat Wave",
+                  "text": "A heat wave is any time you experience 3 consecutive days over 90°F (32°C) degrees, which are occurring more frequently and kill more people in NYC than any other climate hazard.",
+                  "type": "collapse"
+                },
+                {
+                  "title": "Climate Scenario",
+                  "text": "Climate scenarios are developed by scientists to better understand how the world might change in the future, and are an omportant input for modeling future climate.",
+                  "type": "collapse"
+                },
+                {
+                  "title": "Social Equity",
+                  "text": "Climate scenarios are developed by scientists to better understand how the world might change in the future, and are an omportant input for modeling future climate.",
+                  "type": "collapse"
+                },
+                {
+                  "title": "Climate Justice",
+                  "text": "Climate scenarios are developed by scientists to better understand how the world might change in the future, and are an omportant input for modeling future climate.",
+                  "type": "collapse"
+                },
+                {
+                  "title": "Nature Based Solutions",
+                  "text": "Climate scenarios are developed by scientists to better understand how the world might change in the future, and are an omportant input for modeling future climate.",
+                  "type": "collapse"
+                }
+              ],
+              "type": "collapse"
+            }
+          ],
+          "title": "What is heat risk?"
+        },
+        {
+          "content": [
+            {
+              "text": "Some areas in the city are much hotter in the summer due to how a neighborhood is designed, from heat trapping pavement to a lack of trees, parks or open space.",
+              "type": "p"
+            },
+            {
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "type": "img"
+            }
+          ],
+          "title": "How am I affected by heat risk?"
+        },
+        {
+          "content": [
+            {
+              "text": "No, low income and BIPOC communities often experience greater climate impacts because people who are more socially vulnerable are more affected by heat.",
+              "type": "p"
+            },
+            {
+              "images": [
+                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23"
+              ],
+              "type": "carousel"
+            }
+          ],
+          "title": "Are heat impacts the same for all??"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "No, low income and BIPOC communities often experience greater climate impacts because people who are more socially vulnerable are more affected by heat."
+                },
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "Those with less access to high quality green spaces that provide cooling have more heat exposure."
+                },
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "Residents with lower incomes have less resources to pay for air conditioning, health care, or otherwise adapt to high heat."
+                },
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "The elderly and those with prior medical conditions are often more at risk of heat related mortality and morbidity."
+                }
+              ],
+              "type": "text-carousel"
+            }
+          ],
+          "title": "Are heat impacts the same for all??"
+        },
+        3,
+        4,
+        5
+      ]
+    },
+    "1": {
+      "Name": "Flood"
+    },
+    "name": "Flood",
+    "name1": "Heat"
+  },
+  "contents": {}
+}

@@ -6,56 +6,58 @@
         </span>
         <el-dialog
         :visible.sync="dialogVisible"
-        :fullscreen=false
+        :fullscreen=true
+        :show-close=false
         :modal=true
         :modalAppendToBody="false">
-            <el-row>
-                <h1>Climate Equity XR</h1>
-                <p>Created by the <a href="https://urbansystemslab.com/" onclick="window.open('https://urbansystemslab.com', '_system'); return false;">Urban Systems Lab</a></p>
-            </el-row>
-            <el-row>
-                <p>Climate change affects communities in different ways. But how and why? This app provides interactive geospatial maps and 3D visualizations of heat, flood risk, and other climate risk indicators in New York City. It experiments with augmented reality layers that allow your to project interactive maps onot a physical surface.</p>
-            </el-row>
-            <el-row>
-                <h3>Am I affected by climate change?</h3>
-            </el-row>
-            <el-row>
-                <p>Yes! In New York City, we are exposed to multiple climate and weather-related hazards, from heat waves to hurricanes and floods. But some communities are more affected than others. Select below to learn more about how these climate risks affect you.</p>
-            </el-row>
-            <el-row v-for="module in onboarding.modules" style="display: flex; justify-content: center;" v-bind:key="module.name">
-                <el-button type="primary" @click="moduleButtonClick(module)">
-                    <h3>{{module}}</h3>
-                </el-button>
-            </el-row>
-            <!-- <el-dialog
-            :visible.sync="innerVisible"
-            :fullscreen=false
-            append-to-body>
-                <el-carousel indicator-position="outside" :autoplay="false">
-                    <el-carousel-item v-for="(item, itemKey) in onboarding.contents" :key="itemKey">
-                        <split-layout v-bind:title="item.title" v-bind:layout="item.body.template" v-bind:content="item.body.content"/>
-                    </el-carousel-item>
-                </el-carousel>  
-            </el-dialog> -->
-        
+            <i class="el-icon-menu menu-icon"></i>
+            <div v-if="Object.keys(onboarding.modules).length !== 0">
+                {{ this.window.vuplex ? 'exists' : 'does not exist' }}
+                <h1 v-if="onboarding.modules[0].slides[active].title">
+                    {{ onboarding.modules[0].slides[active].title }}
+                </h1>
+                <onboarding-contents
+                v-for="content in slides[active].content"
+                :key="content[0]"
+                v-bind:data-content="content"></onboarding-contents>
+                <!-- {{ renderContent('a') }} -->
+                <!-- <p>
+                    {{ slides[active] }}
+                </p> -->
+            </div>
+            <button v-on:click="prev">Prev</button>
+            <button v-on:click="next">Next</button>
+            <button v-on:click="next">Lat/Long</button>
+            <!-- {{ JSON.stringify(slides) }} -->
         </el-dialog>
     </div>
 </template>
 
 <script scoped>
 import splitLayout from './splitLayout.vue'
+import onboardingContents from './onboardingContents.vue'
+
 export default {
-  components: { splitLayout },
+  components: { splitLayout, onboardingContents },
     props: {
     },
     data() {
         return {
             dialogVisible: true,
-            innerVisible: false
+            innerVisible: false,
+            active: 0,
+            window: {}
         }
     },
     computed: {
-        onboarding() {return this.$store.getters.getOnboarding},
+        onboarding() {
+            console.log('computed called/', this.$store.getters.getOnboarding)
+            return this.$store.getters.getOnboarding
+        },
+        slides() {
+            console.log('hello')
+            return this.$store.getters.getOnboarding?.modules[0]?.slides
+        }
     },
     methods: {
         moduleButtonClick: function(e){
@@ -63,10 +65,26 @@ export default {
             this.innerVisible=true
             this.$store.dispatch('updateOnboardingActiveModule', e)
         },
+        next() {
+            console.log('next', JSON.stringify(this.onboarding))
+            this.active++
+            window?.vuplex?.postMessage({ type: "lat", message: Math.random() * 50 });
+        },
+        prev() {
+            console.log('prev')
+            this.active--
+        },
+
+        
     },
     mounted() {
         this.$store.dispatch('getOnboardingModules', true)
         this.$store.dispatch('getOnboardingContent', true)
+
+        if (process.browser) {
+            console.log('The window object:', window)
+            this.window = window
+        }
     }
 }
 </script>
@@ -94,17 +112,26 @@ div #onboarding-flow {
     position: absolute;
 }
 
+.el-dialog a {
+    color: black;
+}
+
 div .el-dialog {
-    background-color: rgb(40, 85, 113);
-    opacity: 0.8;
-    width: 90vw;
-    margin: 5vw !important;
-    height: 95vh;
+    background-color: white;
+    color: black;
+    /* opacity: 0.8; */
+    /* width: 90vw; */
+    /* margin: 5vw !important; */
+    /* height: 95vh; */
     overflow-y: hidden;
 }
 
+.el-dialog__body {
+    color: black;
+}
+
 .el-row h1,h2,h3,h4,h5,p,a {
-    color: white;
+    /* color: white; */
 }
 
 .el-carousel__container {
@@ -121,11 +148,19 @@ div .el-dialog {
     /* background-color: #99a9bf; */
 }
 
+.menu-icon {
+    position: absolute;
+    top: 20px;
+    font-size: 30px;
+    /* cursor doesn't matter on mobile */
+    cursor: pointer;
+}
+
 #onboarding-flow .el-dialog .el-button {
     background-color: transparent;
-    color: white;
+    color: black;
     margin: 0.3em;
-    border-color: white;
+    border-color: black;
 }
 
 #onboarding-flow .el-dialog .el-button:hover {
