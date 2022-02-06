@@ -68,7 +68,7 @@ export default {
         next() {
             console.log('next', JSON.stringify(this.onboarding))
             this.active++
-            const layer = { layer: ['flood', 'age', 'heat', 'trees', 'income', 'open space', 'green top'][Math.floor(Math.random() * 7)] }
+            const layer = { layer: ['flood', 'heat'][Math.floor(Math.random() * 2)] }
             console.log(layer)
             window?.vuplex?.postMessage({ type: "layer", data: layer });
         },
