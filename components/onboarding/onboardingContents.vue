@@ -7,7 +7,7 @@
 
         <!-- img tag, displays an img -->
         <el-image v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
-
+ 
         <!-- collapse tag, displays a collapsable panel -->
         <el-collapse
         v-if="dataContent.type === 'collapse'"
@@ -34,11 +34,13 @@
 
         <!-- text-carousel tag, displays an image carousel under text -->
         <div v-if="dataContent.type === 'text-carousel'">
+            <p>{{ carouselText === '' ? dataContent.content[0].text : carouselText }}</p>
+
             <el-carousel
             :interval="2000"
             arrow="always"
             height="400px">
-                <el-carousel-item v-for="(image, index) in dataContent.images" :key="index">
+                <el-carousel-item v-for="(image, index) in dataContent.content" :key="index">
                     <el-image :src="image"></el-image>
                 </el-carousel-item>
             </el-carousel>
