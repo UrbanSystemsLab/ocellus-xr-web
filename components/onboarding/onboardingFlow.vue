@@ -11,6 +11,7 @@
         :modal=true
         :modalAppendToBody="false">
             <i class="el-icon-menu menu-icon"></i>
+            <div>{{ stuff }}</div>
             <div v-if="Object.keys(onboarding.modules).length !== 0">
                 {{ this.window.vuplex ? 'exists' : 'does not exist' }}
                 <h1 v-if="onboarding.modules[0].slides[active].title">
@@ -46,7 +47,8 @@ export default {
             dialogVisible: true,
             innerVisible: false,
             active: 0,
-            window: {}
+            window: {},
+            stuff: 'no message yet'
         }
     },
     computed: {
@@ -66,7 +68,6 @@ export default {
             this.$store.dispatch('updateOnboardingActiveModule', e)
         },
         next() {
-            console.log('next', JSON.stringify(this.onboarding))
             this.active++
             const layer = { layer: ['flood', 'heat'][Math.floor(Math.random() * 2)] }
             console.log(layer)
@@ -99,6 +100,7 @@ export default {
                     let json = event.data;
                     // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
                     console.log('JSON received: ' + json);
+                    this.stuff = JSON.stringify(json)
                 });
             }
         }
