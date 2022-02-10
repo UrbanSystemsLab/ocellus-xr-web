@@ -88,16 +88,19 @@ export default {
             console.log('The window object:', window)
             this.window = window
 
-            if (window.vuplex) {
+            if (this.window.vuplex) {
+                this.stuff = 'vuplex is here'
                 addMessageListener();
             } else {
-                window.addEventListener('vuplexready', addMessageListener);
+                console.log('adding listener')
+                this.window.addEventListener('vuplexready', addMessageListener);
+                this.stuff = 'vuplex isnt here yet'
             }
 
             function addMessageListener() {
                 console.log('HELLOOOOO')
                 this.stuff = 'vuplex is ready, no message received yet'
-                window.vuplex.addEventListener('message', function(event) {
+                this.window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
                     // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
                     console.log('JSON received: ' + json);
