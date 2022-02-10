@@ -96,6 +96,7 @@ export default {
 
             function addMessageListener() {
                 console.log('HELLOOOOO')
+                this.stuff = 'vuplex is ready, no message received yet'
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
                     // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
