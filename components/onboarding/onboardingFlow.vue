@@ -86,6 +86,21 @@ export default {
         if (process.browser) {
             console.log('The window object:', window)
             this.window = window
+
+            if (window.vuplex) {
+                addMessageListener();
+            } else {
+                window.addEventListener('vuplexready', addMessageListener);
+            }
+
+            function addMessageListener() {
+                console.log('HELLOOOOO')
+                window.vuplex.addEventListener('message', function(event) {
+                    let json = event.data;
+                    // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
+                    console.log('JSON received: ' + json);
+                });
+            }
         }
     }
 }
