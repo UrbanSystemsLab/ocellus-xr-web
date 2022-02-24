@@ -1,7 +1,23 @@
 <template>
+
     <div id="onboarding-flow">
+        <!-- <el-button  type="primary" style="margin-left: 16px;">
+            open
+        </el-button> -->
+
+        <el-drawer
+            :visible.sync="drawer"
+            direction="ttb"
+            size="100%">
+            <ul class="menu-list">
+                <li @click="goToLayer('flood')">Flood</li>
+                <li @click="goToLayer('heat')">Heat</li>
+                <li @click="goToOnboarding">Back to onboarding</li>
+            </ul>
+        </el-drawer>
+
         <span id="onboarding-button">
-            <el-button @click="dialogVisible=true" type="primary" size="medium" id="onboarding" icon="el-icon-question" circle>
+            <el-button @click="drawer = true" type="primary" size="medium" id="onboarding" icon="el-icon-question" circle>
             </el-button>
         </span>
         <el-dialog
@@ -10,7 +26,7 @@
         :show-close=false
         :modal=true
         :modalAppendToBody="false">
-            <i class="el-icon-menu menu-icon"></i>
+            <i @click="drawer = true"  class="el-icon-menu menu-icon"></i>
             <div>{{ stuff }}</div>
             <div v-if="Object.keys(onboarding.modules).length !== 0">
                 {{ this.window.vuplex ? 'exists' : 'does not exist' }}
@@ -47,6 +63,7 @@ export default {
             dialogVisible: true,
             innerVisible: false,
             active: 0,
+            drawer: false,
             window: {},
             stuff: 'no message yet'
         }
@@ -69,15 +86,28 @@ export default {
         },
         next() {
             this.active++
-            const layer = { layer: ['flood', 'heat'][Math.floor(Math.random() * 2)] }
-            console.log(layer)
+            // const layer = { layer: ['flood', 'heat'][Math.floor(Math.random() * 2)] }
+            // console.log(layer)
+            // window?.vuplex?.postMessage({ type: "layer", data: layer });
+        },
+        goToLayer(layer) {
             window?.vuplex?.postMessage({ type: "layer", data: layer });
+        },
+        goToOnboarding() {
+            this.active = 0
+            this.drawer = false
         },
         prev() {
             console.log('prev')
             this.active--
         },
-
+        handleClose(done) {
+            this.$confirm('Are you sure you want to close this?')
+            .then(_ => {
+                done();
+            })
+            .catch(_ => {});
+        }
         
     },
     mounted() {
@@ -91,6 +121,7 @@ export default {
             if (this.window.vuplex) {
                 this.stuff = 'vuplex is here'
                 addMessageListener();
+                this.stuff = 'addMessageListener has been called'
             } else {
                 console.log('adding listener')
                 this.window.addEventListener('vuplexready', addMessageListener);
@@ -190,6 +221,20 @@ div .el-dialog {
     background-color: rgba(255, 255, 255, 0.3);
     margin: 0.3em;
     border-color: white;
+}
+
+ul.menu-list {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+ul.menu-list li {
+    font-size: 24px;
+    padding: 4px 0px 4px 40px;
+}
+
+ul.menu-list li:hover {
+    background: lightgrey;
 }
 
 </style>
