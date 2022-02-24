@@ -158,6 +158,7 @@ body {
 main {
   display: grid;
   grid-template-columns: 6fr 4fr;
+  height: 100vh;
   /* grid-gap: 1em; */
 }
 

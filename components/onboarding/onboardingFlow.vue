@@ -27,9 +27,9 @@
         :modal=true
         :modalAppendToBody="false">
             <i @click="drawer = true"  class="el-icon-menu menu-icon"></i>
-            <div>{{ stuff }}</div>
+            <!-- <div>{{ stuff }}</div> -->
             <div v-if="Object.keys(onboarding.modules).length !== 0">
-                {{ this.window.vuplex ? 'exists' : 'does not exist' }}
+                <!-- {{ this.window.vuplex ? 'exists' : 'does not exist' }} -->
                 <h1 v-if="onboarding.modules[0].slides[active].title">
                     {{ onboarding.modules[0].slides[active].title }}
                 </h1>
@@ -44,7 +44,7 @@
             </div>
             <button v-on:click="prev">Prev</button>
             <button v-on:click="next">Next</button>
-            <button v-on:click="next">Lat/Long</button>
+            <!-- <button v-on:click="next">Lat/Long</button> -->
             <!-- {{ JSON.stringify(slides) }} -->
         </el-dialog>
     </div>
