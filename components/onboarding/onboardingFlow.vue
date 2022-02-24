@@ -91,7 +91,7 @@ export default {
             // window?.vuplex?.postMessage({ type: "layer", data: layer });
         },
         goToLayer(layer) {
-            window?.vuplex?.postMessage({ type: "layer", data: layer });
+            window?.vuplex?.postMessage({ type: "layer", data: { layer: layer }});
         },
         goToOnboarding() {
             this.active = 0
