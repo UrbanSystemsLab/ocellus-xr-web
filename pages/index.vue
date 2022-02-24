@@ -159,6 +159,7 @@ main {
   display: grid;
   grid-template-columns: 6fr 4fr;
   height: 100vh;
+  overflow-y: hidden;
   /* grid-gap: 1em; */
 }
 
