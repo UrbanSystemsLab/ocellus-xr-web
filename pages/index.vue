@@ -3,8 +3,8 @@
     <main class="flex-container">
       <!-- <mapboxMap v-if='projectLoadedState' :activeLocation='activeLocation'/> -->
       <!-- <mapFullView /> -->
-      <layerDropdown />
-      <receiveTest />
+      <!-- <layerDropdown /> -->
+      <!-- <receiveTest /> -->
       <onboardingFlow />
     </main>
   </div>
