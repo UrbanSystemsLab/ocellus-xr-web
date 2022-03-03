@@ -10,25 +10,33 @@
             direction="ttb"
             size="100%">
             <ul class="menu-list">
+                <li @click="goToOnboarding">About</li>
+                <div class="spacer"></div>
                 <li @click="goToLayer('flood')">Flood</li>
                 <li @click="goToLayer('heat')">Heat</li>
-                <li @click="goToOnboarding">Back to onboarding</li>
+                <li @click="goToLayer('65+')">65+</li>
+                <li @click="goToLayer('income')">Income</li>
+                <li @click="goToLayer('open-space')">Open Space</li>
+                <li @click="goToLayer('green-roofs')">Green Roofs</li>
+                
+                <!-- This brings to "World Scale View" -->
+                <li @click="goToLayer('explore')">Explore</li>
             </ul>
         </el-drawer>
 
-        <span id="onboarding-button">
+        <!-- <span id="onboarding-button">
             <el-button @click="drawer = true" type="primary" size="medium" id="onboarding" icon="el-icon-question" circle>
             </el-button>
-        </span>
-        <el-dialog
+        </span> -->
+        <!-- <el-dialog
         :visible.sync="dialogVisible"
         :fullscreen=true
         :show-close=false
         :modal=true
-        :modalAppendToBody="false">
+        :modalAppendToBody="false"> -->
             <i @click="drawer = true"  class="el-icon-menu menu-icon"></i>
             <!-- <div>{{ stuff }}</div> -->
-            <div v-if="Object.keys(onboarding.modules).length !== 0">
+            <div id="slides" v-if="Object.keys(onboarding.modules).length !== 0">
                 <!-- {{ this.window.vuplex ? 'exists' : 'does not exist' }} -->
                 <h1 v-if="onboarding.modules[0].slides[active].title">
                     {{ onboarding.modules[0].slides[active].title }}
@@ -41,12 +49,12 @@
                 <!-- <p>
                     {{ slides[active] }}
                 </p> -->
+                            <button v-on:click="prev">Prev</button>
+                            <button v-on:click="next">Next</button>
             </div>
-            <button v-on:click="prev">Prev</button>
-            <button v-on:click="next">Next</button>
             <!-- <button v-on:click="next">Lat/Long</button> -->
             <!-- {{ JSON.stringify(slides) }} -->
-        </el-dialog>
+        <!-- </el-dialog> -->
     </div>
 </template>
 
@@ -166,11 +174,11 @@ div #onboarding-flow {
     position: absolute;
 }
 
-.el-dialog a {
+a {
     color: black;
 }
 
-div .el-dialog {
+div {
     background-color: white;
     color: black;
     /* opacity: 0.8; */
@@ -210,17 +218,22 @@ div .el-dialog {
     cursor: pointer;
 }
 
-#onboarding-flow .el-dialog .el-button {
+#onboarding-flow .el-button {
     background-color: transparent;
     color: black;
     margin: 0.3em;
     border-color: black;
 }
 
-#onboarding-flow .el-dialog .el-button:hover {
+#onboarding-flow .el-button:hover {
     background-color: rgba(255, 255, 255, 0.3);
     margin: 0.3em;
     border-color: white;
+}
+
+#slides {
+    margin-top: 50px;
+    padding: 0px 10px;
 }
 
 ul.menu-list {
@@ -231,6 +244,19 @@ ul.menu-list {
 ul.menu-list li {
     font-size: 24px;
     padding: 4px 0px 4px 40px;
+}
+
+ul.menu-list li:first-child {
+    padding-bottom: 16px;
+}
+/* 
+ul.menu-list li:nth-child(2) {
+    padding-top: 16px;
+} */
+
+.spacer {
+    padding-bottom: 16px;
+    border-top: 1px solid lightgrey;
 }
 
 ul.menu-list li:hover {
