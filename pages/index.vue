@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main class="flex-container">
+    <main>
       <!-- <mapboxMap v-if='projectLoadedState' :activeLocation='activeLocation'/> -->
       <!-- <mapFullView /> -->
       <!-- <layerDropdown /> -->
@@ -156,8 +156,8 @@ body {
 }
 
 main {
-  display: grid;
-  grid-template-columns: 6fr 4fr;
+  /* display: grid; */
+  /* grid-template-columns: 6fr 4fr; */
   height: 100vh;
   overflow-y: hidden;
   /* grid-gap: 1em; */

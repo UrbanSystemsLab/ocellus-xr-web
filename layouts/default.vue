@@ -34,8 +34,8 @@ body {
 }
 
 main {
-  display: grid;
-  grid-template-columns: 6fr 4fr;
+  /* display: grid;
+  grid-template-columns: 6fr 4fr; */
 }
 
 @media (max-width: 800px){
