@@ -7,6 +7,14 @@
 
         <!-- img tag, displays an img -->
         <el-image v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
+
+        <!-- button tag, displays an button with text and action -->
+        <div
+        class="intro-button"
+        v-if="dataContent.type === 'button'"
+        v-on:click="buttonEmitter(dataContent.action)">
+            {{ dataContent.text }}
+        </div>
  
         <!-- collapse tag, displays a collapsable panel -->
         <el-collapse
@@ -24,24 +32,26 @@
         <!-- carousel tag, displays an image carousel -->
         <el-carousel
         v-if="dataContent.type === 'carousel'"
-        :interval="2000"
         arrow="always"
-        height="400px">
+        :height="width <= 500 ? '300px' : '400px'"
+        :autoplay="false"
+        v-on:change="test">
             <el-carousel-item v-for="(image, index) in dataContent.images" :key="index">
-                <el-image :src="image"></el-image>
+                <el-image class="carousel-image" :src="image"></el-image>
             </el-carousel-item>
         </el-carousel>
 
         <!-- text-carousel tag, displays an image carousel under text -->
         <div v-if="dataContent.type === 'text-carousel'">
-            <p>{{ carouselText === '' ? dataContent.content[0].text : carouselText }}</p>
+            <p class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
 
             <el-carousel
-            :interval="2000"
             arrow="always"
-            height="400px">
-                <el-carousel-item v-for="(image, index) in dataContent.content" :key="index">
-                    <el-image :src="image"></el-image>
+            :height="width <= 500 ? '300px' : '400px'"
+            :autoplay="false"
+            v-on:change="test">
+                <el-carousel-item v-for="(obj, index) in dataContent.content" :key="index">
+                    <el-image class="carousel-image" :src="obj.image"></el-image>
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -57,17 +67,28 @@
 <script scoped>
 export default {
     name: 'onboarding-contents',
-    props: ['dataContent'],
+    props: ['dataContent', 'actions'],
     data() {
         return {
             activeCollapse: '0',
-            carouselText: ''
+            carouselIdx: 0
         }
     },
     methods: {
         carouselChange: function(item) {
             this.carouselText = item.text
+        },
+        buttonEmitter(event) {
+            this.$emit(event)
+        },
+        test(a) {
+            this.carouselIdx = a
         }
+    },
+    computed: {
+        width() {
+            return this.$store.getters.getScreenWidth
+        },
     }
 }
 </script>
@@ -80,6 +101,26 @@ export default {
 
     .content-container {
         margin: 8px 0px;
+    }
+
+    .intro-button {
+        margin: 0 auto;
+        width: 50%;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 6px;
+        font-size: 30px;
+        padding: 6px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+
+    .carousel-image {
+        height: 100%;
+    }
+
+    .carousel-text {
+        height: 100px;
     }
 
     p {

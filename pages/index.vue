@@ -133,11 +133,31 @@ import queryParamsMixin from '~/components/utils/mixins/queryParamsMixin'
           this.$store.dispatch('setMobileDevice', false)
         }
       },
+      onResize() {
+        const { innerWidth } = this.window;
+
+        console.log(innerWidth)
+
+        this.$store.dispatch('setScreenWidth', innerWidth)
+      }
     },
     beforeMount(){
       this.setMobileDevice()
     },
+    // Get screen size (just width for now)
+    destroyed() {
+      this.window.removeEventListener("resize", this.onResize);
+    },
+    
     mounted() {
+      // code for resizing browser
+      if (process.browser) {
+        this.window = window
+
+        this.window.addEventListener("resize", this.onResize);
+        this.onResize()
+      }
+
       this.setupFirebaseAuth()
       .then(() => {
         this.loadProject()

@@ -1,6 +1,43 @@
 {
   "activeModule": "",
   "modules": {
+    "intro": {
+      "slides": [
+        {
+          "title": "Climate Equity XR",
+          "content": [
+            {
+              "text": "Heat risk is a measure of low likely your health will be impacted by high temperatures or prolonged heat exposure. There are many factors associated with heat risk, including urban and green infrastructure, social vulnerability, and building density. To learn more, explore the concepts below.",
+              "type": "p"
+            },
+            {
+              "type": "button",
+              "text": "See how your community is impacted...",
+              "action": "nextClick"
+            }
+          ]
+        },
+        {
+          "title": "Am I affected by climate change?",
+          "content": [
+            {
+              "text": "Yes! In New York City, we are exposed to multiple climate and weather-related hazards, from heat waves to hurricanes and floods. But some communities are more affected than others. Select either 'Heat' or 'Flooding' to learn more about how these climate risks affect you.",
+              "type": "p"
+            },
+            {
+              "type": "button",
+              "text": "Heat",
+              "action": "heatClick"
+            },
+            {
+              "type": "button",
+              "text": "Flood",
+              "action": "floodClick"
+            }
+          ]
+        }
+      ]
+    },
     "0": {
       "name": "Heat",
       "slides": [

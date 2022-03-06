@@ -36,6 +36,8 @@ export const state = () => ({
     },
     // Mobile device flag
     isMobileDevice: false,
+    // Window size
+    screenWidth: null,
     // Map state
     mapbox: {
         style: {
@@ -54,6 +56,7 @@ export const state = () => ({
 
 export const getters = {
     getMobileDevice: (state) => { return state.isMobileDevice },
+    getScreenWidth: (state) => { return state.screenWidth },
     getMapLoadedState: (state) => { return state.mapbox.style.loaded },
     getStyle: (state) => { return state.style },
     getActiveLocation: (state) => { return { location: state.active.location, locationKey: state.active.locationKey } },
@@ -71,6 +74,9 @@ export const actions = {
         if (typeof(payload) === 'boolean') {
             store.commit('storeMobileDevice', payload)
         }
+    },
+    setScreenWidth: function(store, width) {
+      store.commit('storeScreenWidth', width)
     },
     setMapLoadedState: function(store, flag) {
         store.commit('storeMapLoadedState', flag)
@@ -363,6 +369,9 @@ export const actions = {
 export const mutations = {
     storeMobileDevice: (state, payload) => {
         state.isMobileDevice = payload
+    },
+    storeScreenWidth: (state, payload) => {
+      state.screenWidth = payload
     },
     storeStyle: (state, payload) => {
       state.style = Object.assign({}, payload)
