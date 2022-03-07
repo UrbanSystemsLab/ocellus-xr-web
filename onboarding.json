@@ -13,7 +13,7 @@
             {
               "type": "button",
               "text": "See how your community is impacted...",
-              "action": "nextClick"
+              "action": "onNext"
             }
           ]
         },
@@ -27,12 +27,12 @@
             {
               "type": "button",
               "text": "Heat",
-              "action": "heatClick"
+              "action": "onHeat"
             },
             {
               "type": "button",
               "text": "Flood",
-              "action": "floodClick"
+              "action": "onHeat"
             }
           ]
         }
@@ -45,10 +45,6 @@
           "content": [
             {
               "text": "Heat risk is a measure of low likely your health will be impacted by high temperatures or prolonged heat exposure. There are many factors associated with heat risk, including urban and green infrastructure, social vulnerability, and building density. To learn more, explore the concepts below.",
-              "type": "p"
-            },
-            {
-              "text": "This is a test <p> tag.",
               "type": "p"
             },
             {
@@ -105,25 +101,6 @@
         {
           "content": [
             {
-              "text": "No, low income and BIPOC communities often experience greater climate impacts because people who are more socially vulnerable are more affected by heat.",
-              "type": "p"
-            },
-            {
-              "images": [
-                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
-                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
-                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
-                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
-                "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23"
-              ],
-              "type": "carousel"
-            }
-          ],
-          "title": "Are heat impacts the same for all??"
-        },
-        {
-          "content": [
-            {
               "content": [
                 {
                   "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
@@ -147,9 +124,81 @@
           ],
           "title": "Are heat impacts the same for all??"
         },
-        3,
-        4,
-        5
+        {
+          "content": [
+            {
+              "text": "Yes. Historical redlining in NYC systematically suppressed access to housing, high quality land, and other resources, the impacts of which are still visible today.",
+              "type": "p"
+            },
+            {
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "type": "img"
+            }
+          ],
+          "title": "Do past racist policies affect current risks?"
+        },
+        {
+          "content": [
+            {
+              "text": "This is a climate justice issue because certain groups and individuals are disproportionately impacted by climate hazards, and often lack the resources or processes to reduce their climate risks compared to high income and white communitites.",
+              "type": "p"
+            },
+            {
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "type": "img"
+            }
+          ],
+          "title": "How is this a climate jusice issue?"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "The future is not predictable, but scientists agree that new Yorkers are likely to experience more, longer and hotter heat waves in the coming years. Future heat may moderately increase by 2050, but some neighborhoods will get hotter than others because of how they are designed, planned, and built."
+                },
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "Harlem has less green spaces, more air pollution and has a higher proportion of low income and BIPOC residents that make it more exposed and more vulnerable to heat."
+                },
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "The South Bronx has a combination of high social vulnerability and high afternoon summer temperatures that create regular high heat conditions impacting local residents."
+                }
+              ],
+              "type": "text-carousel"
+            }
+          ],
+          "title": "How will heat impact my future?"
+        },
+        {
+          "content": [
+            {
+              "text": "The city has a wide range of solutions already implemented or planned. These include social, infrastructure, and nature-based solutions to decrease heat exposure and improve adaptive capacity.",
+              "type": "p"
+            },
+            {
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "type": "img"
+            }
+          ],
+          "title": "How is NYC mitigating heat exposure?"
+        },
+        {
+          "content": [
+            {
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FGoToAR.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "type": "img"
+            },
+            {
+              "type": "button",
+              "text": "Go To AR",
+              "action": "onAr"
+            }
+          ],
+          "title": "Explore the NYC Heat Map"
+        }
       ]
     },
     "1": {

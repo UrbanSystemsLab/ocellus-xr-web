@@ -6,7 +6,9 @@
         </p>
 
         <!-- img tag, displays an img -->
-        <el-image v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
+        <!-- <div class="onboarding-image"> -->
+            <el-image fit="contain" v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
+        <!-- </div> -->
 
         <!-- button tag, displays an button with text and action -->
         <div
@@ -51,7 +53,7 @@
             :autoplay="false"
             v-on:change="test">
                 <el-carousel-item v-for="(obj, index) in dataContent.content" :key="index">
-                    <el-image class="carousel-image" :src="obj.image"></el-image>
+                    <el-image fit="contain" class="carousel-image" :src="obj.image"></el-image>
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -115,6 +117,12 @@ export default {
         cursor: pointer;
     }
 
+    .el-image {
+        height: 400px;
+        display: flex;
+        justify-content: center;
+    }
+
     .carousel-image {
         height: 100%;
     }
@@ -122,6 +130,11 @@ export default {
     .carousel-text {
         height: 100px;
     }
+
+    /* not sure how to target the indicators  */
+    /* .el-carousel__button {
+        background-color: grey;
+    } */
 
     p {
         font-weight: 300;

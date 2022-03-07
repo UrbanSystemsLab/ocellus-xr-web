@@ -40,13 +40,14 @@
         <!-- Shown after intro -->
         <div class="slides" v-if="!showIntro">
             <!-- {{ this.window.vuplex ? 'exists' : 'does not exist' }} -->
-            <h1 v-if="onboarding.modules[0].slides[active].title">
-                {{ onboarding.modules[0].slides[active].title }}
+            <h1>
+                {{ slides[active].title }}
             </h1>
             <onboarding-contents
             v-for="content in slides[active].content"
             :key="content[0]"
-            v-bind:data-content="content"></onboarding-contents>
+            v-bind:data-content="content"
+            @onAr="goToLayer('heat')"></onboarding-contents>
 
             <div class="button-spacer">
                 <el-button
