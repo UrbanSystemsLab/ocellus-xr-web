@@ -226,8 +226,8 @@ div {
 
 .menu-icon {
     position: absolute;
-    top: 20px;
-    left: 14px;
+    top: 40px;
+    left: 34px;
     font-size: 30px;
     /* cursor doesn't matter on mobile */
     cursor: pointer;
