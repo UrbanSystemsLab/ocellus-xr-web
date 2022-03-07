@@ -229,7 +229,7 @@ div {
     position: absolute;
     top: 40px;
     left: 34px;
-    font-size: 30px;
+    font-size: 38px;
     /* cursor doesn't matter on mobile */
     cursor: pointer;
 }
