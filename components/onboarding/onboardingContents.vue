@@ -13,6 +13,7 @@
         <!-- button tag, displays an button with text and action -->
         <div
         class="intro-button"
+        v-bind:style="{ width: width <= 500 ? '75%' : '50%'}"
         v-if="dataContent.type === 'button'"
         v-on:click="buttonEmitter(dataContent.action)">
             {{ dataContent.text }}

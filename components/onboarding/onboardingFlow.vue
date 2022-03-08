@@ -274,6 +274,9 @@ ul.menu-list li:nth-child(2) {
 .button-spacer {
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    width: calc(100vw - 70px);
+    bottom: 24px;
 }
 
 ul.menu-list li:hover {
