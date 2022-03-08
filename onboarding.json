@@ -103,20 +103,24 @@
             {
               "content": [
                 {
-                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-impacts-0.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
                   "text": "No, low income and BIPOC communities often experience greater climate impacts because people who are more socially vulnerable are more affected by heat."
                 },
                 {
-                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-impacts-1.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
                   "text": "Those with less access to high quality green spaces that provide cooling have more heat exposure."
                 },
                 {
-                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-impacts-2.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
                   "text": "Residents with lower incomes have less resources to pay for air conditioning, health care, or otherwise adapt to high heat."
                 },
                 {
-                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-impacts-3.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
                   "text": "The elderly and those with prior medical conditions are often more at risk of heat related mortality and morbidity."
+                },
+                {
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-impacts-4.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "text": "BIPOC communities often live in hotter neighborhoods, lower quality housing, and have additional burdens creating increased vulnerability to heat impacts."
                 }
               ],
               "type": "text-carousel"
@@ -131,7 +135,7 @@
               "type": "p"
             },
             {
-              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fredlining.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
               "type": "img"
             }
           ],
@@ -144,7 +148,7 @@
               "type": "p"
             },
             {
-              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fclimate-justice.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
               "type": "img"
             }
           ],
@@ -155,15 +159,15 @@
             {
               "content": [
                 {
-                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-future-0.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
                   "text": "The future is not predictable, but scientists agree that new Yorkers are likely to experience more, longer and hotter heat waves in the coming years. Future heat may moderately increase by 2050, but some neighborhoods will get hotter than others because of how they are designed, planned, and built."
                 },
                 {
-                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-future-1.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
                   "text": "Harlem has less green spaces, more air pollution and has a higher proportion of low income and BIPOC residents that make it more exposed and more vulnerable to heat."
                 },
                 {
-                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+                  "image": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-future-2.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
                   "text": "The South Bronx has a combination of high social vulnerability and high afternoon summer temperatures that create regular high heat conditions impacting local residents."
                 }
               ],
@@ -179,7 +183,7 @@
               "type": "p"
             },
             {
-              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2FEcological_Resilience-02%20(1).png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
+              "source": "https://firebasestorage.googleapis.com/v0/b/usl-nyc-portal-prod.appspot.com/o/equity-ar%2Fimages%2Fheat-solutions.png?alt=media&token=8cc42a3f-62aa-4ade-ac21-eb045b317b23",
               "type": "img"
             }
           ],

@@ -207,10 +207,6 @@ div {
     color: black;
 }
 
-.el-row h1,h2,h3,h4,h5,p,a {
-    /* color: white; */
-}
-
 .el-carousel__container {
     position: relative;
     height: 85vh;
