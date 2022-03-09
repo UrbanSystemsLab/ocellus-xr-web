@@ -46,8 +46,8 @@
 
         <!-- text-carousel tag, displays an image carousel under text -->
         <div v-if="dataContent.type === 'text-carousel'">
-            <p v-if="carouselText === ''" class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
-            <p v-else class="carousel-text">{{ carouselText }}</p>
+            <p class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
+            <!-- <p v-else class="carousel-text">{{ carouselText }}</p> -->
 
             <el-carousel
             arrow="always"
@@ -133,7 +133,8 @@ export default {
     }
 
     .carousel-text {
-        height: 230px;
+        /* height: 230px; */
+        background-color: white;
     }
 
     /* not sure how to target the indicators  */
