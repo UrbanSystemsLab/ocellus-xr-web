@@ -179,7 +179,7 @@ main {
   /* display: grid; */
   /* grid-template-columns: 6fr 4fr; */
   height: 100vh;
-  margin: 20px;
+  margin: 10px;
   overflow-y: hidden;
   /* grid-gap: 1em; */
 }
