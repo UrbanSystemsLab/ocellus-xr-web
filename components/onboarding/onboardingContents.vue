@@ -46,7 +46,8 @@
 
         <!-- text-carousel tag, displays an image carousel under text -->
         <div v-if="dataContent.type === 'text-carousel'">
-            <p class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
+            <p v-if="carouselText === ''" class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
+            <p v-else class="carousel-text">{{ carouselText }}</p>
 
             <el-carousel
             arrow="always"
@@ -74,7 +75,8 @@ export default {
     data() {
         return {
             activeCollapse: '0',
-            carouselIdx: 0
+            carouselIdx: 0,
+            carouselText: ''
         }
     },
     methods: {
@@ -86,6 +88,8 @@ export default {
         },
         test(a) {
             this.carouselIdx = a
+            this.carouselText = this.dataContent.content[this.carouselIdx].text
+            console.log(this.dataContent.content[this.carouselIdx].text)
         }
     },
     computed: {
