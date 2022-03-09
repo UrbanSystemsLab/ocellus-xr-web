@@ -179,7 +179,8 @@ main {
   /* display: grid; */
   /* grid-template-columns: 6fr 4fr; */
   height: 100vh;
-  margin: 10px;
+  margin: 20px;
+  transform: scale(0.9);
   overflow-y: hidden;
   /* grid-gap: 1em; */
 }
