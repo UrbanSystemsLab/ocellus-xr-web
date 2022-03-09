@@ -129,7 +129,7 @@ export default {
     }
 
     .carousel-text {
-        height: 100px;
+        height: 175px;
     }
 
     /* not sure how to target the indicators  */
