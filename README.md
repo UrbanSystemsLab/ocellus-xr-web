@@ -19,3 +19,12 @@ $ npm run dev
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Heroku Documentation
+Follow these instructions to get Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
+
+Authenticate with `heroku login`
+
+Authentication details will be provided in a secure channel
+
+From here after commiting changes, push to heroku with `git push heroku main`
