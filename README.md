@@ -28,3 +28,7 @@ Authenticate with `heroku login`
 Authentication details will be provided in a secure channel
 
 From here after commiting changes, push to heroku with `git push heroku main`
+
+The URL will be shown after deploying to Heroku
+
+Soon, this repo will be moved to a dedicated USL Gmail account
