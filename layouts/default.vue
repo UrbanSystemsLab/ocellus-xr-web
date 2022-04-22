@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-alert title="You are offline." type="warning" show-icon center v-if="$nuxt.isOffline"></el-alert>
+    <el-alert title="You are offline, please connect." type="warning" show-icon center v-if="$nuxt.isOffline"></el-alert>
     <Nuxt />
   </div>
 </template>
