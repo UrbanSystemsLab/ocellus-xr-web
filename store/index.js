@@ -7,7 +7,6 @@ import 'firebase/storage'
 Vue.use(Vuex)
 
 if (!firebase.apps.length) {
-    console.log('######', process.env.firebaseConfig)
     firebase.initializeApp(process.env.firebaseConfig)
 }
   
