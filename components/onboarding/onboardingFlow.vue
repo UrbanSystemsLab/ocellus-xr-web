@@ -104,10 +104,6 @@ export default {
         },
         next() {
             this.active++
-            console.log('hello')
-            // const layer = { layer: ['flood', 'heat'][Math.floor(Math.random() * 2)] }
-            // console.log(layer)
-            // window?.vuplex?.postMessage({ type: "layer", data: layer });
         },
         goToLayer(layer) {
             window?.vuplex?.postMessage({ type: "layer", data: { layer: layer }});

@@ -47,6 +47,7 @@ import queryParamsMixin from '~/components/utils/mixins/queryParamsMixin'
     methods: {
       setupFirebaseAuth() {
         return new Promise((resolve, reject) => {
+          console.log('######', process.env.firebaseConfig)
           var store = this.$store
           var db = firebase.database()
           if (!firebase.apps.length) {
