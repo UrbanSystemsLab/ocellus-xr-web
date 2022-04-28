@@ -42,11 +42,10 @@ export default {
 
         },
         sendMessageToCSharp(layerName) {
-
+        // switch Unity layer via layer name
         window.vuplex.postMessage({ type: "mapLayer", message: layerName});
-
-        console.log("The map URL " + `${ clickLng }` + " and map ID " + `${ clickLat }` + " were passed to C#")
-        
+        // depricated
+        // console.log("The map URL " + `${ clickLng }` + " and map ID " + `${ clickLat }` + " were passed to C#")
       },
 
       logMap(layerName) {

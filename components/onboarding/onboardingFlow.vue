@@ -138,24 +138,24 @@ export default {
         if (process.browser) {
             this.window = window
 
-            // if (this.window.vuplex) {
-            //     this.stuff = 'vuplex is here'
-            //     addMessageListener();
-            //     this.stuff = 'addMessageListener has been called'
-            // } else {
-            //     console.log('adding listener')
-            //     this.window.addEventListener('vuplexready', addMessageListener);
-            //     this.stuff = 'vuplex isnt here yet'
-            // }
+            if (this.window.vuplex) {
+                this.stuff = 'vuplex is here'
+                addMessageListener();
+                this.stuff = 'addMessageListener has been called'
+            } else {
+                console.warn('vuplex isnt here yet')
+                this.window.addEventListener('vuplexready', addMessageListener);
+                this.stuff = 'vuplex isnt here yet'
+            }
 
-            // function addMessageListener() {
-            //     this.stuff = 'vuplex is ready, no message received yet'
-            //     this.window.vuplex.addEventListener('message', function(event) {
-            //         let json = event.data;
-            //         // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
-            //         this.stuff = JSON.stringify(json)
-            //     });
-            // }
+            function addMessageListener() {
+                this.stuff = 'vuplex is ready, no message received yet'
+                this.window.vuplex.addEventListener('message', function(event) {
+                    let json = event.data;
+                    // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
+                    this.stuff = JSON.stringify(json)
+                });
+            }
         }
     }
 }
