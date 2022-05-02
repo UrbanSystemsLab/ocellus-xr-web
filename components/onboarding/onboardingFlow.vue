@@ -82,7 +82,7 @@ export default {
             drawer: false,
             showIntro: true,
             window: {},
-            stuff: 'no message yet'
+            dev: 'no message yet'
         }
     },
     computed: {
@@ -136,25 +136,23 @@ export default {
         this.$store.dispatch('getOnboardingContent', true)
 
         if (process.browser) {
-            this.window = window
-
-            if (this.window.vuplex) {
-                this.stuff = 'vuplex is here'
-                addMessageListener();
-                // this.stuff = 'addMessageListener has been called'
+            if (window.vuplex) {
+                // The window.vuplex object already exists, so go ahead and send the message.
+                sendMessageToCSharp();
             } else {
-                console.warn('vuplex isnt here yet')
-                this.window.addEventListener('vuplexready', addMessageListener);
-                // this.stuff = 'vuplex isnt here yet'
+                // The window.vuplex object hasn't been initialized yet because the page is still
+                // loading, so add an event listener to send the message once it's initialized.
+                console.warn('vuplex', 'adding event listener...')
+                window.addEventListener('vuplexready', addMessageListener);
             }
 
             function addMessageListener() {
-                // this.stuff = 'vuplex is ready, no message received yet'
+                this.dev = 'vuplex is ready, no message received yet'
                 this.window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
                     // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
-                    this.stuff = JSON.stringify(json)
-                    console.log('json response from C#', json);
+                    this.dev = JSON.stringify(json)
+                    console.log('vuplex', 'response from C#', json);
                 });
             }
         }
