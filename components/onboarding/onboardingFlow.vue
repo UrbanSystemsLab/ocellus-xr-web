@@ -75,13 +75,24 @@
                 <el-button
                 v-if="active !== 0"
                 type="primary"
-                v-on:click="prev">Prev</el-button>
+                icon="el-icon-arrow-left"
+                @click="prev">Prev</el-button>
                 <div v-else></div>
+
+                <!-- Load Unity Assets async to activate -->
+                <el-button
+                    type="primary" 
+                    :loading="loading"
+                    icon="el-icon-view"
+                    disabled>
+                    Explore AR
+                </el-button>
 
                 <el-button
                 v-if="active !== slides.length - 1"
                 type="primary"
-                v-on:click="next">Next</el-button>
+                icon="el-icon-arrow-right"
+                @click="next">Next</el-button>
                 <div v-else></div>
             </div>
         </div>
@@ -104,7 +115,8 @@ export default {
             drawer: false,
             showIntro: true,
             window: {},
-            dev: 'no message yet'
+            dev: 'no message yet',
+            loading: true
         }
     },
     computed: {
@@ -170,8 +182,11 @@ export default {
 
         if (process.browser) {
             if (window.vuplex) {
+                const message = { type: "vuplex", data: { data: "ready" }};
+                this.dev = message;
+                console.log('js-dev', message);
                 // The window.vuplex object already exists, so go ahead and send the message.
-                sendMessageToCSharp();
+                window?.vuplex?.postMessage(message);
             } else {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
@@ -180,12 +195,10 @@ export default {
             }
 
             function addMessageListener() {
-                this.dev = 'vuplex is ready, no message received yet'
-                this.window.vuplex.addEventListener('message', function(event) {
+                window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
-                    // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
-                    this.dev = JSON.stringify(json)
-                    console.log('vuplex', 'response from C#', json);
+                    this.dev = JSON.stringify(json);
+                    console.log('js-dev', 'response from C#', json);
                 });
             }
         }
@@ -259,16 +272,18 @@ div {
 }
 
 #onboarding-flow .el-button {
-    background-color: transparent;
+    background-color: white;
     color: black;
     margin: 0.3em;
     border-color: black;
+    transition: .3s ease-in-out;
 }
 
 #onboarding-flow .el-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    /* background-color: rgba(255, 255, 255, 0.3); */
     margin: 0.3em;
-    border-color: white;
+    background-color: black;
+    color: white;
 }
 
 .slides {
