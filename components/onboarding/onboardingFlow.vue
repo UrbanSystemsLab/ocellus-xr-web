@@ -1,24 +1,46 @@
 <template>
 
     <div id="onboarding-flow">
-
         <!-- Menu - will be component... eventually -->
         <el-drawer
         :visible.sync="drawer"
         direction="ttb"
         size="100%">
-            <ul class="menu-list">
+            <!-- <ul class="menu-list">
                 <li @click="goToOnboarding">About</li>
                 <div class="spacer"></div>
-                <li @click="goToLayer('flood')">Flood</li>
-                <li @click="goToLayer('heat')">Heat</li>
-                <li @click="goToLayer('65+')">65+</li>
-                <li @click="goToLayer('income')">Income</li>
-                <li @click="goToLayer('open-space')">Open Space</li>
-                <li @click="goToLayer('green-roofs')">Green Roofs</li>
-                <!-- This brings to "World Scale View" -->
                 <li @click="goToLayer('explore')">Explore</li>
-            </ul>
+            </ul> -->
+            <el-menu
+                class="menu-list"
+                default-active="2"
+                @open="handleOpen"
+                @close="handleClose">
+                <el-menu-item index="1">
+                    <!-- <i class="el-icon-menu"></i> -->
+                    <span @click="goToOnboarding">About</span>
+                </el-menu-item>
+                <el-menu-item index="2">
+                    <!-- <i class="el-icon-document"></i> -->
+                    <!-- This brings to "World Scale View" -->
+                    <span @click="goToLayer('explore')">Explore XR</span>
+                </el-menu-item>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>Map Controls</span>
+                    </template>
+                    <el-menu-item-group
+                        class="menu-list">
+                        <el-menu-item @click="goToLayer('heat')" index="2-1">Heat</el-menu-item>
+                        <el-menu-item @click="goToLayer('flood')" index="2-2">Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('65+')" index="2-3">65+</el-menu-item>
+                        <el-menu-item @click="goToLayer('income')" index="2-4">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('open-space')" index="2-5">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('green-roofs')" index="2-6">Green Roofs</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+            </el-menu>
         </el-drawer>
 
         <i @click="drawer = true"  class="el-icon-menu menu-icon"></i>
@@ -98,15 +120,26 @@ export default {
     },
     methods: {
         moduleButtonClick: function(e){
-            console.log(e)
-            this.innerVisible=true
+            console.log(e);
+            this.innerVisible = true;
             this.$store.dispatch('updateOnboardingActiveModule', e)
         },
         next() {
             this.active++
         },
+        handleOpen() {
+            const message = { type: "menu", data: { open: true }};
+            console.log('js-dev', message);
+            window?.vuplex?.postMessage(message);
+        },
+        handleClose() {
+            const message = { type: "menu", data: { open: false }};
+            window?.vuplex?.postMessage('js-dev', message);
+        },
         goToLayer(layer) {
-            window?.vuplex?.postMessage({ type: "layer", data: { layer: layer }});
+            const message = { type: "layer", data: { layer: layer }};
+            console.log('js-dev', message);
+            window?.vuplex?.postMessage(message);
         },
         goToOnboarding() {
             this.drawer = false
@@ -122,13 +155,13 @@ export default {
             console.log('prev')
             this.active--
         },
-        handleClose(done) {
-            this.$confirm('Are you sure you want to close this?')
-            .then(_ => {
-                done();
-            })
-            .catch(_ => {});
-        }
+        // handleClose(done) {
+        //     this.$confirm('Are you sure you want to close this?')
+        //     .then(_ => {
+        //         done();
+        //     })
+        //     .catch(_ => {});
+        // }
         
     },
     mounted() {
@@ -243,23 +276,17 @@ div {
     padding: 0px 10px;
 }
 
-ul.menu-list {
-  list-style-type: none;
-  padding-left: 0px;
-}
-
-ul.menu-list li {
+.menu-list li {
     font-size: 24px;
-    padding: 4px 0px 4px 40px;
 }
 
-ul.menu-list li:first-child {
+.menu-list :first-child {
     padding-bottom: 16px;
 }
-/* 
-ul.menu-list li:nth-child(2) {
-    padding-top: 16px;
-} */
+
+.el-icon-location {
+    padding-top: 15px;
+}
 
 .spacer {
     padding-bottom: 16px;
@@ -272,10 +299,6 @@ ul.menu-list li:nth-child(2) {
     position: absolute;
     width: calc(100vw - 70px);
     bottom: 24px;
-}
-
-ul.menu-list li:hover {
-    background: lightgrey;
 }
 
 </style>

@@ -135,9 +135,7 @@ import queryParamsMixin from '~/components/utils/mixins/queryParamsMixin'
       },
       onResize() {
         const { innerWidth } = this.window;
-
-        console.log(innerWidth)
-
+        console.log('innerWidth', innerWidth)
         this.$store.dispatch('setScreenWidth', innerWidth)
       }
     },
