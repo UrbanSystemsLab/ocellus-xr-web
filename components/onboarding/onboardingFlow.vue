@@ -29,16 +29,16 @@
                         class="menu-list">
                         <el-menu-item @click="goToLayer('equity.cxc73xaa', 'Heat')" index="2-1">Heat</el-menu-item>
                         <el-menu-item @click="goToLayer('timonm.77dtkn5f', 'ExtremeFlooding')" index="2-2">Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('65+')" index="2-3">65+</el-menu-item>
-                        <el-menu-item @click="goToLayer('income')" index="2-4">Income</el-menu-item>
-                        <el-menu-item @click="goToLayer('open-space')" index="2-5">Open Space</el-menu-item>
-                        <el-menu-item @click="goToLayer('green-roofs')" index="2-6">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('65+', '')" index="2-3">65+</el-menu-item>
+                        <el-menu-item @click="goToLayer('income', '')" index="2-4">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('open-space', '')" index="2-5">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('green-roofs', '')" index="2-6">Green Roofs</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="3">
                     <!-- <i class="el-icon-document"></i> -->
                     <!-- This brings to "World Scale View" -->
-                    <span @click="goToLayer('explore')">Explore Live</span>
+                    <span @click="goToLayer('explore', '')">Explore Live</span>
                 </el-menu-item>
             </el-menu>
         </el-drawer>
@@ -69,7 +69,7 @@
             v-for="content in slides[active].content"
             :key="content[0]"
             v-bind:data-content="content"
-            @onAr="goToLayer('heat')"></onboarding-contents>
+            @onAr="goToLayer('heat', '')"></onboarding-contents>
 
             <div class="button-spacer">
                 <el-button
@@ -154,6 +154,7 @@ export default {
         },
         goToLayer(layerID, layerName) {
             /*
+                type: String,
                 layerID: String (req),
                 layerName: String (req),
                 data: {
@@ -166,7 +167,7 @@ export default {
                     lon: Number
                 }
             */
-            const message = { layerID: layerID, layerName: layerName };
+            const message = { type: 'layer', data: {layer: {id: layerID, name: layerName}} };
             console.log('js-dev', message);
             window?.vuplex?.postMessage(message);
         },
