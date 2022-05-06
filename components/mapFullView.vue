@@ -20,9 +20,7 @@ export default {
 
       sendMessageToCSharp(clickLng, clickLat) {
 
-        window.vuplex.postMessage({ type: "lng", message: clickLng});
-        window.vuplex.postMessage({ type: 'lat', message: clickLat});
-
+        window.vuplex.postMessage({ type: 'location', location: {'lat': clickLat, 'lon': clickLng}});
         console.log("The map URL " + `${ clickLng }` + " and map ID " + `${ clickLat }` + " were passed to C#")
         
       },

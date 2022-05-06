@@ -27,8 +27,8 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('heat')" index="2-1">Heat</el-menu-item>
-                        <el-menu-item @click="goToLayer('flood')" index="2-2">Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.cxc73xaa', 'Heat')" index="2-1">Heat</el-menu-item>
+                        <el-menu-item @click="goToLayer('timonm.77dtkn5f', 'ExtremeFlooding')" index="2-2">Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('65+')" index="2-3">65+</el-menu-item>
                         <el-menu-item @click="goToLayer('income')" index="2-4">Income</el-menu-item>
                         <el-menu-item @click="goToLayer('open-space')" index="2-5">Open Space</el-menu-item>
@@ -38,7 +38,7 @@
                 <el-menu-item index="3">
                     <!-- <i class="el-icon-document"></i> -->
                     <!-- This brings to "World Scale View" -->
-                    <span @click="goToLayer('explore')">Explore XR</span>
+                    <span @click="goToLayer('explore')">Explore Live</span>
                 </el-menu-item>
             </el-menu>
         </el-drawer>
@@ -152,8 +152,21 @@ export default {
             const message = { type: "menu", data: { open: false }};
             window?.vuplex?.postMessage('js-dev', message);
         },
-        goToLayer(layer) {
-            const message = { type: "layer", data: { layer: layer }};
+        goToLayer(layerID, layerName) {
+            /*
+                layerID: String (req),
+                layerName: String (req),
+                data: {
+                    type: String,
+                    range: []
+                },
+                layerDescription: String,
+                location: {
+                    lat: Number,
+                    lon: Number
+                }
+            */
+            const message = { layerID: layerID, layerName: layerName };
             console.log('js-dev', message);
             window?.vuplex?.postMessage(message);
         },
