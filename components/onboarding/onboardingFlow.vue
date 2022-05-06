@@ -20,15 +20,10 @@
                     <!-- <i class="el-icon-menu"></i> -->
                     <span @click="goToOnboarding">About</span>
                 </el-menu-item>
-                <el-menu-item index="2">
-                    <!-- <i class="el-icon-document"></i> -->
-                    <!-- This brings to "World Scale View" -->
-                    <span @click="goToLayer('explore')">Explore XR</span>
-                </el-menu-item>
-                <el-submenu index="3">
+                <el-submenu index="2">
                     <template slot="title">
                         <i class="el-icon-location"></i>
-                        <span>Map Controls</span>
+                        <span>Explore AR</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
@@ -40,6 +35,11 @@
                         <el-menu-item @click="goToLayer('green-roofs')" index="2-6">Green Roofs</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
+                <el-menu-item index="3">
+                    <!-- <i class="el-icon-document"></i> -->
+                    <!-- This brings to "World Scale View" -->
+                    <span @click="goToLayer('explore')">Explore XR</span>
+                </el-menu-item>
             </el-menu>
         </el-drawer>
 
@@ -112,6 +112,7 @@ export default {
             dialogVisible: true,
             innerVisible: false,
             active: 0,
+            // activeLayer: 'heat', // TODO
             drawer: false,
             showIntro: true,
             window: {},
@@ -139,6 +140,9 @@ export default {
         next() {
             this.active++
         },
+        prev() {
+            this.active--
+        },
         handleOpen() {
             const message = { type: "menu", data: { open: true }};
             console.log('js-dev', message);
@@ -162,10 +166,6 @@ export default {
             this.drawer = false
             this.active = 0
             this.showIntro = false
-        },
-        prev() {
-            console.log('prev')
-            this.active--
         },
         // handleClose(done) {
         //     this.$confirm('Are you sure you want to close this?')
@@ -195,6 +195,7 @@ export default {
             }
 
             function addMessageListener() {
+                console.log('js-dev', 'adding event listener');
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
                     this.dev = JSON.stringify(json);
