@@ -201,15 +201,15 @@ export default {
 
         if (process.browser) {
             if (window.vuplex) {
-                const message = { type: "vuplex", data: { data: "ready" }};
-                this.dev = message;
-                console.log('js-dev', message);
+                console.log('js-dev', "starting vuplex", "window.vuplex is", window.vuplex);
                 // The window.vuplex object already exists, so go ahead and send the message.
                 // window?.vuplex?.postMessage(message);
+                console.log('vuplex', 'trying to add event listener', "window.vuplex is", window.vuplex);
+                window.addEventListener('vuplexready', addMessageListener);
             } else {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
-                console.log('vuplex', 'calling event listener...')
+                console.log('vuplex', 'trying to add event listener', "window.vuplex is", window.vuplex);
                 window.addEventListener('vuplexready', addMessageListener);
             }
 
