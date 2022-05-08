@@ -27,12 +27,15 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('equity.cxc73xaa', 'Heat')" index="2-1">Heat</el-menu-item>
-                        <el-menu-item @click="goToLayer('timonm.77dtkn5f', 'ExtremeFlooding')" index="2-2">Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('65+', '')" index="2-3">65+</el-menu-item>
-                        <el-menu-item @click="goToLayer('income', '')" index="2-4">Income</el-menu-item>
-                        <el-menu-item @click="goToLayer('open-space', '')" index="2-5">Open Space</el-menu-item>
-                        <el-menu-item @click="goToLayer('green-roofs', '')" index="2-6">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat</el-menu-item>
+                        <el-menu-item @click="goToLayer('timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.0qf98zo6', 'Elderly Population')" index="2-3">65+</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.16d8ns8l', 'Income')" index="2-4">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.755pqg03', 'Open Space')" index="2-5">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.8clwnj6e', 'Green Roofs')" index="2-6">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.3t4w37ok', 'Redlining')" index="2-6">Redlining</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.c7f9efui', 'PEJA')" index="2-6">Potential Social Justice Areas (PEJA)</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.dsxc6fdt', 'Cooling Stations')" index="2-6">Cooling Stations</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="3">
@@ -154,17 +157,19 @@ export default {
         },
         goToLayer(layerID, layerName) {
             /*
-                type: String,
-                layerID: String (req),
-                layerName: String (req),
-                data: {
-                    type: String,
-                    range: []
-                },
-                layerDescription: String,
-                location: {
+                {
+                type (req): String ['layer', 'menu', 'location'],
+                data (req): {
+                    layer: {
+                    id: String,
+                    name: String,
+                    description: String
+                    },
+                    location: {
                     lat: Number,
                     lon: Number
+                    }
+                  }
                 }
             */
             const message = { type: 'layer', data: {layer: {id: layerID, name: layerName}} };
@@ -200,11 +205,11 @@ export default {
                 this.dev = message;
                 console.log('js-dev', message);
                 // The window.vuplex object already exists, so go ahead and send the message.
-                window?.vuplex?.postMessage(message);
+                // window?.vuplex?.postMessage(message);
             } else {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
-                console.warn('vuplex', 'adding event listener...')
+                console.log('vuplex', 'calling event listener...')
                 window.addEventListener('vuplexready', addMessageListener);
             }
 
@@ -212,6 +217,7 @@ export default {
                 console.log('js-dev', 'adding event listener');
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
+                    console.log('js-dev', 'message event from C#', event);
                     this.dev = JSON.stringify(json);
                     console.log('js-dev', 'response from C#', json);
                 });
