@@ -17,25 +17,25 @@ export default {
           });
         }
     },
-    mounted() {
-    if (window.vuplex) {
-        addMessageListener();
-      } else {
-        window.addEventListener('vuplexready', addMessageListener);
-      }
+    // mounted() {
+    // if (window.vuplex) {
+    //     addMessageListener();
+    //   } else {
+    //     window.addEventListener('vuplexready', addMessageListener);
+    //   }
 
-      function addMessageListener() {
-        window.vuplex.addEventListener('message', function(event) {
-          let json = event.data;
-          // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
-        //   console.log('JSON received: ' + json);
-          this.$notify({
-            title: 'Message from Unity',
-            message: json
-          });
-        });
-      }
-    } 
+    //   function addMessageListener() {
+    //     window.vuplex.addEventListener('message', function(event) {
+    //       let json = event.data;
+    //       // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
+    //     //   console.log('JSON received: ' + json);
+    //       this.$notify({
+    //         title: 'Message from Unity',
+    //         message: json
+    //       });
+    //     });
+    //   }
+    // } 
 }
 </script>
 
