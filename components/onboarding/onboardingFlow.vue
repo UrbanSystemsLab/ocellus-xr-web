@@ -22,26 +22,39 @@
                 </el-menu-item>
                 <el-submenu index="2">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
+                        <i class="el-icon-location menu-list"></i>
                         <span>Explore AR</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
                         <el-menu-item @click="goToLayer('equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat</el-menu-item>
                         <el-menu-item @click="goToLayer('timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.0qf98zo6', 'Elderly Population')" index="2-3">65+</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.16d8ns8l', 'Income')" index="2-4">Income</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.755pqg03', 'Open Space')" index="2-5">Open Space</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.8clwnj6e', 'Green Roofs')" index="2-6">Green Roofs</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.3t4w37ok', 'Redlining')" index="2-6">Redlining</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.c7f9efui', 'PEJA')" index="2-6">Potential Social Justice Areas (PEJA)</el-menu-item>
                         <el-menu-item @click="goToLayer('equity.dsxc6fdt', 'Cooling Stations')" index="2-6">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.0qf98zo6', 'Elderly Population')" index="2-3">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.16d8ns8l', 'Income')" index="2-4">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.c7f9efui', 'PEJA')" index="2-6">Potential Social Justice Areas</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.8clwnj6e', 'Green Roofs')" index="2-6">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('equity.755pqg03', 'Open Space')" index="2-5">Open Space</el-menu-item>
+                        <!-- <el-menu-item @click="goToLayer('equity.3t4w37ok', 'Redlining')" index="2-6">Redlining</el-menu-item> -->
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-view menu-list"></i>
+                        <span>Explore Live</span>
+                    </template>
+                    <el-menu-item-group
+                        class="menu-list">
+                        <el-menu-item @click="goToLayer('explore', '')">Street Level</el-menu-item>
+                        <el-menu-item @click="goToLayer('heat', 'Heat Risk')" index="2-1">Etreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('heat', 'Heat Risk')" index="2-1">Moderate Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('flood', 'Extreme Flooding')" index="2-2">Tree Type</el-menu-item>
+                        <el-menu-item @click="goToLayer('income', 'Cooling Stations')" index="2-6">Rain Gardens</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="3">
                     <!-- <i class="el-icon-document"></i> -->
                     <!-- This brings to "World Scale View" -->
-                    <span @click="goToLayer('explore', '')">Explore Live</span>
                 </el-menu-item>
             </el-menu>
         </el-drawer>
@@ -196,8 +209,7 @@ export default {
         
     },
     mounted() {
-        this.$store.dispatch('getOnboardingModules', true)
-        this.$store.dispatch('getOnboardingContent', true)
+        this.$store.dispatch('getOnboardingModules', true);
 
         if (process.browser) {
             if (window.vuplex) {
@@ -320,7 +332,7 @@ div {
     padding-bottom: 16px;
 }
 
-.el-icon-location {
+[class*="el-icon"] {
     padding-top: 15px;
 }
 
