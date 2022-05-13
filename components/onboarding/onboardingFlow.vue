@@ -214,11 +214,8 @@ export default {
 
         if (process.browser) {
             if (window.vuplex) {
-                console.log('js-dev', "starting vuplex", "window.vuplex is", window.vuplex);
-                // The window.vuplex object already exists, so go ahead and send the message.
-                // window?.vuplex?.postMessage(message);
-                console.log('vuplex', 'trying to add event listener', "window.vuplex is", window.vuplex);
-                window.addEventListener('vuplexready', addMessageListener);
+                console.log('js-dev', "vuplex is active");
+                addMessageListener();
             } else {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
@@ -230,9 +227,8 @@ export default {
                 console.log('js-dev', 'adding event listener');
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
-                    console.log('js-dev', 'message event from C#', event);
-                    this.dev = JSON.stringify(json);
-                    console.log('js-dev', 'response from C#', json);
+                    // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
+                    console.log('JSON received: ' + json);
                 });
             }
         }
