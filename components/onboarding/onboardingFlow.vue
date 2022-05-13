@@ -27,14 +27,15 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat</el-menu-item>
-                        <el-menu-item @click="goToLayer('timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.dsxc6fdt', 'Cooling Stations')" index="2-6">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.0qf98zo6', 'Elderly Population')" index="2-3">Elderly Population</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.16d8ns8l', 'Income')" index="2-4">Income</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.c7f9efui', 'PEJA')" index="2-6">Potential Social Justice Areas</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.8clwnj6e', 'Green Roofs')" index="2-6">Green Roofs</el-menu-item>
-                        <el-menu-item @click="goToLayer('equity.755pqg03', 'Open Space')" index="2-5">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones')" index="2-2">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-6">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population')" index="2-3">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income')" index="2-4">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA')" index="2-6">Potential Social Justice Areas</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs')" index="2-6">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space')" index="2-5">Open Space</el-menu-item>
                         <!-- <el-menu-item @click="goToLayer('equity.3t4w37ok', 'Redlining')" index="2-6">Redlining</el-menu-item> -->
                     </el-menu-item-group>
                 </el-submenu>
@@ -45,11 +46,11 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('explore', '')">Street Level</el-menu-item>
-                        <el-menu-item @click="goToLayer('heat', 'Heat Risk')" index="2-1">Etreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('heat', 'Heat Risk')" index="2-1">Moderate Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('flood', 'Extreme Flooding')" index="2-2">Tree Type</el-menu-item>
-                        <el-menu-item @click="goToLayer('income', 'Cooling Stations')" index="2-6">Rain Gardens</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk')">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding')" index="2-1">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones')" index="2-1">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-2">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population')" index="2-6">Elderly Population</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="3">
@@ -168,7 +169,7 @@ export default {
             const message = { type: "menu", data: { open: false }};
             window?.vuplex?.postMessage('js-dev', message);
         },
-        goToLayer(layerID, layerName) {
+        goToLayer(type, layerID, layerName) {
             /*
                 {
                 type (req): String ['layer', 'menu', 'location'],
@@ -185,7 +186,7 @@ export default {
                   }
                 }
             */
-            const message = { type: 'layer', data: {layer: {id: layerID, name: layerName}} };
+            const message = { type: type, data: {layer: {id: layerID, name: layerName}} };
             console.log('js-dev', message);
             window?.vuplex?.postMessage(message);
         },
