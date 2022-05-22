@@ -6,11 +6,6 @@
         :visible.sync="drawer"
         direction="ttb"
         size="100%">
-            <!-- <ul class="menu-list">
-                <li @click="goToOnboarding">About</li>
-                <div class="spacer"></div>
-                <li @click="goToLayer('explore')">Explore</li>
-            </ul> -->
             <el-menu
                 class="menu-list"
                 default-active="2"
@@ -18,39 +13,50 @@
                 @close="handleClose">
                 <el-menu-item index="1">
                     <!-- <i class="el-icon-menu"></i> -->
-                    <span @click="goToOnboarding">About</span>
+                    <span @click="goToHeat">About</span>
                 </el-menu-item>
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-location menu-list"></i>
+                        <span>Explore OCELLUS XR NYC</span>
+                    </template>
+                    <el-menu-item-group
+                        class="menu-list">
+                        <el-menu-item @click="goToHeat" index="1-1">Heat</el-menu-item>
+                        <el-menu-item @click="goToFlooding" index="1-2">Flooding</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">
                         <i class="el-icon-location menu-list"></i>
-                        <span>Explore AR</span>
+                        <span>View AR</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
                         <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat Risk</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Extreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones')" index="2-2">Flood Zones</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-6">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population')" index="2-3">Elderly Population</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income')" index="2-4">Income</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA')" index="2-6">Potential Social Justice Areas</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs')" index="2-6">Green Roofs</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space')" index="2-5">Open Space</el-menu-item>
-                        <!-- <el-menu-item @click="goToLayer('equity.3t4w37ok', 'Redlining')" index="2-6">Redlining</el-menu-item> -->
+                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones')" index="2-3">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-4">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population')" index="2-5">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income')" index="2-6">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA')" index="2-7">Potential Social Justice Areas</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs')" index="2-8">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space')" index="2-9">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining')" index="2-10">Redlining</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">
                         <i class="el-icon-view menu-list"></i>
-                        <span>Explore Live</span>
+                        <span>View Live</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk')">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding')" index="2-1">Extreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones')" index="2-1">Flood Zones</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-2">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population')" index="2-6">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones')" index="2-3">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-4">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population')" index="2-5">Elderly Population</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="3">
@@ -190,14 +196,14 @@ export default {
             console.log('js-dev', message);
             window?.vuplex?.postMessage(message);
         },
-        goToOnboarding() {
-            this.drawer = false
-            this.active = 0
-            this.showIntro = true
-        },
         goToHeat() {
             this.drawer = false
             this.active = 0
+            this.showIntro = false
+        },
+        goToFlooding() {
+            this.drawer = false
+            this.active = 5
             this.showIntro = false
         },
         // handleClose(done) {
@@ -325,12 +331,10 @@ div {
     font-size: 24px;
 }
 
-.menu-list :first-child {
-    padding-bottom: 16px;
-}
-
-[class*="el-icon"] {
-    padding-top: 15px;
+.el-submenu__title {
+    font-size: inherit;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .spacer {

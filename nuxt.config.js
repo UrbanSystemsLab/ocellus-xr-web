@@ -33,7 +33,7 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'USL Equity AR Nuxt App',
+    title: 'OCELLUS XR',
     meta: [{
       charset: 'utf-8'
     }, {
@@ -41,8 +41,8 @@ export default {
       content: 'width=device-width, initial-scale=1'
     }, {
       hid: 'description',
-      name: 'USL Equity AR Nuxt App',
-      content: 'USL Equity AR Nuxt App'
+      name: 'OCELLUS XR',
+      content: 'OCELLUS XR'
     }],
     script: [{
       src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'

@@ -1,6 +1,7 @@
 {
   "name": "ocellus-xr",
   "version": "1.0.0",
+  "author": "Daniel Sauter <sauter@newschool.edu>",
   "private": true,
   "scripts": {
     "dev": "nuxt",
