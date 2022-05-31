@@ -11,14 +11,10 @@
                 default-active="2"
                 @open="handleOpen"
                 @close="handleClose">
-                <el-menu-item index="1">
-                    <!-- <i class="el-icon-menu"></i> -->
-                    <span @click="goToHeat">About</span>
-                </el-menu-item>
                 <el-submenu index="1">
                     <template slot="title">
                         <i class="el-icon-location menu-list"></i>
-                        <span>Explore OCELLUS XR NYC</span>
+                        <span>Explore</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
@@ -59,10 +55,10 @@
                         <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population')" index="2-5">Elderly Population</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-menu-item index="3">
-                    <!-- <i class="el-icon-document"></i> -->
-                    <!-- This brings to "World Scale View" -->
-                </el-menu-item>
+                <el-menu-item index="4">
+                    <!-- <i class="el-icon-menu"></i> -->
+                    <span @click="goToHeat">About</span>
+                </el-menu-item>                
             </el-menu>
         </el-drawer>
 
@@ -84,7 +80,6 @@
 
         <!-- Shown after intro -->
         <div class="slides" v-if="!showIntro">
-            <!-- {{ this.window.vuplex ? 'exists' : 'does not exist' }} -->
             <h1>
                 {{ slides[active].title }}
             </h1>
@@ -168,8 +163,8 @@ export default {
         },
         handleOpen() {
             const message = { type: "menu", data: { open: true }};
-            console.log('js-dev', message);
             window?.vuplex?.postMessage(message);
+            console.log('js-dev', 'menu message sent from JS to C#', message);
         },
         handleClose() {
             const message = { type: "menu", data: { open: false }};
@@ -178,8 +173,8 @@ export default {
         goToLayer(type, layerID, layerName) {
             /*
                 {
-                type (req): String ['layer', 'menu', 'location'],
-                data (req): {
+                type: String ['live', 'ar', 'location'],
+                data: Object {
                     layer: {
                     id: String,
                     name: String,
@@ -193,8 +188,8 @@ export default {
                 }
             */
             const message = { type: type, data: {layer: {id: layerID, name: layerName}} };
-            console.log('js-dev', message);
             window?.vuplex?.postMessage(message);
+            console.log('js-dev', 'menu message sent from JS to C#', message);
         },
         goToHeat() {
             this.drawer = false
@@ -205,15 +200,7 @@ export default {
             this.drawer = false
             this.active = 5
             this.showIntro = false
-        },
-        // handleClose(done) {
-        //     this.$confirm('Are you sure you want to close this?')
-        //     .then(_ => {
-        //         done();
-        //     })
-        //     .catch(_ => {});
-        // }
-        
+        }
     },
     mounted() {
         this.$store.dispatch('getOnboardingModules', true);
@@ -233,8 +220,7 @@ export default {
                 console.log('js-dev', 'adding event listener');
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
-                    // > JSON received: { "type": "greeting", "message": "Hello from C#!" }
-                    console.log('JSON received: ' + json);
+                    console.log('JSON received from C#: ' + json);
                 });
             }
         }
