@@ -8,57 +8,60 @@
         size="100%">
             <el-menu
                 class="menu-list"
-                default-active="2"
+                default-active="1-1"
                 @open="handleOpen"
                 @close="handleClose">
                 <el-submenu index="1">
                     <template slot="title">
-                        <i class="el-icon-location menu-list"></i>
-                        <span>Explore</span>
+                        <span>OCELLUS XR</span>
                     </template>
-                    <el-menu-item-group
-                        class="menu-list">
-                        <el-menu-item @click="goToHeat" index="1-1">Heat</el-menu-item>
-                        <el-menu-item @click="goToFlooding" index="1-2">Flooding</el-menu-item>
-                    </el-menu-item-group>
+                    <el-menu-item index="1-3">
+                        <i class="el-icon-data-analysis menu-list"></i>
+                        Introduction
+                    </el-menu-item>
+                    <el-menu-item @click="goToHeat" index="1-1">
+                        <i class="el-icon-sunny menu-list"></i>
+                        Heat
+                    </el-menu-item>
+                    <el-menu-item @click="goToFlooding" index="1-2">
+                        <i class="el-icon-heavy-rain menu-list"></i>
+                        Flooding
+                    </el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">
-                        <i class="el-icon-location menu-list"></i>
-                        <span>View AR</span>
+                        <i class="el-icon-map-location menu-list"></i>
+                        <span>View 3D Map</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Extreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones')" index="2-3">Flood Zones</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-4">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population')" index="2-5">Elderly Population</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income')" index="2-6">Income</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA')" index="2-7">Potential Social Justice Areas</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs')" index="2-8">Green Roofs</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space')" index="2-9">Open Space</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining')" index="2-10">Redlining</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', 'NYC_heatmap', 'risk')" index="2-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Moderate Flooding Scenario', '2050s-100y', 'id')" index="2-2">Moderate Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding Scenario', '2050s-500y', 'id')" index="2-3">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones')" index="2-4">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-5">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', 'NYC_65plus', 'P_Abv65_e_')" index="2-6">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income', 'income')" index="2-7">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA')" index="2-8">Potential Social Justice Areas</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs')" index="2-9">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space')" index="2-10">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining')" index="2-11">Redlining</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="3">
+                <el-submenu index="3" disabled>
                     <template slot="title">
-                        <i class="el-icon-view menu-list"></i>
-                        <span>View Live</span>
+                        <i class="el-icon-mobile menu-list"></i>
+                        <span>Explore Live</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding')" index="2-2">Extreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones')" index="2-3">Flood Zones</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-4">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population')" index="2-5">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk')" index="3-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding')" index="3-2">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones')" index="3-3">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations')" index="3-4">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population')" index="3-5">Elderly Population</el-menu-item>
                     </el-menu-item-group>
-                </el-submenu>
-                <el-menu-item index="4">
-                    <!-- <i class="el-icon-menu"></i> -->
-                    <span @click="goToHeat">About</span>
-                </el-menu-item>                
+                </el-submenu>              
             </el-menu>
         </el-drawer>
 
@@ -75,7 +78,8 @@
             :key="content[0]"
             v-bind:data-content="content"
             @onNext="next"
-            @onHeat="goToHeat"></onboarding-contents>
+            @onHeat="goToHeat"
+            @onFlooding="goToFlooding"></onboarding-contents>
         </div>
 
         <!-- Shown after intro -->
@@ -98,12 +102,11 @@
                 <div v-else></div>
 
                 <!-- Load Unity Assets async to activate -->
+                <!-- TODO: :loading="loading" -->
                 <el-button
                     type="primary" 
-                    :loading="loading"
-                    icon="el-icon-view"
-                    disabled>
-                    Explore AR
+                    icon="el-icon-view">
+                    Explore
                 </el-button>
 
                 <el-button
@@ -144,6 +147,12 @@ export default {
         },
         introSlides() {
             return this.$store.getters.getOnboarding?.modules?.intro?.slides
+        },
+        heatSlides() {
+            return this.$store.getters.getOnboarding?.modules[0]?.slides
+        },
+        floodSlides() {
+            return this.$store.getters.getOnboarding?.modules[1]?.slides
         },
         slides() {
             return this.$store.getters.getOnboarding?.modules[0]?.slides
@@ -198,7 +207,7 @@ export default {
         },
         goToFlooding() {
             this.drawer = false
-            this.active = 5
+            this.active = 0
             this.showIntro = false
         }
     },
@@ -256,32 +265,8 @@ a {
     color: black;
 }
 
-div {
-    background-color: white;
-    color: black;
-    /* opacity: 0.8; */
-    /* width: 90vw; */
-    /* margin: 5vw !important; */
-    /* height: 95vh; */
-    overflow-y: hidden;
-}
-
 .el-dialog__body {
     color: black;
-}
-
-.el-carousel__container {
-    position: relative;
-    height: 85vh;
-    text-align: center;
-    margin: auto;
-    width: 100%;
-}
-
-.el-carousel__item {
-    padding: 25px;
-    border-radius: 10px;
-    /* background-color: #99a9bf; */
 }
 
 .menu-icon {
@@ -321,6 +306,11 @@ div {
     font-size: inherit;
     text-transform: uppercase;
     font-weight: 600;
+}
+
+.el-menu-item.is-active {
+    color: black;
+    font-weight: 500;
 }
 
 .spacer {

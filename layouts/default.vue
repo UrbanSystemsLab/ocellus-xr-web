@@ -82,6 +82,10 @@ p {
   line-height: 18pt;
 }
 
+.el-image img {
+  width: 100%;
+}
+
 .el-row {
   margin-bottom: 20px;
   text-align: left;

@@ -6,9 +6,9 @@
         </p>
 
         <!-- img tag, displays an img -->
-        <!-- <div class="onboarding-image"> -->
+        <div class="onboarding-image">
             <el-image fit="contain" v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
-        <!-- </div> -->
+        </div>
 
         <!-- button tag, displays an button with text and action -->
         <div
@@ -123,7 +123,6 @@ export default {
     }
 
     .el-image {
-        height: 400px;
         display: flex;
         justify-content: center;
     }
@@ -143,6 +142,6 @@ export default {
     } */
 
     p {
-        font-weight: 300;
+        font-weight: 400;
     }
 </style>
