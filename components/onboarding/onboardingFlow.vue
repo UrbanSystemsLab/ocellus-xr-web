@@ -15,15 +15,15 @@
                     <template slot="title">
                         <span>OCELLUS XR</span>
                     </template>
-                    <el-menu-item index="1-3">
+                    <el-menu-item @click="goToIntro" index="1-1">
                         <i class="el-icon-data-analysis menu-list"></i>
                         Introduction
                     </el-menu-item>
-                    <el-menu-item @click="goToHeat" index="1-1">
+                    <el-menu-item @click="goToHeat" index="2-1">
                         <i class="el-icon-sunny menu-list"></i>
                         Heat
                     </el-menu-item>
-                    <el-menu-item @click="goToFlooding" index="1-2">
+                    <el-menu-item @click="goToFlooding" index="3-1">
                         <i class="el-icon-heavy-rain menu-list"></i>
                         Flooding
                     </el-menu-item>
@@ -67,23 +67,8 @@
 
         <i @click="drawer = true"  class="el-icon-menu menu-icon"></i>
 
-        <!-- Shown for intro -->
-        <div class="slides" v-if="introSlides && showIntro">
-            <h1 v-if="introSlides[active].title">
-                {{ introSlides[active].title }}
-            </h1>
-
-            <onboarding-contents
-            v-for="content in introSlides[active].content"
-            :key="content[0]"
-            v-bind:data-content="content"
-            @onNext="next"
-            @onHeat="goToHeat"
-            @onFlooding="goToFlooding"></onboarding-contents>
-        </div>
-
-        <!-- Shown after intro -->
-        <div class="slides" v-if="!showIntro">
+        <!-- Slides -->
+        <div class="slides" v-if="slides">
             <h1>
                 {{ slides[active].title }}
             </h1>
@@ -135,10 +120,10 @@ export default {
             active: 0,
             // activeLayer: 'heat', // TODO
             drawer: false,
-            showIntro: true,
             window: {},
             dev: 'no message yet',
-            loading: true
+            loading: true,
+            slides: this.$store.getters.getOnboarding?.modules[0]?.slides
         }
     },
     computed: {
@@ -153,9 +138,6 @@ export default {
         },
         floodSlides() {
             return this.$store.getters.getOnboarding?.modules[1]?.slides
-        },
-        slides() {
-            return this.$store.getters.getOnboarding?.modules[0]?.slides
         }
     },
     methods: {
@@ -180,35 +162,24 @@ export default {
             window?.vuplex?.postMessage('js-dev', message);
         },
         goToLayer(type, layerID, layerName) {
-            /*
-                {
-                type: String ['live', 'ar', 'location'],
-                data: Object {
-                    layer: {
-                    id: String,
-                    name: String,
-                    description: String
-                    },
-                    location: {
-                    lat: Number,
-                    lon: Number
-                    }
-                  }
-                }
-            */
             const message = { type: type, data: {layer: {id: layerID, name: layerName}} };
             window?.vuplex?.postMessage(message);
             console.log('js-dev', 'menu message sent from JS to C#', message);
         },
-        goToHeat() {
+        goToIntro() {
+            this.slides = this.introSlides
             this.drawer = false
             this.active = 0
-            this.showIntro = false
+        },
+        goToHeat() {
+            this.slides = this.heatSlides
+            this.drawer = false
+            this.active = 0
         },
         goToFlooding() {
+            this.slides = this.floodSlides
             this.drawer = false
             this.active = 0
-            this.showIntro = false
         }
     },
     mounted() {
