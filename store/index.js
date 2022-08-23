@@ -78,6 +78,9 @@ export const actions = {
     setScreenWidth: function(store, width) {
       store.commit('storeScreenWidth', width)
     },
+    setScreenHeight: function(store, height) {
+      store.commit('storeScreenHeight', height)
+    },
     setMapLoadedState: function(store, flag) {
         store.commit('storeMapLoadedState', flag)
     },

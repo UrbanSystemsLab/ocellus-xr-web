@@ -23,7 +23,7 @@
                         <i class="el-icon-sunny menu-list"></i>
                         Heat
                     </el-menu-item>
-                    <el-menu-item @click="goToFlooding" index="3-1">
+                    <el-menu-item @click="goToFlood" index="3-1">
                         <i class="el-icon-heavy-rain menu-list"></i>
                         Flooding
                     </el-menu-item>
@@ -31,7 +31,7 @@
                 <el-submenu index="2">
                     <template slot="title">
                         <i class="el-icon-map-location menu-list"></i>
-                        <span>View 3D Map</span>
+                        <span>Explore 3D Map</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
@@ -51,7 +51,7 @@
                 <el-submenu index="3" disabled>
                     <template slot="title">
                         <i class="el-icon-mobile menu-list"></i>
-                        <span>Explore Live</span>
+                        <span>View Live</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
@@ -76,21 +76,26 @@
             v-for="content in slides[active].content"
             :key="content[0]"
             v-bind:data-content="content"
-            @onAr="goToLayer('heat', '')"></onboarding-contents>
+            @onAr="goToLayer('heat', '')"
+            @onHeat="goToHeat()"
+            @onFlood="goToFlood()"></onboarding-contents>
 
             <div class="button-spacer">
                 <el-button
-                v-if="active !== 0"
+                v-if="active > 0"
                 type="primary"
                 icon="el-icon-arrow-left"
+                class="front"
                 @click="prev">Prev</el-button>
                 <div v-else></div>
 
                 <!-- Load Unity Assets async to activate -->
-                <!-- TODO: :loading="loading" -->
                 <el-button
+                    v-if="slides[active].layer"
                     type="primary" 
-                    icon="el-icon-view">
+                    :loading="this.loading"
+                    icon="el-icon-map-location"
+                    @click="goToLayer('ar', slides[active].layer)">
                     Explore
                 </el-button>
 
@@ -98,6 +103,7 @@
                 v-if="active !== slides.length - 1"
                 type="primary"
                 icon="el-icon-arrow-right"
+                class="front"
                 @click="next">Next</el-button>
                 <div v-else></div>
             </div>
@@ -122,8 +128,9 @@ export default {
             drawer: false,
             window: {},
             dev: 'no message yet',
-            loading: true,
-            slides: this.$store.getters.getOnboarding?.modules[0]?.slides
+            loading: false,
+            slides: this.$store.getters.getOnboarding?.modules[0]?.slides,
+            unity: {}
         }
     },
     computed: {
@@ -140,6 +147,15 @@ export default {
             return this.$store.getters.getOnboarding?.modules[1]?.slides
         }
     },
+    watch: {
+        unity(newMessage, oldMessage) {
+            if (newMessage.messageContent?.layer?.id && loading) {
+                loading = false,
+                drawer = false,
+                unity = {}
+            }
+        }
+    },
     methods: {
         moduleButtonClick: function(e){
             console.log(e);
@@ -148,9 +164,11 @@ export default {
         },
         next() {
             this.active++
+            console.log("active", this.active)
         },
         prev() {
             this.active--
+            console.log("active", this.active)
         },
         handleOpen() {
             const message = { type: "menu", data: { open: true }};
@@ -162,24 +180,25 @@ export default {
             window?.vuplex?.postMessage('js-dev', message);
         },
         goToLayer(type, layerID, layerName) {
+            this.loading=true
             const message = { type: type, data: {layer: {id: layerID, name: layerName}} };
             window?.vuplex?.postMessage(message);
             console.log('js-dev', 'menu message sent from JS to C#', message);
         },
         goToIntro() {
             this.slides = this.introSlides
-            this.drawer = false
             this.active = 0
+            this.drawer = false
         },
         goToHeat() {
             this.slides = this.heatSlides
-            this.drawer = false
             this.active = 0
+            this.drawer = false
         },
-        goToFlooding() {
+        goToFlood() {
             this.slides = this.floodSlides
-            this.drawer = false
             this.active = 0
+            this.drawer = false
         }
     },
     mounted() {
@@ -201,6 +220,7 @@ export default {
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
                     console.log('JSON received from C#: ' + json);
+                    this.unity = json;
                 });
             }
         }
@@ -258,10 +278,18 @@ a {
 }
 
 #onboarding-flow .el-button:hover {
-    /* background-color: rgba(255, 255, 255, 0.3); */
-    margin: 0.3em;
     background-color: black;
     color: white;
+}
+
+#onboarding-flow .el-button:disabled {
+    background-color: white;
+    color: lightgray;
+    border-color: lightgray;
+}
+
+.front {
+    z-index: 100;
 }
 
 .slides {

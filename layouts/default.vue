@@ -18,7 +18,7 @@ html {
 }
 
 html {
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 body {
@@ -36,6 +36,12 @@ body {
 main {
   /* display: grid;
   grid-template-columns: 6fr 4fr; */
+}
+
+
+.el-carousel__arrow {
+    background-color: white;
+    color: black;
 }
 
 @media (max-width: 800px){

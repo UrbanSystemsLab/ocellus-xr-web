@@ -5,6 +5,9 @@
             {{ dataContent.text }}
         </p>
 
+        <!-- html tag, small text -->
+        <p v-if="dataContent.type === 'html'" v-html="dataContent.text"></p>
+
         <!-- img tag, displays an img -->
         <div class="onboarding-image">
             <el-image fit="contain" v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
@@ -13,7 +16,7 @@
         <!-- button tag, displays an button with text and action -->
         <div
         class="intro-button"
-        v-bind:style="{ width: width <= 500 ? '75%' : '50%'}"
+        v-bind:style="{ width: width <= 500 ? '100%' : '50%'}"
         v-if="dataContent.type === 'button'"
         v-on:click="buttonEmitter(dataContent.action)">
             {{ dataContent.text }}
@@ -36,28 +39,24 @@
         <el-carousel
         v-if="dataContent.type === 'carousel'"
         arrow="always"
-        :height="width <= 500 ? '300px' : '400px'"
-        :autoplay="false"
+        :autoplay="true"
         v-on:change="test">
             <el-carousel-item v-for="(image, index) in dataContent.images" :key="index">
-                <el-image class="carousel-image" :src="image"></el-image>
+                <el-image v-if="height>500" class="carousel-image" :src="image"></el-image>
             </el-carousel-item>
         </el-carousel>
 
         <!-- text-carousel tag, displays an image carousel under text -->
         <div v-if="dataContent.type === 'text-carousel'">
-            <p class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
-            <!-- <p v-else class="carousel-text">{{ carouselText }}</p> -->
-
             <el-carousel
             arrow="always"
-            :height="width <= 500 ? '300px' : '400px'"
-            :autoplay="false"
+            :autoplay="true"
             v-on:change="test">
                 <el-carousel-item v-for="(obj, index) in dataContent.content" :key="index">
                     <el-image fit="contain" class="carousel-image" :src="obj.image"></el-image>
                 </el-carousel-item>
             </el-carousel>
+            <p class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
         </div>
 
         <!-- list of content -->
@@ -96,6 +95,9 @@ export default {
         width() {
             return this.$store.getters.getScreenWidth
         },
+        height() {
+            return this.$store.getters.getScreenHeight
+        },
     }
 }
 </script>
@@ -112,13 +114,12 @@ export default {
 
     .intro-button {
         margin: 0 auto;
-        width: 50%;
         text-align: center;
         border: 1px solid black;
-        border-radius: 6px;
+        border-radius: 10px;
         font-size: 30px;
         padding: 6px;
-        line-height: 30px;
+        margin-top: 1rem;
         cursor: pointer;
     }
 
@@ -127,19 +128,16 @@ export default {
         justify-content: center;
     }
 
-    .carousel-image {
+    .carousel {
         height: 100%;
+        width: 100%;
+        overflow-y: auto;
     }
 
     .carousel-text {
-        /* height: 230px; */
+        padding-top: 1rem;
         background-color: white;
     }
-
-    /* not sure how to target the indicators  */
-    /* .el-carousel__button {
-        background-color: grey;
-    } */
 
     p {
         font-weight: 400;
