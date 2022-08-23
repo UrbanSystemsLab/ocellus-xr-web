@@ -376,6 +376,9 @@ export const mutations = {
     storeScreenWidth: (state, payload) => {
       state.screenWidth = payload
     },
+    storeScreenHeight: (state, payload) => {
+      state.screenHeight = payload
+    },
     storeStyle: (state, payload) => {
       state.style = Object.assign({}, payload)
     },

@@ -138,6 +138,7 @@ import queryParamsMixin from '~/components/utils/mixins/queryParamsMixin'
         const { innerHeight } = this.window;
         console.log('innerWidth', innerWidth, 'innerHeight', innerHeight);
         this.$store.dispatch('setScreenWidth', innerWidth);
+        this.$store.dispatch('setScreenHeight', innerHeight);
       }
     },
     beforeMount(){

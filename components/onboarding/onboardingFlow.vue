@@ -48,7 +48,7 @@
                         <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining')" index="2-11">Redlining</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="3" disabled>
+                <el-submenu index="3" :disabled="location && location.lat ? true : false">
                     <template slot="title">
                         <i class="el-icon-mobile menu-list"></i>
                         <span>View Live</span>
@@ -76,7 +76,6 @@
             v-for="content in slides[active].content"
             :key="content[0]"
             v-bind:data-content="content"
-            @onAr="goToLayer('heat', '')"
             @onHeat="goToHeat()"
             @onFlood="goToFlood()"></onboarding-contents>
 
@@ -90,12 +89,13 @@
                 <div v-else></div>
 
                 <!-- Load Unity Assets async to activate -->
+                <!-- TODO: Switch from name trigger back to id trigger in C# -->
                 <el-button
                     v-if="slides[active].layer"
                     type="primary" 
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer('ar', slides[active].layer)">
+                    @click="goToLayer('ar', '', slides[active].layer)">
                     Explore
                 </el-button>
 
@@ -130,7 +130,8 @@ export default {
             dev: 'no message yet',
             loading: false,
             slides: this.$store.getters.getOnboarding?.modules[0]?.slides,
-            unity: {}
+            unity: {},
+            location: {} // gps coordinates as reported by unity
         }
     },
     computed: {
@@ -149,17 +150,20 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
+            if (!newMessage.messageContent) return;
+            
             let message = JSON.parse(newMessage)
-            console.log("unity message", message, 
-                "newMessage.messageContent", message.messageContent,
-                "newMessage.messageContent?.layer", message.messageContent?.layer,
+            console.log("unity message",
+                "message.messageContent?.layer", message.messageContent?.layer,
                 "layer.id", message.messageContent?.layer?.id, 
                 "loading", this.loading, "test", 
-                message.messageContent?.layer?.id && this.loading
+                message.messageContent?.layer?.id && this.loading,
+                "location",
+                message.messageContent?.location
             );
             if (message.messageContent?.layer?.id && this.loading) {
+                this.location = message.messageContent?.location
                 this.loading = false,
-                console.log("loading", this.loading);
                 this.drawer = false,
                 this.unity = {}
             }
