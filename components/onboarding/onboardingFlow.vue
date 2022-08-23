@@ -149,6 +149,7 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
+            console.log("unity message", newMessage, oldMessage);
             if (newMessage.messageContent?.layer?.id && this.loading) {
                 this.loading = false,
                 this.drawer = false,
