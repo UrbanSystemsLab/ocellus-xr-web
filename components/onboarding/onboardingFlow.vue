@@ -35,12 +35,12 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', 'NYC_heatmap', 'risk')" index="2-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Moderate Flooding Scenario', '2050s-100y', 'id')" index="2-2">Moderate Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding Scenario', '2050s-500y', 'id')" index="2-3">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Moderate Flooding Scenario')" index="2-2">Moderate Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding Scenario')" index="2-3">Extreme Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones')" index="2-4">Flood Zones</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-5">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', 'NYC_65plus', 'P_Abv65_e_')" index="2-6">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population')" index="2-6">Elderly Population</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income', 'income')" index="2-7">Income</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA')" index="2-8">Potential Social Justice Areas</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs')" index="2-9">Green Roofs</el-menu-item>
@@ -95,7 +95,7 @@
                     type="primary" 
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer(slides[active].layer)">
+                    @click="goToLayer('ar', slides[active].layer, 'layerName')">
                     Explore
                 </el-button>
 
@@ -162,7 +162,7 @@ export default {
                 message = JSON.parse(newMessage)
             else return
 
-            console.log("new unity message",
+            console.log("unity message",
                 "message.messageContent?.layer", message.messageContent?.layer,
                 "layer.id", message.messageContent?.layer?.id, 
                 "loading", this.loading, "test", 
