@@ -48,7 +48,7 @@
                         <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining')" index="2-11">Redlining</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="3" :disabled="location && location.lat ? true : false">
+                <el-submenu index="3" :disabled="location && location.lat ? false : true">
                     <template slot="title">
                         <i class="el-icon-mobile menu-list"></i>
                         <span>View Live</span>
@@ -89,13 +89,12 @@
                 <div v-else></div>
 
                 <!-- Load Unity Assets async to activate -->
-                <!-- TODO: Switch from name trigger back to id trigger in C# -->
                 <el-button
                     v-if="slides[active].layer"
                     type="primary" 
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer('ar', '', slides[active].layer)">
+                    @click="goToLayer('ar', slides[active].layer)">
                     Explore
                 </el-button>
 
