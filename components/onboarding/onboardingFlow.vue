@@ -157,8 +157,6 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
-            if (!newMessage.messageContent) return;
-            
             let message = JSON.parse(newMessage)
             console.log("unity message",
                 "message.messageContent?.layer", message.messageContent?.layer,
@@ -184,11 +182,9 @@ export default {
         },
         next() {
             this.active++
-            console.log("active", this.active)
         },
         prev() {
             this.active--
-            console.log("active", this.active)
         },
         handleOpen() {
             const message = { type: "menu", data: { open: true }};
