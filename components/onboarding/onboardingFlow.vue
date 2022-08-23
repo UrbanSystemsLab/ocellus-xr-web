@@ -52,7 +52,7 @@
                     <template slot="title">
                         <i class="el-icon-mobile menu-list"></i>
                         <span>View Live</span>
-                        <span v-if="distanceToNYC > 50">(NYC only)</span>
+                        <span v-if="distanceToNYC > 20">(NYC only)</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
@@ -95,7 +95,7 @@
                     type="primary" 
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer('ar', slides[active].layer)">
+                    @click="goToLayer(slides[active].layer)">
                     Explore
                 </el-button>
 
@@ -157,8 +157,12 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
-            let message = JSON.parse(newMessage)
-            console.log("unity message",
+            let message = {}
+            if (newMessage) 
+                message = JSON.parse(newMessage)
+            else return
+
+            console.log("new unity message",
                 "message.messageContent?.layer", message.messageContent?.layer,
                 "layer.id", message.messageContent?.layer?.id, 
                 "loading", this.loading, "test", 
