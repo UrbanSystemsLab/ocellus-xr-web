@@ -149,10 +149,10 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
-            if (newMessage.messageContent?.layer?.id && loading) {
-                loading = false,
-                drawer = false,
-                unity = {}
+            if (newMessage.messageContent?.layer?.id && this.loading) {
+                this.loading = false,
+                this.drawer = false,
+                this.unity = {}
             }
         }
     },
