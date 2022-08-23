@@ -149,14 +149,15 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
-            console.log("unity message", newMessage, 
-                "newMessage.messageContent", newMessage.messageContent,
-                "newMessage.messageContent?.layer", newMessage.messageContent?.layer,
-                "layer.id", newMessage.messageContent?.layer?.id, 
+            let message = JSON.parse(newMessage)
+            console.log("unity message", message, 
+                "newMessage.messageContent", message.messageContent,
+                "newMessage.messageContent?.layer", message.messageContent?.layer,
+                "layer.id", message.messageContent?.layer?.id, 
                 "loading", this.loading, "test", 
-                newMessage.messageContent?.layer?.id && this.loading
+                message.messageContent?.layer?.id && this.loading
             );
-            if (newMessage.messageContent?.layer?.id && this.loading) {
+            if (message.messageContent?.layer?.id && this.loading) {
                 this.loading = false,
                 console.log("loading", this.loading);
                 this.drawer = false,
