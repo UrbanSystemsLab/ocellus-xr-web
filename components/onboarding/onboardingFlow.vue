@@ -149,7 +149,13 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
-            console.log("unity message", newMessage, "layer.id", newMessage.messageContent?.layer?.id, "loading", this.loading, "test", newMessage.messageContent?.layer?.id && this.loading);
+            console.log("unity message", newMessage, 
+                "newMessage.messageContent", newMessage.messageContent,
+                "newMessage.messageContent?.layer", newMessage.messageContent?.layer,
+                "layer.id", newMessage.messageContent?.layer?.id, 
+                "loading", this.loading, "test", 
+                newMessage.messageContent?.layer?.id && this.loading
+            );
             if (newMessage.messageContent?.layer?.id && this.loading) {
                 this.loading = false,
                 console.log("loading", this.loading);
