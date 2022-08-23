@@ -52,6 +52,7 @@
                     <template slot="title">
                         <i class="el-icon-mobile menu-list"></i>
                         <span>View Live</span>
+                        <span v-if="distanceToNYC > 50">(NYC only)</span>
                     </template>
                     <el-menu-item-group
                         class="menu-list">
@@ -68,7 +69,7 @@
         <i @click="drawer = true"  class="el-icon-menu menu-icon"></i>
 
         <!-- Slides -->
-        <div class="slides" v-if="slides">
+        <div class="slides" v-if="slides && slides[active] && slides[active].title">
             <h1>
                 {{ slides[active].title }}
             </h1>
@@ -122,13 +123,11 @@ export default {
         return {
             dialogVisible: true,
             innerVisible: false,
-            active: 0,
-            // activeLayer: 'heat', // TODO
-            drawer: false,
+            active: 0, // current slide
+            drawer: true, // menu drawer
             window: {},
-            dev: 'no message yet',
-            loading: false,
-            slides: this.$store.getters.getOnboarding?.modules[0]?.slides,
+            loading: false, // unity layer loading state
+            slides: {},
             unity: {},
             location: {} // gps coordinates as reported by unity
         }
@@ -145,6 +144,15 @@ export default {
         },
         floodSlides() {
             return this.$store.getters.getOnboarding?.modules[1]?.slides
+        },
+        distanceToNYC() {
+            // NYC 40.730610, -73.935242
+            let distance = Number.MAX_SAFE_INTEGER
+            if (this.location && this.location.lat && this.location.lon) {
+                distance = this.distance(40.730610, -73.935242, this.location.lat, this.location.lon);
+            }
+            console.log("distance to NYC", distance)
+            return distance
         }
     },
     watch: {
@@ -211,7 +219,28 @@ export default {
             this.slides = this.floodSlides
             this.active = 0
             this.drawer = false
-        }
+        },
+        distance(lat1, lon1, lat2, lon2, unit) {
+            if ((lat1 == lat2) && (lon1 == lon2)) {
+                return 0;
+            }
+            else {
+                var radlat1 = Math.PI * lat1/180;
+                var radlat2 = Math.PI * lat2/180;
+                var theta = lon1-lon2;
+                var radtheta = Math.PI * theta/180;
+                var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                if (dist > 1) {
+                    dist = 1;
+                }
+                dist = Math.acos(dist);
+                dist = dist * 180/Math.PI;
+                dist = dist * 60 * 1.1515;
+                if (unit=="K") { dist = dist * 1.609344 }
+                if (unit=="N") { dist = dist * 0.8684 }
+                return dist;
+            }
+        },
     },
     mounted() {
         this.$store.dispatch('getOnboardingModules', true);
