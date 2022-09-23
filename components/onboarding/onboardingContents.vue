@@ -10,13 +10,13 @@
 
         <!-- img tag, displays an img -->
         <div class="onboarding-image">
-            <el-image fit="contain" v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
+            <el-image v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
         </div>
 
         <!-- button tag, displays an button with text and action -->
         <div
         class="intro-button"
-        v-bind:style="{ width: width <= 500 ? '100%' : '50%'}"
+        v-bind:style="{ width: width <= 500 ? '100%' : '75%'}"
         v-if="dataContent.type === 'button'"
         v-on:click="buttonEmitter(dataContent.action)">
             {{ dataContent.text }}

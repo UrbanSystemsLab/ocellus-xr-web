@@ -6,11 +6,13 @@
         :visible.sync="drawer"
         direction="ttb"
         size="100%">
+            <!-- Todo: check 
+                @open="handleOpen"
+                @close="handleClose" 
+            -->
             <el-menu
                 class="menu-list"
-                default-active="1-1"
-                @open="handleOpen"
-                @close="handleClose">
+                default-active="1-1">
                 <el-submenu index="1">
                     <template slot="title">
                         <span>OCELLUS XR</span>
@@ -35,20 +37,21 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk')" index="2-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Moderate Flooding Scenario')" index="2-2">Moderate Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding Scenario')" index="2-3">Extreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones')" index="2-4">Flood Zones</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations')" index="2-5">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population')" index="2-6">Elderly Population</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income', 'income')" index="2-7">Income</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA')" index="2-8">Potential Social Justice Areas</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs')" index="2-9">Green Roofs</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space')" index="2-10">Open Space</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining')" index="2-11">Redlining</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false)" index="2-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Moderate Flooding Scenario', false)" index="2-2">Moderate Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding Scenario', false)" index="2-3">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones', false)" index="2-4">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations', false)" index="2-5">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', false)" index="2-6">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income', 'income', false)" index="2-7">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA', false)" index="2-8">Potential Social Justice Areas</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs', false)" index="2-9">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space', false)" index="2-10">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining', false)" index="2-11">Redlining</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="3" :disabled="location && location.lat ? false : true">
+                <el-submenu index="3">
+                    <!-- Todo: distance check and confirmation modal for locations outside NYC  :disabled="location && location.lat ? false : true" -->
                     <template slot="title">
                         <i class="el-icon-mobile menu-list"></i>
                         <span>View Live</span>
@@ -56,11 +59,11 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
-                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk')" index="3-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding')" index="3-2">Extreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones')" index="3-3">Flood Zones</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations')" index="3-4">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population')" index="3-5">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk', false)" index="3-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding', false)" index="3-2">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones', false)" index="3-3">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations', false)" index="3-4">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population', false)" index="3-5">Elderly Population</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>              
             </el-menu>
@@ -90,12 +93,14 @@
                 <div v-else></div>
 
                 <!-- Load Unity Assets async to activate -->
+                <!-- Todo: discuss layer id and name payload -->
                 <el-button
-                    v-if="slides[active].layer"
+                    v-if="slides[active].target"
+                    color="black"
                     type="primary" 
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer('ar', slides[active].layer, 'layerName')">
+                    @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true)">
                     Explore
                 </el-button>
 
@@ -199,9 +204,18 @@ export default {
             const message = { type: "menu", data: { open: false }};
             window?.vuplex?.postMessage('js-dev', message);
         },
-        goToLayer(type, layerID, layerName) {
+        goToLayer(type, layerID, layerName, webview) {
             this.loading=true
-            const message = { type: type, data: {layer: {id: layerID, name: layerName}} };
+            const message = {
+                type: type,
+                data: {
+                    layer: {
+                        id: layerID,
+                        name: layerName
+                    },
+                    webview: webview
+                } 
+            };
             window?.vuplex?.postMessage(message);
             console.log('js-dev', 'menu message sent from JS to C#', message);
         },
@@ -263,6 +277,7 @@ export default {
                     let json = event.data;
                     console.log('JSON received from C#: ' + json);
                     that.unity = json;
+                    goToLayer('ar', slides[active].target, 'optionalLayerName', false);
                 });
             }
         }
