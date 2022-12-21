@@ -6,9 +6,9 @@
         :visible.sync="drawer"
         direction="ttb"
         size="100%">
-            <!-- Todo: check 
+            <!-- Todo: check
                 @open="handleOpen"
-                @close="handleClose" 
+                @close="handleClose"
             -->
             <el-menu
                 class="menu-list"
@@ -38,8 +38,8 @@
                     <el-menu-item-group
                         class="menu-list">
                         <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false)" index="2-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Moderate Flooding Scenario', false)" index="2-2">Moderate Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.77dtkn5f', 'Extreme Flooding Scenario', false)" index="2-3">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.5werclko', 'Moderate Flooding Scenario', false)" index="2-2">Moderate Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.6d5byyoy', 'Extreme Flooding Scenario', false)" index="2-3">Extreme Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones', false)" index="2-4">Flood Zones</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations', false)" index="2-5">Cooling Stations</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', false)" index="2-6">Elderly Population</el-menu-item>
@@ -65,7 +65,7 @@
                         <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations', false)" index="3-4">Cooling Stations</el-menu-item>
                         <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population', false)" index="3-5">Elderly Population</el-menu-item>
                     </el-menu-item-group>
-                </el-submenu>              
+                </el-submenu>
             </el-menu>
         </el-drawer>
 
@@ -97,7 +97,7 @@
                 <el-button
                     v-if="slides[active].target"
                     color="black"
-                    type="primary" 
+                    type="primary"
                     :loading="this.loading"
                     icon="el-icon-map-location"
                     @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true)">
@@ -163,14 +163,14 @@ export default {
     watch: {
         unity(newMessage, oldMessage) {
             let message = {}
-            if (newMessage) 
+            if (newMessage)
                 message = JSON.parse(newMessage)
             else return
 
             console.log("unity message",
                 "message.messageContent?.layer", message.messageContent?.layer,
-                "layer.id", message.messageContent?.layer?.id, 
-                "loading", this.loading, "test", 
+                "layer.id", message.messageContent?.layer?.id,
+                "loading", this.loading, "test",
                 message.messageContent?.layer?.id && this.loading,
                 "location",
                 message.messageContent?.location
@@ -214,7 +214,7 @@ export default {
                         name: layerName
                     },
                     webview: webview
-                } 
+                }
             };
             window?.vuplex?.postMessage(message);
             console.log('js-dev', 'menu message sent from JS to C#', message);
