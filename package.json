@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "author": "Daniel Sauter <sauter@newschool.edu>",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
