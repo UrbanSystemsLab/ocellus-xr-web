@@ -21,7 +21,7 @@
         v-on:click="buttonEmitter(dataContent.action)">
             {{ dataContent.text }}
         </div>
- 
+
         <!-- collapse tag, displays a collapsable panel -->
         <el-collapse
         v-if="dataContent.type === 'collapse'"
@@ -37,12 +37,12 @@
 
         <!-- carousel tag, displays an image carousel -->
         <el-carousel
+          height="50vh"
         v-if="dataContent.type === 'carousel'"
         arrow="always"
-        :autoplay="true"
-        v-on:change="test">
+        :autoplay="true">
             <el-carousel-item v-for="(image, index) in dataContent.images" :key="index">
-                <el-image v-if="height>500" class="carousel-image" :src="image"></el-image>
+                <el-image class="carousel-image" :src="image"></el-image>
             </el-carousel-item>
         </el-carousel>
 

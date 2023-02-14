@@ -90,6 +90,9 @@ p {
 
 .el-image img {
   width: 100%;
+  max-height: 50vh;
+  height: auto;
+  object-fit: contain;
 }
 
 .el-row {

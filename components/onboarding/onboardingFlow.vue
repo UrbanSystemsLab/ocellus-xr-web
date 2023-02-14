@@ -297,6 +297,8 @@ export default {
 
 div #onboarding-flow {
     display: flex;
+  overflow-y: scroll;
+  height: 100vh;
     flex-flow: column;
     z-index: 3000;
     padding: 0px 6px;
@@ -330,6 +332,7 @@ a {
     background-color: white;
     color: black;
     margin: 0.3em;
+  pointer-events: all;
     border-color: black;
     transition: .3s ease-in-out;
 }
@@ -347,6 +350,7 @@ a {
 
 .front {
     z-index: 100;
+  opacity: 0.8;
 }
 
 .slides {
@@ -375,6 +379,7 @@ a {
 }
 
 .button-spacer {
+  pointer-events: none;
     display: flex;
     justify-content: space-between;
     position: absolute;
