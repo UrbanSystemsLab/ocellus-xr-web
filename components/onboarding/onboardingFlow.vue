@@ -70,6 +70,22 @@
         </el-drawer>
 
         <i @click="drawer = true"  class="el-icon-menu menu-icon"></i>
+        <el-button
+        v-if="hasCitations"
+        @click="citations = true"
+        icon="el-icon-link"
+        class="citation-icon"
+        size="mini"></el-button>
+
+        <el-drawer
+        :visible.sync="citations"
+        direction="rtl"
+        size="100%">
+          <citation-list
+           v-bind:citations="currentCitations"
+          >
+          </citation-list>
+        </el-drawer>
 
         <!-- Slides -->
         <div class="slides" v-if="slides && slides[active] && slides[active].title">
@@ -119,9 +135,12 @@
 <script scoped>
 import splitLayout from './splitLayout.vue'
 import onboardingContents from './onboardingContents.vue'
+import citationList from "~/components/onboarding/citationList.vue";
+import CitationOverlay from "~/components/onboarding/citationList.vue";
+import CitationList from "~/components/onboarding/citationList.vue";
 
 export default {
-  components: { splitLayout, onboardingContents },
+  components: {CitationList, splitLayout, onboardingContents },
     props: {
     },
     data() {
@@ -130,6 +149,7 @@ export default {
             innerVisible: false,
             active: 0, // current slide
             drawer: true, // menu drawer
+            citations: false,
             window: {},
             loading: false, // unity layer loading state
             slides: {},
@@ -138,6 +158,16 @@ export default {
         }
     },
     computed: {
+        currentCitations(){
+          if(this.hasCitations){
+            return this.slides[this.active].citations
+          } else {
+            return []
+          }
+        },
+        hasCitations(){
+          return typeof this.slides[this.active] !== 'undefined' && 'citations' in this.slides[this.active]
+        },
         onboarding() {
             return this.$store.getters.getOnboarding
         },
@@ -161,6 +191,9 @@ export default {
         }
     },
     watch: {
+        currentCitations(){
+          console.log(this.currentCitations)
+        },
         unity(newMessage, oldMessage) {
             let message = {}
             if (newMessage)
@@ -324,6 +357,16 @@ a {
     top: 40px;
     left: 34px;
     font-size: 38px;
+    /* cursor doesn't matter on mobile */
+    cursor: pointer;
+}
+
+.citation-icon {
+    position: absolute;
+    top: 40px;
+    right: 34px;
+  font-size: 20px;
+
     /* cursor doesn't matter on mobile */
     cursor: pointer;
 }
