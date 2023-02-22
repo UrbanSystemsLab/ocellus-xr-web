@@ -22,12 +22,13 @@ export default {
     citations: Array
   },
   mounted() {
-    console.log(this.citations)
   }
 
 }
 </script>
 
 <style scoped>
-
+h3{
+  padding-left: 1em;
+}
 </style>
