@@ -8,6 +8,8 @@
         <!-- html tag, small text -->
         <p v-if="dataContent.type === 'html'" v-html="dataContent.text"></p>
 
+        <div v-if="dataContent.type === 'list'"> {{dataContent.text}}</div>
+
         <!-- img tag, displays an img -->
         <div class="onboarding-image">
             <el-image v-if="dataContent.type === 'img'" :src="dataContent.source"></el-image>
@@ -59,6 +61,19 @@
             <p class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
         </div>
 
+      <div v-if="dataContent.type === 'text-carousel-minimal'">
+        <el-carousel
+          arrow="always"
+          :autoplay="true"
+          indicator-position="none"
+          v-on:change="test">
+          <el-carousel-item v-for="(obj, index) in dataContent.content" :key="index">
+            <el-image fit="contain" class="carousel-image" :src="obj.image"></el-image>
+          </el-carousel-item>
+        </el-carousel>
+        <p class="carousel-text">{{ dataContent.content[carouselIdx].text }}</p>
+      </div>
+
         <!-- list of content -->
         <ul v-if="dataContent.type === 'li'">
             <li v-for="item in dataContent.content" :key="item">
@@ -103,9 +118,14 @@ export default {
 </script>
 
 <style scoped>
-    li, ul {
-        list-style: none;
-        padding-left: 0px;
+    ul {
+      padding-left: 0px;
+      list-style: circle;
+      font-size: 13px;
+    }
+    ul ul {
+      padding-left: 15px;
+      list-style: none !important;
     }
 
     .content-container {
@@ -126,6 +146,10 @@ export default {
     .el-image {
         display: flex;
         justify-content: center;
+    }
+    div[role=button] {
+      /* CSS goes here */
+      line-height: 0px !important;
     }
 
     .carousel {
