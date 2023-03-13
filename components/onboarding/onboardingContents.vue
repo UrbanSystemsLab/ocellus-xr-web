@@ -98,6 +98,7 @@ export default {
             this.carouselText = item.text
         },
         buttonEmitter(event) {
+            console.log(event)
             this.$emit(event)
         },
         test(a) {

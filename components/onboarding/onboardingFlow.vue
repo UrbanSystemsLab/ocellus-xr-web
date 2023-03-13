@@ -117,7 +117,7 @@
                     type="primary"
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true)">
+                    @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true, 'optionalMapId', [activeSection, active])">
                     Explore
                 </el-button>
 
@@ -148,7 +148,8 @@ export default {
         return {
             dialogVisible: true,
             innerVisible: false,
-            active: 0, // current slide
+            active: 0, // current slide,
+            activeSection: 0, //current slide section
             drawer: true, // menu drawer
             citations: false,
             window: {},
@@ -235,7 +236,7 @@ export default {
             const message = { type: "menu", data: { open: false }};
             window?.vuplex?.postMessage('js-dev', message);
         },
-        goToLayer(type, layerID, layerName, webview, mapId = undefined) {
+        goToLayer(type, layerID, layerName, webview, mapId = undefined, index = undefined) {
             this.loading=true
             let message = {
                 type: type,
@@ -250,22 +251,28 @@ export default {
             if(typeof mapId !== 'undefined'){
               message.data.layer.mapId = mapId
             }
+            if(typeof index !== 'undefined'){
+              message.data.layer.slideIndex = index
+            }
             window?.vuplex?.postMessage(message);
             console.log('js-dev', 'menu message sent from JS to C#', message);
         },
         goToIntro() {
             this.slides = this.introSlides
             this.active = 0
+            this.activeSection = 0
             this.drawer = false
         },
         goToHeat() {
             this.slides = this.heatSlides
             this.active = 0
+            this.activeSection = 1
             this.drawer = false
         },
         goToFlood() {
             this.slides = this.floodSlides
             this.active = 0
+            this.activeSection = 2
             this.drawer = false
         },
         distance(lat1, lon1, lat2, lon2, unit) {
