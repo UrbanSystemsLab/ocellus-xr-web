@@ -253,7 +253,7 @@ export default {
             const message = { type: "menu", data: { open: false }};
             window?.vuplex?.postMessage('js-dev', message);
         },
-        goToLayer(type, layerID, layerName, webview, mapId = undefined, index = undefined) {
+        goToLayer(type, layerID, layerName, webview, mapKey = undefined, index = undefined) {
             this.loading=true
             let message = {
                 type: type,
@@ -265,8 +265,8 @@ export default {
                     webview: webview
                 }
             };
-            if(typeof mapId !== 'undefined'){
-              message.data.layer.mapId = mapId
+            if(typeof mapKey !== 'undefined'){
+              message.data.layer.mapKey = mapKey
             }
             if(typeof index !== 'undefined'){
               message.data.layer.slideIndex = index
