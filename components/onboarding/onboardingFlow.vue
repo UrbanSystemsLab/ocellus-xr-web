@@ -220,12 +220,19 @@ export default {
           switch (this.activeSection) {
             case 0:
               this.slides = this.introSlides
+              break;
             case 1:
               this.slides = this.heatSlides
+              break;
             case 2:
               this.slides = this.floodSlides
+              break;
+            default:
+              this.slides = this.introSlides
           }
           this.active = message['messageContent'].layer.slideIndex[1]
+          console.log('activeSlide:')
+          console.log(this.active)
           this.drawer = false
 
         }
