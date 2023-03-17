@@ -217,7 +217,6 @@ export default {
             return
           }
           this.activeSection = message['messageContent'].layer.slideIndex[0]
-          this.active = message['messageContent'].layer.slideIndex[1]
           switch (this.activeSection) {
             case 0:
               this.slides = this.introSlides
@@ -226,6 +225,8 @@ export default {
             case 2:
               this.slides = this.floodSlides
           }
+          this.active = message['messageContent'].layer.slideIndex[1]
+          this.drawer = false
 
         }
     },
