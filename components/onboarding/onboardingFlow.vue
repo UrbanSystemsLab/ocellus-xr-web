@@ -23,11 +23,11 @@
                     </el-menu-item>
                     <el-menu-item @click="goToHeat" index="2-1">
                         <i class="el-icon-sunny menu-list"></i>
-                        Heat
+                        Heat Risk
                     </el-menu-item>
                     <el-menu-item @click="goToFlood" index="3-1">
                         <i class="el-icon-heavy-rain menu-list"></i>
-                        Flooding
+                        Flooding Risk
                     </el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
@@ -268,8 +268,8 @@ export default {
         },
         goToIntro(slideIndex = [0, 0]) {
             this.slides = this.introSlides
-            this.activeSection = slideIndex[0]
-            this.active = slideIndex[1]
+            this.activeSection = 0
+            this.active = 0
             this.drawer = false
         },
         goToHeat(slideIndex = [1, 0]) {
