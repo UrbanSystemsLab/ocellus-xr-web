@@ -217,7 +217,7 @@ export default {
             return
           }
           this.activeSection = message['messageContent'].layer.slideIndex[0]
-          this.active = message.data.layer.slideIndex[1]
+          this.active = message['messageContent'].layer.slideIndex[1]
 
 
         }
