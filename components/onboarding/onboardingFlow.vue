@@ -195,33 +195,28 @@ export default {
     watch: {
         unity(newMessage, oldMessage) {
             let message = {}
-            if (newMessage)
-                message = JSON.parse(newMessage)
-            else return
+            if (newMessage){
+                message = JSON.parse(newMessage)}
+            else {return}
 
             console.log("unity message",
-                "message.messageContent?.layer", message.messageContent?.layer,
-                "layer.id", message.messageContent?.layer?.id,
-                "loading", this.loading, "test",
-                message.messageContent?.layer?.id && this.loading,
-                "location",
-                message.messageContent?.location
+                message
             );
 
-            if(typeof message.data === 'undefined'){
+            if(typeof message['messageContent'] === 'undefined'){
               console.log('malformed message: data missing')
               return
             }
-            if(typeof message.data.layer === 'undefined'){
+            if(typeof message['messageContent'].layer === 'undefined'){
               console.log('malformed message: layer missing')
               return
             }
 
-          if(typeof message.data.layer.slideIndex === 'undefined'){
+          if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
             console.log('malformed message: slideIndex missing')
             return
           }
-          this.activeSection = message.data.layer.slideIndex[0]
+          this.activeSection = message['messageContent'].layer.slideIndex[0]
           this.active = message.data.layer.slideIndex[1]
 
 
