@@ -199,64 +199,6 @@ export default {
             return distance
         }
     },
-    watch: {
-        unity(newMessage, oldMessage) {
-          if(!this.moduleLoaded) {
-            this.$store.dispatch('getOnboardingModules', true).then(() => {
-              this.moduleLoaded = true
-              updateSlides(newMessage)
-            })
-          } else {
-            updateSlides(newMessage)
-          }
-            function updateSlides (slideMessage){
-              let message = {}
-              if (slideMessage){
-                message = JSON.parse(slideMessage)}
-              else {return}
-              console.log("unity message",
-                message
-              );
-
-              if(typeof message['messageContent'] === 'undefined'){
-                console.log('malformed message: data missing')
-                return
-              }
-              if(typeof message['messageContent'].layer === 'undefined'){
-                console.log('malformed message: layer missing')
-                return
-              }
-
-              if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
-                console.log('malformed message: slideIndex missing')
-                return
-              }
-              console.log(message['messageContent'].layer.slideIndex[0])
-              this.activeSection = message['messageContent'].layer.slideIndex[0]
-              console.log('activeSection:')
-              console.log(this.activeSection)
-              switch (this.activeSection) {
-                case 0:
-                  this.slides = this.introSlides
-                  break;
-                case 1:
-                  this.slides = this.heatSlides
-                  break;
-                case 2:
-                  this.slides = this.floodSlides
-                  break;
-                default:
-                  this.slides = this.introSlides
-              }
-              this.active = message['messageContent'].layer.slideIndex[1]
-              console.log('activeSlide:')
-              console.log(this.active)
-              this.drawer = false
-            }
-
-
-        }
-    },
     methods: {
         vuplexMessageListener(message){
           console.log('component based listener')
@@ -268,7 +210,7 @@ export default {
             this.$store.dispatch('getOnboardingModules', true).then(() => {
               this.moduleLoaded = true
               console.log('module loaded')
-              updateSlides(message)
+              this.updateSlides(message)
             })
           } else {
             updateSlides(message)
@@ -319,6 +261,52 @@ export default {
             console.log(this.active)
             this.drawer = false
           }
+        },
+        updateSlides(slideMessage){
+          let message = {}
+          if (slideMessage){
+            message = JSON.parse(slideMessage)}
+          else {
+            return
+          }
+          console.log("unity message",
+            message
+          );
+
+          if(typeof message['messageContent'] === 'undefined'){
+            console.log('malformed message: data missing')
+            return
+          }
+          if(typeof message['messageContent'].layer === 'undefined'){
+            console.log('malformed message: layer missing')
+            return
+          }
+
+          if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
+            console.log('malformed message: slideIndex missing')
+            return
+          }
+          console.log(message['messageContent'].layer.slideIndex[0])
+          this.activeSection = message['messageContent'].layer.slideIndex[0]
+          console.log('activeSection:')
+          console.log(this.activeSection)
+          switch (this.activeSection) {
+            case 0:
+              this.slides = this.introSlides
+              break;
+            case 1:
+              this.slides = this.heatSlides
+              break;
+            case 2:
+              this.slides = this.floodSlides
+              break;
+            default:
+              this.slides = this.introSlides
+          }
+          this.active = message['messageContent'].layer.slideIndex[1]
+          console.log('activeSlide:')
+          console.log(this.active)
+          this.drawer = false
         },
         moduleButtonClick: function(e){
             console.log(e);
