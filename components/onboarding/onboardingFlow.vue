@@ -212,7 +212,12 @@ export default {
               this.moduleLoaded = true
               console.log('module loaded')
               console.log(this.moduleLoaded)
-              let message = JSON.parse(vuplexMessage)
+              let message
+              try {
+                message = JSON.parse(vuplexMessage)
+              } catch (e) {
+                console.log(e)
+              }
 
               console.log("unity message",
                 message
