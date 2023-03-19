@@ -213,7 +213,6 @@ export default {
               if (slideMessage){
                 message = JSON.parse(slideMessage)}
               else {return}
-
               console.log("unity message",
                 message
               );
@@ -231,7 +230,9 @@ export default {
                 console.log('malformed message: slideIndex missing')
                 return
               }
+              console.log(message['messageContent'].layer.slideIndex[0])
               this.activeSection = message['messageContent'].layer.slideIndex[0]
+              console.log(this.activeSection)
               switch (this.activeSection) {
                 case 0:
                   this.slides = this.introSlides
