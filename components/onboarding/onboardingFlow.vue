@@ -232,7 +232,7 @@ export default {
               }
               console.log(message['messageContent'].layer.slideIndex[0])
               this.activeSection = message['messageContent'].layer.slideIndex[0]
-              console.log(this.activeSection)
+              console.log('activeSection:')
               console.log(this.activeSection)
               switch (this.activeSection) {
                 case 0:
