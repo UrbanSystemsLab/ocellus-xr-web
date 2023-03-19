@@ -146,8 +146,10 @@ export default {
     },
     data() {
         return {
+            CSharpMessage: {"sentType":"ar","messageContent":{"layer":{"id":"equity.cxc73xaa","name":"optionalLayerName","mapId":"","description":"","isReady":true,"slideIndex":[1,1]},"location":{"lat":40.709381103515628,"lon":-73.93905639648438},"webviewIsOpen":false}},
             dialogVisible: true,
             innerVisible: false,
+            moduleLoaded: false,
             active: 0, // current slide,
             activeSection: 0, //current slide section
             drawer: true, // menu drawer
@@ -168,7 +170,11 @@ export default {
           }
         },
         hasCitations(){
-          return typeof this.slides[this.active] !== 'undefined' && 'citations' in this.slides[this.active]
+          if(!this.moduleLoaded){
+            return false
+          } else {
+            return Object.keys(this.slides).length !== 0 && this.slides[this.active] !== 'undefined' && typeof this.slides[this.active].citations !== 'undefined'
+          }
         },
         onboarding() {
             return this.$store.getters.getOnboarding
@@ -194,46 +200,57 @@ export default {
     },
     watch: {
         unity(newMessage, oldMessage) {
-            let message = {}
-            if (newMessage){
-                message = JSON.parse(newMessage)}
-            else {return}
+          if(!this.moduleLoaded) {
+            this.$store.dispatch('getOnboardingModules', true).then(() => {
+              this.moduleLoaded = true
+              updateSlides(newMessage)
+            })
+          } else {
+            updateSlides(newMessage)
+          }
+            function updateSlides (slideMessage){
+              let message = {}
+              if (slideMessage){
+                message = JSON.parse(slideMessage)}
+              else {return}
 
-            console.log("unity message",
+              console.log("unity message",
                 message
-            );
+              );
 
-            if(typeof message['messageContent'] === 'undefined'){
-              console.log('malformed message: data missing')
-              return
-            }
-            if(typeof message['messageContent'].layer === 'undefined'){
-              console.log('malformed message: layer missing')
-              return
+              if(typeof message['messageContent'] === 'undefined'){
+                console.log('malformed message: data missing')
+                return
+              }
+              if(typeof message['messageContent'].layer === 'undefined'){
+                console.log('malformed message: layer missing')
+                return
+              }
+
+              if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
+                console.log('malformed message: slideIndex missing')
+                return
+              }
+              this.activeSection = message['messageContent'].layer.slideIndex[0]
+              switch (this.activeSection) {
+                case 0:
+                  this.slides = this.introSlides
+                  break;
+                case 1:
+                  this.slides = this.heatSlides
+                  break;
+                case 2:
+                  this.slides = this.floodSlides
+                  break;
+                default:
+                  this.slides = this.introSlides
+              }
+              this.active = message['messageContent'].layer.slideIndex[1]
+              console.log('activeSlide:')
+              console.log(this.active)
+              this.drawer = false
             }
 
-          if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
-            console.log('malformed message: slideIndex missing')
-            return
-          }
-          this.activeSection = message['messageContent'].layer.slideIndex[0]
-          switch (this.activeSection) {
-            case 0:
-              this.slides = this.introSlides
-              break;
-            case 1:
-              this.slides = this.heatSlides
-              break;
-            case 2:
-              this.slides = this.floodSlides
-              break;
-            default:
-              this.slides = this.introSlides
-          }
-          this.active = message['messageContent'].layer.slideIndex[1]
-          console.log('activeSlide:')
-          console.log(this.active)
-          this.drawer = false
 
         }
     },
@@ -322,7 +339,12 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch('getOnboardingModules', true);
+      if(!this.moduleLoaded){
+        this.$store.dispatch('getOnboardingModules', true).then(() => {
+          this.moduleLoaded = true
+        })
+      }
+
 
         if (process.browser) {
             if (window.vuplex) {
