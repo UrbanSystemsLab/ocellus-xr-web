@@ -200,13 +200,15 @@ export default {
         }
     },
     methods: {
-        vuplexMessageListener(vuplexMessage){
+        vuplexMessageListener(event){
+          let jsonData = event.data;
+          console.log('JSON received from C#: ' + json);
           console.log('component based listener')
           console.log('slide values:')
           console.log(this.active)
           console.log(this.activeSection)
           console.log('message values:')
-          console.log(JSON.parse(vuplexMessage))
+          console.log(JSON.parse(jsonData))
           if(!this.moduleLoaded) {
             this.$store.dispatch('getOnboardingModules', true).then(() => {
               this.moduleLoaded = true
@@ -214,7 +216,7 @@ export default {
               console.log(this.moduleLoaded)
               let message
               try {
-                message = JSON.parse(vuplexMessage)
+                message = JSON.parse(jsonData)
               } catch (e) {
                 console.log(e)
               }
