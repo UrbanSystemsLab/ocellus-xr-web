@@ -273,7 +273,7 @@ export default {
           } else {
             updateSlides(message)
           }
-          function updateSlides (slideMessage){
+          const updateSlides = (slideMessage) => {
             let message = {}
             if (slideMessage){
               message = JSON.parse(slideMessage)}
