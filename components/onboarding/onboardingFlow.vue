@@ -260,11 +260,14 @@ export default {
     methods: {
         vuplexMessageListener: function(message){
           console.log('component based listener')
-          console.log(this)
+          console.log('slide values:')
+          console.log(this.active)
+          console.log(this.activeSection)
           console.log(message)
           if(!this.moduleLoaded) {
             this.$store.dispatch('getOnboardingModules', true).then(() => {
               this.moduleLoaded = true
+              console.log('module loaded')
               updateSlides(message)
             })
           } else {
@@ -423,7 +426,7 @@ export default {
                 window.addEventListener('vuplexready', addMessageListener);
             }
 
-            // let that = this;
+            let that = this;
             function addMessageListener() {
                 console.log(this)
                 console.log('js-dev', 'adding event listener');
