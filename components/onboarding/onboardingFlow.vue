@@ -173,7 +173,7 @@ export default {
           if(!this.moduleLoaded){
             return false
           } else {
-            return Object.keys(this.slides).length !== 0 && this.slides[this.active] !== 'undefined' && typeof this.slides[this.active].citations !== 'undefined'
+            return this.slides !== 'undefined' && Object.keys(this.slides).length !== 0 && this.slides[this.active] !== 'undefined' && typeof this.slides[this.active].citations !== 'undefined'
           }
         },
         onboarding() {
@@ -278,6 +278,8 @@ export default {
             window?.vuplex?.postMessage('js-dev', message);
         },
         goToLayer(type, layerID, layerName, webview, mapKey = undefined, index = undefined) {
+            console.log(mapKey)
+            console.log(index)
             this.loading=true
             let message = {
                 type: type,
