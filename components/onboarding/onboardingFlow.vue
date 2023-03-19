@@ -316,9 +316,6 @@ export default {
             console.log(this.active)
             this.drawer = false
           }
-
-
-        }
         },
         moduleButtonClick: function(e){
             console.log(e);
