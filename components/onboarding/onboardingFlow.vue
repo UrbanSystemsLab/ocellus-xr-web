@@ -200,20 +200,20 @@ export default {
         }
     },
     methods: {
-        vuplexMessageListener(message){
+        vuplexMessageListener(vuplexMessage){
           console.log('component based listener')
           console.log('slide values:')
           console.log(this.active)
           console.log(this.activeSection)
-          console.log(message)
+          console.log(vuplexMessage)
           if(!this.moduleLoaded) {
             this.$store.dispatch('getOnboardingModules', true).then(() => {
               this.moduleLoaded = true
               console.log('module loaded')
               console.log(this.moduleLoaded)
               let message = {}
-              if (slideMessage){
-                message = JSON.parse(slideMessage)}
+              if (vuplexMessage){
+                message = JSON.parse(vuplexMessage)}
               else {
                 return
               }
@@ -257,53 +257,7 @@ export default {
               this.drawer = false
             })
           } else {
-            updateSlides(message)
-          }
-          const updateSlides = (slideMessage) => {
-            let message = {}
-            if (slideMessage){
-              message = JSON.parse(slideMessage)}
-            else {
-              return
-            }
-            console.log("unity message",
-              message
-            );
-
-            if(typeof message['messageContent'] === 'undefined'){
-              console.log('malformed message: data missing')
-              return
-            }
-            if(typeof message['messageContent'].layer === 'undefined'){
-              console.log('malformed message: layer missing')
-              return
-            }
-
-            if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
-              console.log('malformed message: slideIndex missing')
-              return
-            }
-            console.log(message['messageContent'].layer.slideIndex[0])
-            this.activeSection = message['messageContent'].layer.slideIndex[0]
-            console.log('activeSection:')
-            console.log(this.activeSection)
-            switch (this.activeSection) {
-              case 0:
-                this.slides = this.introSlides
-                break;
-              case 1:
-                this.slides = this.heatSlides
-                break;
-              case 2:
-                this.slides = this.floodSlides
-                break;
-              default:
-                this.slides = this.introSlides
-            }
-            this.active = message['messageContent'].layer.slideIndex[1]
-            console.log('activeSlide:')
-            console.log(this.active)
-            this.drawer = false
+            this.updateSlides(vuplexMessage)
           }
         },
         updateSlides(slideMessage){
