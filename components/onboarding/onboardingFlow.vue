@@ -366,8 +366,6 @@ export default {
                     let json = event.data;
                     console.log('JSON received from C#: ' + json);
                     that.unity = json;
-                    let res = JSON.parse(json)
-                    this.goToLayer('ar', this.slides[this.active].target, 'optionalLayerName', false);
                 });
             }
         }
