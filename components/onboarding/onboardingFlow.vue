@@ -258,7 +258,7 @@ export default {
         }
     },
     methods: {
-        vuplexMessageListener: function(message){
+        vuplexMessageListener(message){
           console.log('component based listener')
           console.log('slide values:')
           console.log(this.active)
