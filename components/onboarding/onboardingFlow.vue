@@ -148,6 +148,7 @@ export default {
         return {
             CSharpMessage: {"sentType":"ar","messageContent":{"layer":{"id":"equity.cxc73xaa","name":"optionalLayerName","mapId":"","description":"","isReady":true,"slideIndex":[1,1]},"location":{"lat":40.709381103515628,"lon":-73.93905639648438},"webviewIsOpen":false}},
             dialogVisible: true,
+            vuplexReady: false,
             innerVisible: false,
             moduleLoaded: false,
             active: 0, // current slide,
@@ -257,6 +258,11 @@ export default {
         }
     },
     methods: {
+        addMessageListener: function(message){
+          console.log('component based listener')
+          console.log(this)
+          console.log(message)
+        },
         moduleButtonClick: function(e){
             console.log(e);
             this.innerVisible = true;
@@ -353,12 +359,14 @@ export default {
         if (process.browser) {
             if (window.vuplex) {
                 console.log('js-dev', "vuplex is active");
-                addMessageListener().bind(this);
+              console.log(this)
+              console.log('js-dev', 'adding event listener');
+              window.vuplex.addEventListener('message', this.addMessageListener)
             } else {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
                 console.log('vuplex', 'trying to add event listener', "window.vuplex is", window.vuplex);
-                window.addEventListener('vuplexready', addMessageListener.bind(this));
+                window.addEventListener('vuplexready', addMessageListener);
             }
 
             // let that = this;
