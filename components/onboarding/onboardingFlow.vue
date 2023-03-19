@@ -203,71 +203,22 @@ export default {
         vuplexMessageListener(event){
           let jsonData = event.data;
           console.log('JSON received from C#: ' + jsonData);
-          console.log('component based listener')
-          console.log('slide values:')
-          console.log(this.active)
-          console.log(this.activeSection)
-          console.log('message values:')
-          console.log(JSON.parse(jsonData))
           if(!this.moduleLoaded) {
             this.$store.dispatch('getOnboardingModules', true).then(() => {
               this.moduleLoaded = true
               console.log('module loaded')
               console.log(this.moduleLoaded)
-              let message
-              try {
-                message = JSON.parse(jsonData)
-              } catch (e) {
-                console.log(e)
-              }
 
-              console.log("unity message",
-                message
-              );
-
-              if(typeof message['messageContent'] === 'undefined'){
-                console.log('malformed message: data missing')
-                return
-              }
-              if(typeof message['messageContent'].layer === 'undefined'){
-                console.log('malformed message: layer missing')
-                return
-              }
-
-              if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
-                console.log('malformed message: slideIndex missing')
-                return
-              }
-              console.log(message['messageContent'].layer.slideIndex[0])
-              this.activeSection = message['messageContent'].layer.slideIndex[0]
-              console.log('activeSection:')
-              console.log(this.activeSection)
-              switch (this.activeSection) {
-                case 0:
-                  this.slides = this.introSlides
-                  break;
-                case 1:
-                  this.slides = this.heatSlides
-                  break;
-                case 2:
-                  this.slides = this.floodSlides
-                  break;
-                default:
-                  this.slides = this.introSlides
-              }
-              this.active = message['messageContent'].layer.slideIndex[1]
-              console.log('activeSlide:')
-              console.log(this.active)
-              this.drawer = false
+              this.updateSlides(jsonData)
             })
           } else {
-            this.updateSlides(vuplexMessage)
+            this.updateSlides(jsonData)
           }
         },
-        updateSlides(slideMessage){
+        updateSlides(jsonData){
           let message = {}
-          if (slideMessage){
-            message = JSON.parse(slideMessage)}
+          if (jsonData){
+            message = JSON.parse(jsonData)}
           else {
             return
           }
