@@ -211,12 +211,8 @@ export default {
               this.moduleLoaded = true
               console.log('module loaded')
               console.log(this.moduleLoaded)
-              let message = {}
-              if (vuplexMessage){
-                message = JSON.parse(vuplexMessage)}
-              else {
-                return
-              }
+              let message = JSON.parse(vuplexMessage)
+
               console.log("unity message",
                 message
               );
