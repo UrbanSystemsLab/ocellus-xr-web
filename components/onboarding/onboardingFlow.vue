@@ -353,22 +353,23 @@ export default {
         if (process.browser) {
             if (window.vuplex) {
                 console.log('js-dev', "vuplex is active");
-                addMessageListener();
+                addMessageListener().bind(this);
             } else {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
                 console.log('vuplex', 'trying to add event listener', "window.vuplex is", window.vuplex);
-                window.addEventListener('vuplexready', addMessageListener);
+                window.addEventListener('vuplexready', addMessageListener.bind(this));
             }
 
             // let that = this;
             function addMessageListener() {
+                console.log(this)
                 console.log('js-dev', 'adding event listener');
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
                     console.log('JSON received from C#: ' + json);
                     this.unity = json;
-                });
+                }).bind(this);
             }
         }
     }
