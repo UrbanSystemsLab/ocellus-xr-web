@@ -205,7 +205,8 @@ export default {
           console.log('slide values:')
           console.log(this.active)
           console.log(this.activeSection)
-          console.log(vuplexMessage)
+          console.log('message values:')
+          console.log(JSON.parse(vuplexMessage))
           if(!this.moduleLoaded) {
             this.$store.dispatch('getOnboardingModules', true).then(() => {
               this.moduleLoaded = true
