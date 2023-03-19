@@ -361,13 +361,13 @@ export default {
                 window.addEventListener('vuplexready', addMessageListener);
             }
 
-            let that = this;
+            // let that = this;
             function addMessageListener() {
                 console.log('js-dev', 'adding event listener');
                 window.vuplex.addEventListener('message', function(event) {
                     let json = event.data;
                     console.log('JSON received from C#: ' + json);
-                    that.unity = json;
+                    this.unity = json;
                 });
             }
         }
