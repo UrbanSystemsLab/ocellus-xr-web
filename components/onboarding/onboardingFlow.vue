@@ -202,7 +202,7 @@ export default {
     methods: {
         vuplexMessageListener(event){
           let jsonData = event.data;
-          console.log('JSON received from C#: ' + json);
+          console.log('JSON received from C#: ' + jsonData);
           console.log('component based listener')
           console.log('slide values:')
           console.log(this.active)
