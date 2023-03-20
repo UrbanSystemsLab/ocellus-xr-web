@@ -117,7 +117,7 @@
                     type="primary"
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true, slides[active].mapId, [activeSection, active])">
+                    @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true, slides[active].mapKey, [activeSection, active])">
                     Explore
                 </el-button>
 
@@ -239,10 +239,7 @@ export default {
             console.log('malformed message: slideIndex missing')
             return
           }
-          console.log(message['messageContent'].layer.slideIndex[0])
           this.activeSection = message['messageContent'].layer.slideIndex[0]
-          console.log('activeSection:')
-          console.log(this.activeSection)
           switch (this.activeSection) {
             case 0:
               this.slides = this.introSlides
@@ -257,8 +254,6 @@ export default {
               this.slides = this.introSlides
           }
           this.active = message['messageContent'].layer.slideIndex[1]
-          console.log('activeSlide:')
-          console.log(this.active)
           this.drawer = false
         },
         moduleButtonClick: function(e){
@@ -364,19 +359,9 @@ export default {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
                 console.log('vuplex', 'trying to add event listener', "window.vuplex is", window.vuplex);
-                window.addEventListener('vuplexready', addMessageListener);
+                window.addEventListener('vuplexready', this.vuplexMessageListener);
             }
 
-            let that = this;
-            function addMessageListener() {
-                console.log(this)
-                console.log('js-dev', 'adding event listener');
-                window.vuplex.addEventListener('message', function(event) {
-                    let json = event.data;
-                    console.log('JSON received from C#: ' + json);
-                    this.unity = json;
-                }).bind(this);
-            }
         }
     }
 }
