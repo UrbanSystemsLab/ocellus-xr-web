@@ -27,7 +27,7 @@
                     </el-menu-item>
                     <el-menu-item @click="goToFlood" index="3-1">
                         <i class="el-icon-heavy-rain menu-list"></i>
-                        Flooding Risk
+                        Flood Risk
                     </el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
