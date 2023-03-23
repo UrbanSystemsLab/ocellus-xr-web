@@ -42,7 +42,7 @@
                         <el-menu-item @click="goToLayer('ar', 'timonm.6d5byyoy', 'Extreme Flooding Scenario', false, '-ND5bzFJcSRXPVLs_fJF', [-1,-1])" index="2-3">Extreme Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones', false, '-L7Wfh14PItvuPZSpjM7', [-1,-1])" index="2-4">Flood Zones</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations', false, undefined, [-1,-1])" index="2-5">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', false, '-L7WfQTsPvbJ7QDxalzv')" index="2-6">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', false, '-L7WfQTsPvbJ7QDxalzv', [-1,-1])" index="2-6">Elderly Population</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income', false, '-L7Wfboiy9-SxyOkQ_r8', [-1,-1])" index="2-7">Income</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA', false, '-LgdXSbncdGcwSSsZ0li', [-1, -1])" index="2-8">Potential Social Justice Areas</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs', false, '-LSULdArnnFkvB6lEVsa', [-1,-1])" index="2-9">Green Roofs</el-menu-item>

@@ -8,6 +8,10 @@
         <!-- html tag, small text -->
         <p v-if="dataContent.type === 'html'" v-html="dataContent.text"></p>
 
+        <a v-if="dataContent.type === 'link'" :href="dataContent.ref">
+          {{dataContent.text}}
+        </a>
+
         <div v-if="dataContent.type === 'list'"> {{dataContent.text}}</div>
 
         <!-- img tag, displays an img -->
