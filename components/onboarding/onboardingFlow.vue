@@ -29,6 +29,10 @@
                         <i class="el-icon-heavy-rain menu-list"></i>
                         Flood Risk
                     </el-menu-item>
+                    <el-menu-item @click="goToWebsite">
+                      <i class="el-icon-link menu-list"></i>
+                      Ocellus Website
+                    </el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">
@@ -318,6 +322,23 @@ export default {
             this.active = 0
             this.activeSection = 2
             this.drawer = false
+        },
+        goToWebsite(){
+          if (window.vuplex) {
+            let message = {
+              type: 'link',
+              data: {
+                link: {
+                  url: 'http://ocellus.urbansystemslab.com/',
+                },
+                webview: false
+              }
+            };
+            window?.vuplex?.postMessage('js-dev', message);
+            console.log('js-dev', 'menu message sent from JS to C#', message);
+          } else {
+            window.open('http://ocellus.urbansystemslab.com/')
+          }
         },
         distance(lat1, lon1, lat2, lon2, unit) {
             if ((lat1 == lat2) && (lon1 == lon2)) {
