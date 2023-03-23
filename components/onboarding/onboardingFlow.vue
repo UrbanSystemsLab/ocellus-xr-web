@@ -47,7 +47,7 @@
                         <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA', false, '-LgdXSbncdGcwSSsZ0li', [-1, -1])" index="2-8">Potential Social Justice Areas</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs', false, '-LSULdArnnFkvB6lEVsa', [-1,-1])" index="2-9">Green Roofs</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space', false, '-LSUNuzgyEkqJuCp5GR0', [-1,-1])" index="2-10">Open Space</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining', false, undefined, [-1,-1])" index="2-11">Redlining</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining', false, '-NRB8rkfJ90ekg2UQqt-', [-1,-1])" index="2-11">Redlining</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="3">
