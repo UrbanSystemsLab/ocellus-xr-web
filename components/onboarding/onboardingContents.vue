@@ -91,11 +91,6 @@
 </template>
 <script scoped>
 import da from "element-ui/src/locale/lang/da";
-// {
-//   "type": "button",
-//   "text": "Go to Heat Risk",
-//   "action": "onHeat"
-// }
 export default {
     name: 'onboarding-contents',
     props: ['dataContent', 'actions'],
