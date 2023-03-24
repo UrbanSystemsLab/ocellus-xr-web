@@ -104,17 +104,17 @@ export default {
     methods: {
         jumpToLink(ref){
           console.log(ref)
-          let message = {
-            type: 'link',
-            data: {
-              link: {
-                url: ref,
-              },
-              webview: false
-            }
-          };
-          window?.vuplex?.postMessage('js-dev', message);
-          console.log('js-dev', 'menu message sent from JS to C#', message);
+          // let message = {
+          //   type: 'link',
+          //   data: {
+          //     link: {
+          //       url: ref,
+          //     },
+          //     webview: false
+          //   }
+          // };
+          window?.vuplex?.postMessage('js-dev', ref);
+          console.log('js-dev', 'menu message sent from JS to C#', ref);
         },
         carouselChange: function(item) {
             this.carouselText = item.text
