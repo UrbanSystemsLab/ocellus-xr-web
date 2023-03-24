@@ -113,7 +113,7 @@ export default {
           //     webview: false
           //   }
           // };
-          window?.vuplex?.postMessage('js-dev', ref);
+          window?.vuplex?.postMessage(ref);
           console.log('js-dev', 'menu message sent from JS to C#', ref);
         },
         carouselChange: function(item) {
