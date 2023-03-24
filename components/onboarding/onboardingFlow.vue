@@ -335,7 +335,7 @@ export default {
                 webview: false
               }
             };
-            window?.vuplex?.postMessage(message);
+            window?.vuplex?.postMessage('http://ocellus.urbansystemslab.com/');
             console.log('js-dev', 'menu message sent from JS to C#', message);
           } else {
             window.open('http://ocellus.urbansystemslab.com/')
