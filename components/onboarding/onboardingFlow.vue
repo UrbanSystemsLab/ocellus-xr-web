@@ -101,7 +101,7 @@
             v-for="content in slides[active].content"
             :key="content[0]"
             v-bind:data-content="content"
-            @onAr="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o', [1,11])"
+            @onAr="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o', [2,11])"
             @onHeat="goToHeat()"
             @onFlood="goToFlood()"></onboarding-contents>
 
