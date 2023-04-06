@@ -64,9 +64,7 @@
                   <el-menu-item-group
                       class="menu-list">
                       <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o', [-1,-1])" index="3-1">Heat Risk</el-menu-item>
-                      <el-menu-item @click="goToLayer('live', 'timonm.6d5byyoy', 'Extreme Flooding', false, '-ND5bzFJcSRXPVLs_fJF', [-1,-1])" index="3-2">Extreme Flooding</el-menu-item>
-                      <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones', false, '-L7Wfh14PItvuPZSpjM7', [-1,-1])" index="3-3">Flood Zones</el-menu-item>
-                      <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations', false, undefined, [-1,-1])" index="3-4">Cooling Stations</el-menu-item>
+                      <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding', false, '-ND5bzFJcSRXPVLs_fJF', [-1,-1])" index="3-2">Extreme Flooding</el-menu-item>
                   </el-menu-item-group>
               </el-submenu>
           </el-menu>
