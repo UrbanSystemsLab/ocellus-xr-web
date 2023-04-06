@@ -23,11 +23,15 @@
                     </el-menu-item>
                     <el-menu-item @click="goToHeat" index="2-1">
                         <i class="el-icon-sunny menu-list"></i>
-                        Heat
+                        Heat Risk
                     </el-menu-item>
                     <el-menu-item @click="goToFlood" index="3-1">
                         <i class="el-icon-heavy-rain menu-list"></i>
-                        Flooding
+                        Flood Risk
+                    </el-menu-item>
+                    <el-menu-item @click="goToWebsite">
+                      <i class="el-icon-link menu-list"></i>
+                      Ocellus Website
                     </el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
@@ -37,6 +41,7 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
+<<<<<<< HEAD
                         <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o')" index="2-1">Heat Risk</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'timonm.6d5byyoy', 'Extreme Flooding Scenario', false, '-ND5bzFJcSRXPVLs_fJF')" index="2-3">Extreme Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'timonm.5werclko', 'Moderate Flooding Scenario', false, '-ND5bqMBetBOAOPDDJql')" index="2-2">Moderate Flooding</el-menu-item>
@@ -48,6 +53,19 @@
                         <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs', false)" index="2-9">Green Roofs</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space', false)" index="2-10">Open Space</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining', false)" index="2-11">Redlining</el-menu-item>
+=======
+                        <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o', [-1,-1])" index="2-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.5werclko', 'Moderate Flooding Scenario', false, '-ND5bqMBetBOAOPDDJql', [-1,-1])" index="2-2">Moderate Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.6d5byyoy', 'Extreme Flooding Scenario', false, '-ND5bzFJcSRXPVLs_fJF', [-1,-1])" index="2-3">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones', false, '-L7Wfh14PItvuPZSpjM7', [-1,-1])" index="2-4">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations', false, undefined, [-1,-1])" index="2-5">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', false, '-L7WfQTsPvbJ7QDxalzv', [-1,-1])" index="2-6">Elderly Population</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.16d8ns8l', 'Income', false, '-L7Wfboiy9-SxyOkQ_r8', [-1,-1])" index="2-7">Income</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.c7f9efui', 'PEJA', false, '-LgdXSbncdGcwSSsZ0li', [-1, -1])" index="2-8">Potential Social Justice Areas</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.8clwnj6e', 'Green Roofs', false, '-LSULdArnnFkvB6lEVsa', [-1,-1])" index="2-9">Green Roofs</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.755pqg03', 'Open Space', false, '-LSUNuzgyEkqJuCp5GR0', [-1,-1])" index="2-10">Open Space</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'equity.3t4w37ok', 'Redlining', false, '-NRB8rkfJ90ekg2UQqt-', [-1,-1])" index="2-11">Redlining</el-menu-item>
+>>>>>>> 462622bc5c9e78cbbeb1f5e011146ca28e461be3
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="3">
@@ -59,10 +77,18 @@
                     </template>
                     <el-menu-item-group
                         class="menu-list">
+<<<<<<< HEAD
                         <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o')" index="3-1">Heat Risk</el-menu-item>
                         <el-menu-item @click="goToLayer('live', 'timonm.6d5byyoy', 'Extreme Flooding Scenario', false, '-ND5bzFJcSRXPVLs_fJF')" index="3-2">Extreme Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('live', 'timonm.5werclko', 'Moderate Flooding Scenario', false, '-ND5bqMBetBOAOPDDJql')" index="2-2">Moderate Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations', false)" index="3-4">Cooling Stations</el-menu-item>
+=======
+                        <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o', [-1,-1])" index="3-1">Heat Risk</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding', false, '-ND5bzFJcSRXPVLs_fJF', [-1,-1])" index="3-2">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones', false, '-L7Wfh14PItvuPZSpjM7', [-1,-1])" index="3-3">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations', false, undefined, [-1,-1])" index="3-4">Cooling Stations</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population', false, '-L7WfQTsPvbJ7QDxalzv', [-1,-1])" index="3-5">Elderly Population</el-menu-item>
+>>>>>>> 462622bc5c9e78cbbeb1f5e011146ca28e461be3
                     </el-menu-item-group>
                 </el-submenu>
             </el-menu>
@@ -96,6 +122,7 @@
             v-for="content in slides[active].content"
             :key="content[0]"
             v-bind:data-content="content"
+            @onAr="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o', [1,11])"
             @onHeat="goToHeat()"
             @onFlood="goToFlood()"></onboarding-contents>
 
@@ -116,7 +143,7 @@
                     type="primary"
                     :loading="this.loading"
                     icon="el-icon-map-location"
-                    @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true, 'optionalMapId', [activeSection, active])">
+                    @click="goToLayer('ar', slides[active].target, 'optionalLayerName', true, slides[active].mapKey, [activeSection, active])">
                     Explore
                 </el-button>
 
@@ -145,8 +172,11 @@ export default {
     },
     data() {
         return {
+            CSharpMessage: {"sentType":"ar","messageContent":{"layer":{"id":"equity.cxc73xaa","name":"optionalLayerName","mapId":"","description":"","isReady":true,"slideIndex":[1,1]},"location":{"lat":40.709381103515628,"lon":-73.93905639648438},"webviewIsOpen":false}},
             dialogVisible: true,
+            vuplexReady: false,
             innerVisible: false,
+            moduleLoaded: false,
             active: 0, // current slide,
             activeSection: 0, //current slide section
             drawer: true, // menu drawer
@@ -167,7 +197,11 @@ export default {
           }
         },
         hasCitations(){
-          return typeof this.slides[this.active] !== 'undefined' && 'citations' in this.slides[this.active]
+          if(!this.moduleLoaded){
+            return false
+          } else {
+            return this.slides !== 'undefined' && Object.keys(this.slides).length !== 0 && this.slides[this.active] !== 'undefined' && typeof this.slides[this.active].citations !== 'undefined'
+          }
         },
         onboarding() {
             return this.$store.getters.getOnboarding
@@ -191,30 +225,63 @@ export default {
             return distance
         }
     },
-    watch: {
-        unity(newMessage, oldMessage) {
-            let message = {}
-            if (newMessage)
-                message = JSON.parse(newMessage)
-            else return
-
-            console.log("unity message",
-                "message.messageContent?.layer", message.messageContent?.layer,
-                "layer.id", message.messageContent?.layer?.id,
-                "loading", this.loading, "test",
-                message.messageContent?.layer?.id && this.loading,
-                "location",
-                message.messageContent?.location
-            );
-            if (message.messageContent?.layer?.id && this.loading) {
-                this.location = message.messageContent?.location
-                this.loading = false,
-                this.drawer = false,
-                this.unity = {}
-            }
-        }
-    },
     methods: {
+        vuplexMessageListener(event){
+          let jsonData = event.data;
+          console.log('JSON received from C#: ' + jsonData);
+          if(!this.moduleLoaded) {
+            this.$store.dispatch('getOnboardingModules', true).then(() => {
+              this.moduleLoaded = true
+              console.log('module loaded')
+              console.log(this.moduleLoaded)
+
+              this.updateSlides(jsonData)
+            })
+          } else {
+            this.updateSlides(jsonData)
+          }
+        },
+        updateSlides(jsonData){
+          let message = {}
+          if (jsonData){
+            message = JSON.parse(jsonData)}
+          else {
+            return
+          }
+          console.log("unity message",
+            message
+          );
+
+          if(typeof message['messageContent'] === 'undefined'){
+            console.log('malformed message: data missing')
+            return
+          }
+          if(typeof message['messageContent'].layer === 'undefined'){
+            console.log('malformed message: layer missing')
+            return
+          }
+
+          if(typeof message['messageContent'].layer.slideIndex === 'undefined'){
+            console.log('malformed message: slideIndex missing')
+            return
+          }
+          this.activeSection = message['messageContent'].layer.slideIndex[0]
+          switch (this.activeSection) {
+            case 0:
+              this.slides = this.introSlides
+              break;
+            case 1:
+              this.slides = this.heatSlides
+              break;
+            case 2:
+              this.slides = this.floodSlides
+              break;
+            default:
+              this.slides = this.introSlides
+          }
+          this.active = message['messageContent'].layer.slideIndex[1]
+          this.drawer = false
+        },
         moduleButtonClick: function(e){
             console.log(e);
             this.innerVisible = true;
@@ -227,7 +294,9 @@ export default {
             this.active--
         },
         handleOpen() {
-            const message = { type: "menu", data: { open: true }};
+            const message = { type: "menu", data: { open: true, layer: {
+                  slideIndex: [-1, -1]
+                } }};
             window?.vuplex?.postMessage(message);
             console.log('js-dev', 'menu message sent from JS to C#', message);
         },
@@ -235,7 +304,9 @@ export default {
             const message = { type: "menu", data: { open: false }};
             window?.vuplex?.postMessage('js-dev', message);
         },
-        goToLayer(type, layerID, layerName, webview, mapId = undefined, index = undefined) {
+        goToLayer(type, layerID, layerName, webview, mapKey = undefined, index = undefined) {
+            console.log(mapKey)
+            console.log(index)
             this.loading=true
             let message = {
                 type: type,
@@ -247,8 +318,8 @@ export default {
                     webview: webview
                 }
             };
-            if(typeof mapId !== 'undefined'){
-              message.data.layer.mapId = mapId
+            if(typeof mapKey !== 'undefined'){
+              message.data.layer.mapKey = mapKey
             }
             if(typeof index !== 'undefined'){
               message.data.layer.slideIndex = index
@@ -256,23 +327,40 @@ export default {
             window?.vuplex?.postMessage(message);
             console.log('js-dev', 'menu message sent from JS to C#', message);
         },
-        goToIntro() {
+        goToIntro(slideIndex = [0, 0]) {
             this.slides = this.introSlides
-            this.active = 0
             this.activeSection = 0
+            this.active = 0
             this.drawer = false
         },
-        goToHeat() {
+        goToHeat(slideIndex = [1, 0]) {
             this.slides = this.heatSlides
             this.active = 0
             this.activeSection = 1
             this.drawer = false
         },
-        goToFlood() {
+        goToFlood(slideIndex = [2, 0]) {
             this.slides = this.floodSlides
             this.active = 0
             this.activeSection = 2
             this.drawer = false
+        },
+        goToWebsite(){
+          if (window.vuplex) {
+            let message = {
+              type: 'link',
+              data: {
+                link: {
+                  url: 'http://ocellus.urbansystemslab.com/',
+                },
+                webview: false
+              }
+            };
+            window?.vuplex?.postMessage('http://ocellus.urbansystemslab.com/');
+            console.log('js-dev', 'menu message sent from JS to C#', message);
+          } else {
+            window.open('http://ocellus.urbansystemslab.com/')
+          }
         },
         distance(lat1, lon1, lat2, lon2, unit) {
             if ((lat1 == lat2) && (lon1 == lon2)) {
@@ -297,29 +385,26 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch('getOnboardingModules', true);
+      if(!this.moduleLoaded){
+        this.$store.dispatch('getOnboardingModules', true).then(() => {
+          this.moduleLoaded = true
+        })
+      }
+
 
         if (process.browser) {
             if (window.vuplex) {
                 console.log('js-dev', "vuplex is active");
-                addMessageListener();
+              console.log(this)
+              console.log('js-dev', 'adding event listener');
+              window.vuplex.addEventListener('message', this.vuplexMessageListener)
             } else {
                 // The window.vuplex object hasn't been initialized yet because the page is still
                 // loading, so add an event listener to send the message once it's initialized.
                 console.log('vuplex', 'trying to add event listener', "window.vuplex is", window.vuplex);
-                window.addEventListener('vuplexready', addMessageListener);
+                window.addEventListener('vuplexready', this.vuplexMessageListener);
             }
 
-            let that = this;
-            function addMessageListener() {
-                console.log('js-dev', 'adding event listener');
-                window.vuplex.addEventListener('message', function(event) {
-                    let json = event.data;
-                    console.log('JSON received from C#: ' + json);
-                    that.unity = json;
-                    this.goToLayer('ar', this.slides[this.active].target, 'optionalLayerName', false);
-                });
-            }
         }
     }
 }

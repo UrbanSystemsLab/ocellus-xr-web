@@ -8,6 +8,13 @@
         <!-- html tag, small text -->
         <p v-if="dataContent.type === 'html'" v-html="dataContent.text"></p>
 
+        <div v-if="dataContent.type === 'link'" >
+          <a v-if="!isVuplex" :href="dataContent.ref" target="_blank">
+            {{dataContent.text}}
+          </a>
+          <el-button class="vuplex-link" v-else @click="jumpToLink(dataContent.ref)" type="text">{{dataContent.text}}</el-button>
+        </div>
+
         <div v-if="dataContent.type === 'list'"> {{dataContent.text}}</div>
 
         <!-- img tag, displays an img -->
@@ -83,6 +90,7 @@
     </div>
 </template>
 <script scoped>
+import da from "element-ui/src/locale/lang/da";
 export default {
     name: 'onboarding-contents',
     props: ['dataContent', 'actions'],
@@ -94,6 +102,20 @@ export default {
         }
     },
     methods: {
+        jumpToLink(ref){
+          console.log(ref)
+          // let message = {
+          //   type: 'link',
+          //   data: {
+          //     link: {
+          //       url: ref,
+          //     },
+          //     webview: false
+          //   }
+          // };
+          window?.vuplex?.postMessage(ref);
+          console.log('js-dev', 'menu message sent from JS to C#', ref);
+        },
         carouselChange: function(item) {
             this.carouselText = item.text
         },
@@ -108,6 +130,12 @@ export default {
         }
     },
     computed: {
+      da() {
+        return da
+      },
+      isVuplex(){
+        return (typeof window.vuplex === 'undefined' ? false : true)
+      },
         width() {
             return this.$store.getters.getScreenWidth
         },
@@ -121,7 +149,7 @@ export default {
 <style scoped>
     ul {
       padding-left: 0px;
-      list-style: circle;
+      list-style: none;
       font-size: 13px;
     }
     ul ul {
@@ -131,6 +159,9 @@ export default {
 
     .content-container {
         margin: 8px 0px;
+    }
+    .vuplex-link{
+      border: none !important;
     }
 
     .intro-button {
@@ -162,6 +193,7 @@ export default {
     .carousel-text {
         padding-top: 1rem;
         background-color: white;
+      font-size: 13px;
     }
 
     p {
