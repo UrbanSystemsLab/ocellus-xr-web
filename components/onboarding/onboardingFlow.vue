@@ -38,8 +38,8 @@
                     <el-menu-item-group
                         class="menu-list">
                         <el-menu-item @click="goToLayer('ar', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o')" index="2-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('ar', 'timonm.5werclko', 'Moderate Flooding Scenario', false, '-ND5bqMBetBOAOPDDJql')" index="2-2">Moderate Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'timonm.6d5byyoy', 'Extreme Flooding Scenario', false, '-ND5bzFJcSRXPVLs_fJF')" index="2-3">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('ar', 'timonm.5werclko', 'Moderate Flooding Scenario', false, '-ND5bqMBetBOAOPDDJql')" index="2-2">Moderate Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dmmqh0kw', 'Flood Zones', false, '-L7Wfh14PItvuPZSpjM7')" index="2-4">Flood Zones</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.dsxc6fdt', 'Cooling Stations', false)" index="2-5">Cooling Stations</el-menu-item>
                         <el-menu-item @click="goToLayer('ar', 'equity.0qf98zo6', 'Elderly Population', false)" index="2-6">Elderly Population</el-menu-item>
@@ -60,10 +60,9 @@
                     <el-menu-item-group
                         class="menu-list">
                         <el-menu-item @click="goToLayer('live', 'equity.cxc73xaa', 'Heat Risk', false, '-L7Wfi50DWry_dLu-l8o')" index="3-1">Heat Risk</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'timonm.77dtkn5f', 'Extreme Flooding', false, '-ND5bzFJcSRXPVLs_fJF')" index="3-2">Extreme Flooding</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.dmmqh0kw', 'Flood Zones', false, '-L7Wfh14PItvuPZSpjM7')" index="3-3">Flood Zones</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'timonm.6d5byyoy', 'Extreme Flooding Scenario', false, '-ND5bzFJcSRXPVLs_fJF')" index="3-2">Extreme Flooding</el-menu-item>
+                        <el-menu-item @click="goToLayer('live', 'timonm.5werclko', 'Moderate Flooding Scenario', false, '-ND5bqMBetBOAOPDDJql')" index="2-2">Moderate Flooding</el-menu-item>
                         <el-menu-item @click="goToLayer('live', 'equity.dsxc6fdt', 'Cooling Stations', false)" index="3-4">Cooling Stations</el-menu-item>
-                        <el-menu-item @click="goToLayer('live', 'equity.0qf98zo6', 'Elderly Population', false, '-L7WfQTsPvbJ7QDxalzv')" index="3-5">Elderly Population</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
             </el-menu>
